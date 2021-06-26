@@ -1,0 +1,143 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+h1 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h2 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#rules {
+    width: 30%;
+    text-align: center;
+    background-color: rgb(0, 236, 51);
+    color: black;
+}
+
+#score {
+    width: 68%;
+    text-align: center;
+}
+
+#scoreboard {
+    height: 80px;
+    width: 300px;
+    font-size: 60px;
+    background-color: lightgray;
+    color: black;
+}
+
+#game {
+    width: 68%;
+}
+
+#oppcards {
+    text-align: center;
+}
+
+#newround {
+    margin-top: 40%;
+    margin-left: 50%;
+    height: 40px;
+    font-size: larger;
+}
+
+#tricks {
+    text-align: center;
+}
+
+#commit {
+    margin-top: 32%;
+    margin-right: 50%;
+    margin-bottom: 3px;
+    height: 40px;
+    width: 156px;
+    font-size: larger;
+}
+
+#clear {
+    height: 40px;
+    font-size: larger;
+    margin-top: 3px;
+}
+
+#yourcards {
+    text-align: center;
+}
+
+.overdiv {
+    border: 1px;
+    border-style: dashed;
+    border-color: white;
+    float: left;
+    height: fit-content
+}
+
+.cbidbox {
+    height: 80px;
+    width: 80px;
+    font-size: 60px;
+    background-color: lightgray;
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.bidbox {
+    height: 80px;
+    width: 80px;
+    font-size: 60px;
+    background-color: lightgray;
+    color: blue;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.trickbox {
+    height: 80px;
+    width: 80px;
+    font-size: 60px;
+    text-align: center;
+}
+
+.cbutton {
+    margin: auto;
+    height: 80px;
+    width: 80px;
+    font-size: larger;
+    border-style: groove;
+    border-radius: 40px;
+    background-color: rgb(255, 140, 140);
+}
+
+.button {
+    margin: auto;
+    height: 80px;
+    width: 80px;
+    font-size: larger;
+    border-style: groove;
+    border-radius: 40px;
+    background-color: rgb(140, 140, 255);
+}
+
+.button:hover {
+    background-color: blue;
+    color: white;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.column {
+    float: left;
+    width: 33.3%;
+}
