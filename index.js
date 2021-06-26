@@ -1,10 +1,15 @@
+let compscore, yourscore;
+let compbid1, compbid2;
 let trick1, trick2;
 let yourbid1, yourbid2;
+let scorediff, trickdiff, stratmod;
+let compcards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 let buttons = document.getElementsByClassName("button");
 let loop = 0;
 
+
 document.getElementById("newround").addEventListener("click", trickGen)
-document.getElementById("commit").addEventListener("click", Commit)
+document.getElementById("commit").addEventListener("click", compStrat)
 document.getElementById("clear").addEventListener("click", Clear)
 document.getElementById("card1").addEventListener("click", Card1)
 document.getElementById("card2").addEventListener("click", Card2)
@@ -25,9 +30,15 @@ function trickGen(){
     trick1 = Math.floor((Math.random() * 10) + 1);
     trick2 = Math.floor((Math.random() * 10) + 1);
     
-
     document.getElementById("trick1").innerHTML = trick1;
-    document.getElementById("trick2").innerHTML = trick2;
+
+    if (trick1 != trick2){
+        document.getElementById("trick2").innerHTML = trick2;
+    } else if (trick1 == trick2 && trick2 % 2 == 0){
+        document.getElementById("trick2").innerHTML = (trick2 - 1);
+    } else if (trick1 == trick2 && trick2 % 2 != 0){
+        document.getElementById("trick2").innerHTML = (trick2 + 1);
+    }    
 
     document.getElementById("newround").disabled = true;
     
@@ -36,8 +47,39 @@ function trickGen(){
     }
 }
 
-function Commit(){
-    console.log(loop);
+function compStrat(){
+    scorediff = compscore - yourscore;
+    stratmod = (compcards.length / 2);
+
+    if (stratmod == 5){
+        stratNorm();
+    } else if (-stratmod < scorediff < stratmod){
+        stratNorm();
+    } else if (-stratmod >= scorediff){
+        stratAggro();
+    } else if (stratmod <= scorediff){
+        stratCons();
+    } else if (stratmod == 1){
+        stratLast();
+    }  
+}
+
+function stratNorm(){
+    trickdiff = Math.abs(trick1 - trick2);
+
+
+}
+
+function stratAggro(){
+
+}
+
+function stratCons(){
+
+}
+
+function stratLast(){
+    
 }
 
 function Clear(){
