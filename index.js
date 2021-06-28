@@ -63,9 +63,20 @@ function Commit(){
     count++;
     
     if (count % 2 != 0){
-        document.getElementsById("yourbid1", "yourbid2").innerHTML = "-";      
+        document.getElementById("yourbid1").innerHTML = "?";      
+        document.getElementById("yourbid2").innerHTML = "?";
+        document.getElementById("commit").disabled = true;
+        for (i = 0; i < cbuttons.length; i++){
+            cbuttons[i].disabled = false;
+        }        
+        for (i = 0; i < oppadj.length; i++){
+            oppadj[i].disabled = true;
+        }      
     } else {
-        // need set up for after player2's commit //
+        document.getElementById("yourbid1").innerHTML = yourbid1;
+        document.getElementById("yourbid2").innerHTML = yourbid2;
+        document.getElementById("commit").disabled = true;
+        document.getElementById("newround").disabled = false;
     }
 }
 

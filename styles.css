@@ -115,11 +115,11 @@ h2 {
     background-color: rgb(255, 140, 140);
 }
 
-.button:disabled {
+.cbutton:disabled {
     pointer-events: none;
 }
 
-.button:hover {
+.cbutton:hover {
     background-color: red;
     color: white;
 }
