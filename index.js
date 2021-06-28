@@ -159,6 +159,21 @@ function newGame(){
         document.getElementById("matchscore").style.background = "rgb(#d3d3d3)";
     }
 
+    loop = 0;
+    count = 0;
+    youradj = [];
+    oppadj = [];
+    yourscore = 0;
+    oppscore = 0;
+    document.getElementById("scoreboard").innerHTML = "0 - 0";
+    document.getElementById("scoreboard").style.background = "rgb(#d3d3d3)";
+    document.getElementById("oppbid1").innerHTML = "";
+    document.getElementById("oppbid2").innerHTML = "";
+    document.getElementById("yourbid1").innerHTML = "";
+    document.getElementById("yourbid2").innerHTML = "";
+    document.getElementById("trick1").innerHTML = "";    
+    document.getElementById("trick2").innerHTML = "";
+    document.getElementById("newround").disabled = false;
 }
 
 function Card1(){
