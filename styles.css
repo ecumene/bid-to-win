@@ -1,10 +1,12 @@
 body {
-    background-color: black;
+    background-image: linear-gradient(to right, black, rgb(83, 83, 83));
     color: white;
 }
 
 h1 {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    color: red;
 }
 
 h2 {
@@ -12,15 +14,16 @@ h2 {
 }
 
 #rules {
+    font-family: cursive;
     width: 30%;
     text-align: center;
-    background-color: rgb(0, 236, 51);
-    color: black;
+    color: rgb(0, 255, 0);
 }
 
 #score {
     width: 68%;
     text-align: center;
+    background-image: linear-gradient(to right, black, rgb(83, 83, 83));
 }
 
 #scoreboard {
@@ -33,6 +36,7 @@ h2 {
 
 #game {
     width: 68%;
+    background-image: linear-gradient(to right, black, rgb(83, 83, 83));
 }
 
 #oppcards {
@@ -70,9 +74,6 @@ h2 {
 }
 
 .overdiv {
-    border: 1px;
-    border-style: dashed;
-    border-color: white;
     float: left;
     height: fit-content
 }
