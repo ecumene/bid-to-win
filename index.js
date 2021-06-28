@@ -14,7 +14,7 @@ let buttons = document.getElementsByClassName("button");
 
 document.getElementById("newround").addEventListener("click", trickGen)
 document.getElementById("commit").addEventListener("click", Commit)
-document.getElementById("clear").addEventListener("click", Test)
+document.getElementById("clear").addEventListener("click", Clear)
 document.getElementById("card1").addEventListener("click", Card1)
 document.getElementById("card2").addEventListener("click", Card2)
 document.getElementById("card3").addEventListener("click", Card3)
@@ -25,13 +25,20 @@ document.getElementById("card7").addEventListener("click", Card7)
 document.getElementById("card8").addEventListener("click", Card8)
 document.getElementById("card9").addEventListener("click", Card9)
 document.getElementById("card10").addEventListener("click", Card10)
+document.getElementById("opp1").addEventListener("click", Opp1)
+document.getElementById("opp2").addEventListener("click", Opp2)
+document.getElementById("opp3").addEventListener("click", Opp3)
+document.getElementById("opp4").addEventListener("click", Opp4)
+document.getElementById("opp5").addEventListener("click", Opp5)
+document.getElementById("opp6").addEventListener("click", Opp6)
+document.getElementById("opp7").addEventListener("click", Opp7)
+document.getElementById("opp8").addEventListener("click", Opp8)
+document.getElementById("opp9").addEventListener("click", Opp9)
+document.getElementById("opp10").addEventListener("click", Opp10)
 
 
 function Test(){
-    for (i= 0; i < youradj.length; i++){
-        youradj[i].disabled = true;
-    }
-    console.log(youradj);
+    
 }
 
 function trickGen(){
@@ -49,6 +56,10 @@ function trickGen(){
         trick2 = b + 1;
     }
 
+    document.getElementById("oppbid1").innerHTML = "";
+    document.getElementById("oppbid2").innerHTML = "";
+    document.getElementById("yourbid1").innerHTML = "";
+    document.getElementById("yourbid2").innerHTML = "";
     document.getElementById("trick1").innerHTML = trick1;    
     document.getElementById("trick2").innerHTML = trick2;    
 
@@ -61,6 +72,7 @@ function trickGen(){
 
 function Commit(){
     count++;
+    loop = 0;
     
     if (count % 2 != 0){
         document.getElementById("yourbid1").innerHTML = "?";      
@@ -77,11 +89,27 @@ function Commit(){
         document.getElementById("yourbid2").innerHTML = yourbid2;
         document.getElementById("commit").disabled = true;
         document.getElementById("newround").disabled = false;
+
+        if (yourbid1 > oppbid1){
+            yourscore + trick1;
+            document.getElementById("scoreboard").innerHTML = yourscore + " - " + oppscore;
+        } else if (yourbid1 < oppbid1){
+            oppscore + trick1;
+            document.getElementById("scoreboard").innerHTML = yourscore + " - " + oppscore;
+        } else {};
+
+        if (yourbid2 > oppbid2){
+            yourscore + trick2;
+            document.getElementById("scoreboard").innerHTML = yourscore + " - " + oppscore;
+        } else if (yourbid2 < oppbid2){
+            oppscore + trick2;
+            document.getElementById("scoreboard").innerHTML = yourscore + " - " + oppscore;
+        } else {};
     }
 }
 
 function Clear(){
-    console.log(youradj);
+    console.log(
 }
 
 function Card1(){
@@ -96,7 +124,6 @@ function Card1(){
         document.getElementById("yourbid2").innerHTML = "1";
         yourbid2 = 1;
         youradj.push(document.getElementById("card1"));
-        loop = 0;
         document.getElementById("commit").disabled = false;
 
         for (i = 0; i < buttons.length; i++){
@@ -116,7 +143,6 @@ function Card2(){
         document.getElementById("yourbid2").innerHTML = "2";
         yourbid2 = 2;
         youradj.push(document.getElementById("card2"));
-        loop = 0;
         document.getElementById("commit").disabled = false;
 
         for (i = 0; i < buttons.length; i++){
@@ -136,7 +162,6 @@ function Card3(){
         document.getElementById("yourbid2").innerHTML = "3";
         yourbid2 = 3;
         youradj.push(document.getElementById("card3"));
-        loop = 0;
         document.getElementById("commit").disabled = false;
 
         for (i = 0; i < buttons.length; i++){
@@ -156,7 +181,6 @@ function Card4(){
         document.getElementById("yourbid2").innerHTML = "4";
         yourbid2 = 4;
         youradj.push(document.getElementById("card4"));
-        loop = 0;
         document.getElementById("commit").disabled = false;
 
         for (i = 0; i < buttons.length; i++){
@@ -176,7 +200,6 @@ function Card5(){
         document.getElementById("yourbid2").innerHTML = "5";
         yourbid2 = 5;
         youradj.push(document.getElementById("card5"));
-        loop = 0;
         document.getElementById("commit").disabled = false;
 
         for (i = 0; i < buttons.length; i++){
@@ -196,7 +219,6 @@ function Card6(){
         document.getElementById("yourbid2").innerHTML = "6";
         yourbid2 = 6;
         youradj.push(document.getElementById("card6"));
-        loop = 0;
         document.getElementById("commit").disabled = false;
 
         for (i = 0; i < buttons.length; i++){
@@ -216,7 +238,6 @@ function Card7(){
         document.getElementById("yourbid2").innerHTML = "7";
         yourbid2 = 7;
         youradj.push(document.getElementById("card7"));
-        loop = 0;
         document.getElementById("commit").disabled = false;
 
         for (i = 0; i < buttons.length; i++){
@@ -236,7 +257,6 @@ function Card8(){
         document.getElementById("yourbid2").innerHTML = "8";
         yourbid2 = 8;
         youradj.push(document.getElementById("card8"));
-        loop = 0;
         document.getElementById("commit").disabled = false;
 
         for (i = 0; i < buttons.length; i++){
@@ -256,7 +276,6 @@ function Card9(){
         document.getElementById("yourbid2").innerHTML = "9";
         yourbid2 = 9;
         youradj.push(document.getElementById("card9"));
-        loop = 0;
         document.getElementById("commit").disabled = false;
 
         for (i = 0; i < buttons.length; i++){
@@ -276,7 +295,6 @@ function Card10(){
         document.getElementById("yourbid2").innerHTML = "10";
         yourbid2 = 10;
         youradj.push(document.getElementById("card10"));
-        loop = 0;
         document.getElementById("commit").disabled = false;
 
         for (i = 0; i < buttons.length; i++){
@@ -296,7 +314,6 @@ function Opp1(){
         document.getElementById("oppbid2").innerHTML = "1";
         oppbid2 = 1;
         oppadj.push(document.getElementById("opp1"));
-        loop = 0;
         document.getElementById("commit").disabled = false;
 
         for (i = 0; i < buttons.length; i++){
@@ -316,7 +333,6 @@ function Opp2(){
         document.getElementById("oppbid2").innerHTML = "2";
         oppbid2 = 2;
         oppadj.push(document.getElementById("opp2"));
-        loop = 0;
         document.getElementById("commit").disabled = false;
 
         for (i = 0; i < buttons.length; i++){
@@ -336,7 +352,6 @@ function Opp3(){
         document.getElementById("oppbid2").innerHTML = "3";
         oppbid2 = 3;
         oppadj.push(document.getElementById("opp3"));
-        loop = 0;
         document.getElementById("commit").disabled = false;
 
         for (i = 0; i < buttons.length; i++){
@@ -356,7 +371,6 @@ function Opp4(){
         document.getElementById("oppbid2").innerHTML = "4";
         oppbid2 = 4;
         oppadj.push(document.getElementById("opp4"));
-        loop = 0;
         document.getElementById("commit").disabled = false;
 
         for (i = 0; i < buttons.length; i++){
@@ -376,7 +390,6 @@ function Opp5(){
         document.getElementById("oppbid2").innerHTML = "5";
         oppbid2 = 5;
         oppadj.push(document.getElementById("opp5"));
-        loop = 0;
         document.getElementById("commit").disabled = false;
 
         for (i = 0; i < buttons.length; i++){
@@ -396,7 +409,6 @@ function Opp6(){
         document.getElementById("oppbid2").innerHTML = "6";
         oppbid2 = 6;
         oppadj.push(document.getElementById("opp6"));
-        loop = 0;
         document.getElementById("commit").disabled = false;
 
         for (i = 0; i < buttons.length; i++){
@@ -416,7 +428,6 @@ function Opp7(){
         document.getElementById("oppbid2").innerHTML = "7";
         oppbid2 = 7;
         oppadj.push(document.getElementById("opp7"));
-        loop = 0;
         document.getElementById("commit").disabled = false;
 
         for (i = 0; i < buttons.length; i++){
@@ -436,7 +447,6 @@ function Opp8(){
         document.getElementById("oppbid2").innerHTML = "8";
         oppbid2 = 8;
         oppadj.push(document.getElementById("opp8"));
-        loop = 0;
         document.getElementById("commit").disabled = false;
 
         for (i = 0; i < buttons.length; i++){
@@ -456,7 +466,6 @@ function Opp9(){
         document.getElementById("oppbid2").innerHTML = "9";
         oppbid2 = 9;
         oppadj.push(document.getElementById("opp9"));
-        loop = 0;
         document.getElementById("commit").disabled = false;
 
         for (i = 0; i < buttons.length; i++){
@@ -476,7 +485,6 @@ function Opp10(){
         document.getElementById("oppbid2").innerHTML = "10";
         oppbid2 = 10;
         oppadj.push(document.getElementById("opp10"));
-        loop = 0;
         document.getElementById("commit").disabled = false;
 
         for (i = 0; i < buttons.length; i++){
