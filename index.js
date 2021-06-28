@@ -1,30 +1,32 @@
-let compscore, yourscore;
-let compbid1, compbid2;
-let trick1, trick2;
+let oppbid1, oppbid2;
 let yourbid1, yourbid2;
+let trick1, trick2;
 let scorediff, trickdiff, stratmod;
-let compcards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-let compadj;
+let oppscore = 0;
+let yourscore = 0;
+let cbuttons = document.getElementsByClassName("cbutton");
 let buttons = document.getElementsByClassName("button");
 let loop = 0;
 
 
 document.getElementById("newround").addEventListener("click", trickGen)
-document.getElementById("commit").addEventListener("click", compStrat)
+document.getElementById("commit").addEventListener("click", Commit)
 document.getElementById("clear").addEventListener("click", Clear)
-document.getElementById("card1").addEventListener("click", Card1)
+document.getElementById("card1").addEventListener("click", Test)
 document.getElementById("card2").addEventListener("click", Card2)
 document.getElementById("card3").addEventListener("click", Card3)
 document.getElementById("card4").addEventListener("click", Card4)
 document.getElementById("card5").addEventListener("click", Card5)
 document.getElementById("card6").addEventListener("click", Card6)
-document.getElementById("card7").addEventListener("click", Test)
+document.getElementById("card7").addEventListener("click", Card7)
 document.getElementById("card8").addEventListener("click", Card8)
 document.getElementById("card9").addEventListener("click", Card9)
 document.getElementById("card10").addEventListener("click", Card10)
 
+
 function Test(){
-    console.log(compadj);}
+    console.log(dog);
+}
 
 function trickGen(){
     let a = Math.floor((Math.random() * 10) + 1);
@@ -54,53 +56,12 @@ function trickGen(){
     }
 }
 
-function compStrat(){
-    scorediff = compscore - yourscore;
-    stratmod = (compcards.length / 2);
-
-    if (stratmod == 5){
-        stratNorm();
-    } else if (-stratmod < scorediff < stratmod){
-        stratNorm();
-    } else if (-stratmod >= scorediff){
-        stratAggro();
-    } else if (stratmod <= scorediff){
-        stratCons();
-    } else if (stratmod == 1){
-        stratLast();
-    }  
-}
-
-function stratNorm(){
-    trickdiff = Math.abs(trick1 - trick2);
-    trickavg = (trick1 + trick2)/2;
-    let a = Math.floor((Math.random() * 100) + 1);
-    let b = Math.floor(Math.random() * 2);
-    let c = Math.floor(Math.random() * 2);
-    let d = Math.floor((Math.random() * 100) + 1);
-
-    if (stratmod == 5 && trickdiff < 3 && trickavg < 5 && a <= 70){
-        compbid1 = b + 1;
-        compbid2 = trick2 + c;
-        compadj = compcards.splice([trick2 + c - 1], 1);
-        compadj.splice(b, 1);
-    }
-}
-
-function stratAggro(){
-
-}
-
-function stratCons(){
-
-}
-
-function stratLast(){
-    
+function Commit(){
+    buttons.splice(buttons.indexOf("card2",1));
 }
 
 function Clear(){
-    
+    console.log(buttons);
 }
 
 function Card1(){
@@ -110,10 +71,14 @@ function Card1(){
         document.getElementById("yourbid1").innerHTML = "1";
         yourbid1 = 1;
         document.getElementById("card1").disabled = true;
+        buttons.splice(0,1);
     } else {
         document.getElementById("yourbid2").innerHTML = "1";
         yourbid2 = 1;
         loop = 0;
+        buttons.splice(0,1);
+        document.getElementById("commit").disabled = false;
+
         for (i = 0; i < buttons.length; i++){
             buttons[i].disabled = true;
         }
@@ -126,6 +91,7 @@ function Card2(){
         document.getElementById("yourbid1").innerHTML = "2";
         yourbid1 = 2;
         document.getElementById("card2").disabled = true;
+        buttons.splice(buttons.indexOf("card2", 1));
     } else {
         document.getElementById("yourbid2").innerHTML = "2";
         yourbid2 = 2;

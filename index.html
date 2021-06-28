@@ -8,7 +8,7 @@
     <body>
         <div id="rules" class="overdiv">
             <h1>The Rules</h1>
-            <p> 1. Both players get 10 cards numbered 1-10. These are used to bid on tricks.<br><br>
+            <p> 1. Both players get 10 cards numbered 1-10.<br><br>
                 2. Once a player has used one of their cards in a bid, it is gone for the rest of the game.<br><br>
                 3. Each game consists of five rounds of bidding.<br><br>
                 4. A round begins with two randomly generated numbers between 1-10 being placed up for bid. These numbers are called the Tricks.<br><br>
@@ -24,16 +24,16 @@
         </div>
         <div id="game" class="overdiv">
             <div id="oppcards">
-                <input type="button" id="opp1" value="1" class="cbutton">
-                <input type="button" id="opp2" value="2" class="cbutton"/>
-                <input type="button" id="opp3" value="3" class="cbutton"/>
-                <input type="button" id="opp4" value="4" class="cbutton"/>
-                <input type="button" id="opp5" value="5" class="cbutton"/>
-                <input type="button" id="opp6" value="6" class="cbutton"/>
-                <input type="button" id="opp7" value="7" class="cbutton"/>
-                <input type="button" id="opp8" value="8" class="cbutton"/>
-                <input type="button" id="opp9" value="9" class="cbutton"/>
-                <input type="button" id="opp10" value="10" class="cbutton"/><br>
+                <input type="button" id="opp1" value="1" class="cbutton" disabled>
+                <input type="button" id="opp2" value="2" class="cbutton" disabled/>
+                <input type="button" id="opp3" value="3" class="cbutton" disabled/>
+                <input type="button" id="opp4" value="4" class="cbutton" disabled/>
+                <input type="button" id="opp5" value="5" class="cbutton" disabled/>
+                <input type="button" id="opp6" value="6" class="cbutton" disabled/>
+                <input type="button" id="opp7" value="7" class="cbutton" disabled/>
+                <input type="button" id="opp8" value="8" class="cbutton" disabled/>
+                <input type="button" id="opp9" value="9" class="cbutton" disabled/>
+                <input type="button" id="opp10" value="10" class="cbutton" disabled/><br>
             </div>
             <div id="playarea" class="row">
                 <div id="newroundiv" class="column">
@@ -49,7 +49,7 @@
                 </div>
                 <div id="commitdiv" class="column">
                     <input type="button" id="commit" value="Commit Bids"/>
-                    <input type="button" id="clear" value="Clear Selections" disabled/>
+                    <input type="button" id="clear" value="Clear Selections"/>
                 </div>
             </div>
             <div id="yourcards">

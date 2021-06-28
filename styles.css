@@ -115,6 +115,15 @@ h2 {
     background-color: rgb(255, 140, 140);
 }
 
+.button:disabled {
+    pointer-events: none;
+}
+
+.button:hover {
+    background-color: red;
+    color: white;
+}
+
 .button {
     margin: auto;
     height: 80px;
@@ -123,6 +132,10 @@ h2 {
     border-style: groove;
     border-radius: 40px;
     background-color: rgb(140, 140, 255);
+}
+
+.button:disabled {
+    pointer-events: none;
 }
 
 .button:hover {
