@@ -68,6 +68,10 @@ function trickGen(){
     for (i = 0; i < buttons.length; i++){
         buttons[i].disabled = false;
     }
+
+    for (i = 0; i < youradj.length; i++){
+        youradj[i].disabled = true;
+    }
 }
 
 function Commit(){
@@ -91,25 +95,39 @@ function Commit(){
         document.getElementById("newround").disabled = false;
 
         if (yourbid1 > oppbid1){
-            yourscore + trick1;
+            yourscore = yourscore + trick1;
             document.getElementById("scoreboard").innerHTML = yourscore + " - " + oppscore;
         } else if (yourbid1 < oppbid1){
-            oppscore + trick1;
+            oppscore = oppscore + trick1;
             document.getElementById("scoreboard").innerHTML = yourscore + " - " + oppscore;
         } else {};
-
+    
         if (yourbid2 > oppbid2){
-            yourscore + trick2;
-            document.getElementById("scoreboard").innerHTML = yourscore + " - " + oppscore;
+                yourscore = yourscore + trick2;
+                document.getElementById("scoreboard").innerHTML = yourscore + " - " + oppscore;
         } else if (yourbid2 < oppbid2){
-            oppscore + trick2;
-            document.getElementById("scoreboard").innerHTML = yourscore + " - " + oppscore;
+                oppscore = oppscore + trick2;
+                document.getElementById("scoreboard").innerHTML = yourscore + " - " + oppscore;
         } else {};
+    }
+
+    if (yourscore > oppscore){
+        document.getElementById("scoreboard").style.background = "blue";
+        document.getElementById("scoreboard").style.color = "white";
+    } else if (yourscore < oppscore){
+        document.getElementById("scoreboard").style.background = "red";
+        document.getElementById("scoreboard").style.color = "white";
+    } else {
+        document.getElementById("scoreboard").style.background = "rgb(#d3d3d3)";
     }
 }
 
 function Clear(){
-    console.log(
+    console.log(yourscore);
+    console.log(oppscore);
+    console.log("scoreboard");
+    document.getElementById("scoreboard").style.background = "red";
+
 }
 
 function Card1(){
