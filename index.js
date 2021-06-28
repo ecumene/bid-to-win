@@ -5,6 +5,8 @@ let youradj = [];
 let oppadj = [];
 let oppscore = 0;
 let yourscore = 0;
+let oppmatch = 0;
+let yourmatch = 0;
 let loop = 0;
 let count = 0;
 let cbuttons = document.getElementsByClassName("cbutton");
@@ -14,7 +16,7 @@ let buttons = document.getElementsByClassName("button");
 
 document.getElementById("newround").addEventListener("click", trickGen)
 document.getElementById("commit").addEventListener("click", Commit)
-document.getElementById("clear").addEventListener("click", Clear)
+document.getElementById("newgame").addEventListener("click", newGame)
 document.getElementById("card1").addEventListener("click", Card1)
 document.getElementById("card2").addEventListener("click", Card2)
 document.getElementById("card3").addEventListener("click", Card3)
@@ -35,11 +37,6 @@ document.getElementById("opp7").addEventListener("click", Opp7)
 document.getElementById("opp8").addEventListener("click", Opp8)
 document.getElementById("opp9").addEventListener("click", Opp9)
 document.getElementById("opp10").addEventListener("click", Opp10)
-
-
-function Test(){
-    
-}
 
 function trickGen(){
     let a = Math.floor((Math.random() * 10) + 1);
@@ -120,13 +117,47 @@ function Commit(){
     } else {
         document.getElementById("scoreboard").style.background = "rgb(#d3d3d3)";
     }
+
+    if (oppadj.length == 10 && (yourscore - 10) >= oppscore){
+        alert("All hail Blue!");
+    } else if (oppadj.length == 10 && (yourscore - 1) > oppscore){
+        alert("Looks like Blue managed to win this one! No worries, Red, retribution is just a rematch away!");
+    } else if (oppadj.length == 10 && yourscore > oppscore){
+        alert("That was a nailbiter! Better luck next time Red.");
+    } else if (oppadj.length == 10 && (oppscore - 10) >= yourscore){
+        alert("Red has shown their might!");
+    } else if (oppadj.length == 10 && (oppscore - 1) > yourscore){
+        alert("Victory Red! Hit rematch to continue the battle!")
+    } else if (oppadj.length == 10 && oppscore > yourscore){
+        alert("Just by the hair on Red's chinny-chin-chin!");
+    } else if (oppadj.length == 10){
+        alert("It appears you've reached a compromise. A tie.")
+    } else {};
+
+    if (oppadj.length == 10){
+        document.getElementById("newgame").disabled = false;
+        document.getElementById("newround").disabled = true;
+    } else {};
 }
 
-function Clear(){
-    console.log(yourscore);
-    console.log(oppscore);
-    console.log("scoreboard");
-    document.getElementById("scoreboard").style.background = "red";
+function newGame(){
+    if (yourscore > oppscore){
+        yourmatch = yourmatch + 1;
+        document.getElementById("matchscore").innerHTML = (yourmatch + " - " + oppmatch);
+    } else if (yourscore < oppscore){
+        oppmatch = oppmatch + 1;
+        document.getElementById("matchscore").innerHTML = (yourmatch + " - " + oppmatch);
+    } else {};
+
+    if (yourmatch > oppmatch){
+        document.getElementById("matchscore").style.background = "blue";
+        document.getElementById("matchscore").style.color = "white";
+    } else if (yourmatch < oppmatch){
+        document.getElementById("matchscore").style.background = "red";
+        document.getElementById("matchscore").style.color = "white";
+    } else {
+        document.getElementById("matchscore").style.background = "rgb(#d3d3d3)";
+    }
 
 }
 

@@ -18,9 +18,15 @@
                 8. The player with the most points after 5 rounds is the winner!<br><br>
             </p>
         </div>
-        <div id="score" class="overdiv">
-            <h3>Scoreboard</h3>
-            <textarea id="scoreboard">0 - 0</textarea>
+        <div id="score" class="overdiv" class="row">
+            <div id="scorediv" class="column">
+                <h3>GAME SCORE</h3>
+                <textarea id="scoreboard">0 - 0</textarea>
+            </div>
+            <div id="matchdiv" class="column">
+                <h4>MATCH TALLY</h4>
+                <textarea id="matchscore">0 - 0</textarea>
+            </div>
         </div>
         <div id="game" class="overdiv">
             <div id="oppcards">
@@ -49,7 +55,7 @@
                 </div>
                 <div id="commitdiv" class="column">
                     <input type="button" id="commit" value="Commit Bids" disabled/>
-                    <input type="button" id="clear" value="Clear Selections"/>
+                    <input type="button" id="newgame" value="Rematch" disabled/>
                 </div>
             </div>
             <div id="yourcards">

@@ -23,7 +23,17 @@ h2 {
 #score {
     width: 68%;
     text-align: center;
-    background-image: linear-gradient(to right, black, rgb(83, 83, 83));
+}
+
+#matchdiv {
+    float: right;
+    margin-right: 65px;
+    margin-top: 0px;
+}
+
+#scorediv {
+    margin-left: 65px;
+    margin-top: 2px;
 }
 
 #scoreboard {
@@ -34,9 +44,16 @@ h2 {
     text-align: center;
 }
 
+#matchscore {
+    height: 80px;
+    width: 300px;
+    font-size: 60px;
+    background-color: lightgray;
+    text-align: center;
+}
+
 #game {
     width: 68%;
-    background-image: linear-gradient(to right, black, rgb(83, 83, 83));
 }
 
 #oppcards {
@@ -63,10 +80,11 @@ h2 {
     font-size: larger;
 }
 
-#clear {
+#newgame {
     height: 40px;
     font-size: larger;
     margin-top: 3px;
+    width: 157px;
 }
 
 #yourcards {
