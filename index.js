@@ -115,7 +115,7 @@ function Commit(){
         document.getElementById("scoreboard").style.background = "red";
         document.getElementById("scoreboard").style.color = "white";
     } else {
-        document.getElementById("scoreboard").style.background = "rgb(#d3d3d3)";
+        document.getElementById("scoreboard").style.background = "lightgray";
     }
 
     if (oppadj.length == 10 && (yourscore - 10) >= oppscore){
@@ -156,7 +156,7 @@ function newGame(){
         document.getElementById("matchscore").style.background = "red";
         document.getElementById("matchscore").style.color = "white";
     } else {
-        document.getElementById("matchscore").style.background = "rgb(#d3d3d3)";
+        document.getElementById("matchscore").style.background = "lightgray";
     }
 
     loop = 0;
@@ -166,7 +166,7 @@ function newGame(){
     yourscore = 0;
     oppscore = 0;
     document.getElementById("scoreboard").innerHTML = "0 - 0";
-    document.getElementById("scoreboard").style.background = "rgb(#d3d3d3)";
+    document.getElementById("scoreboard").style.background = "lightgray";
     document.getElementById("oppbid1").innerHTML = "";
     document.getElementById("oppbid2").innerHTML = "";
     document.getElementById("yourbid1").innerHTML = "";
