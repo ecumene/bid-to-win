@@ -1,6 +1,7 @@
 let oppbid1, oppbid2;
 let yourbid1, yourbid2;
 let trick1, trick2;
+let line1, line2;
 let youradj = [];
 let oppadj = [];
 let oppscore = 0;
@@ -90,6 +91,8 @@ function Commit(){
         document.getElementById("yourbid2").innerHTML = yourbid2;
         document.getElementById("commit").disabled = true;
         document.getElementById("newround").disabled = false;
+        line1.style.textDecoration = "line-through";
+        line2.style.textDecoration = "line-through";
 
         if (yourbid1 > oppbid1){
             yourscore = yourscore + trick1;
@@ -174,6 +177,11 @@ function newGame(){
     document.getElementById("trick1").innerHTML = "";    
     document.getElementById("trick2").innerHTML = "";
     document.getElementById("newround").disabled = false;
+
+    for (i = 0; i < buttons.length; i++){
+        buttons[i].style.textDecoration = "none";
+        cbuttons[i].style.textDecoration = "none";
+    }
 }
 
 function Card1(){
@@ -182,13 +190,13 @@ function Card1(){
     if (loop === 1){
         document.getElementById("yourbid1").innerHTML = "1";
         yourbid1 = 1;
+        line1 = document.getElementById("card1");
         document.getElementById("card1").disabled = true;
-        document.getElementById("card1").style.textDecoration = "line-through";
         youradj.push(document.getElementById("card1"));
     } else {
         document.getElementById("yourbid2").innerHTML = "1";
         yourbid2 = 1;
-        document.getElementById("card1").style.textDecoration = "line-through";
+        line2 = document.getElementById("card1");
         youradj.push(document.getElementById("card1"));
         document.getElementById("commit").disabled = false;
 
@@ -204,12 +212,12 @@ function Card2(){
         document.getElementById("yourbid1").innerHTML = "2";
         yourbid1 = 2;
         document.getElementById("card2").disabled = true;
-        document.getElementById("card2").style.textDecoration = "line-through";
+        line1 = document.getElementById("card2");
         youradj.push(document.getElementById("card2"));
     } else {
         document.getElementById("yourbid2").innerHTML = "2";
         yourbid2 = 2;
-        document.getElementById("card2").style.textDecoration = "line-through";
+        line2 = document.getElementById("card2");
         youradj.push(document.getElementById("card2"));
         document.getElementById("commit").disabled = false;
 
@@ -225,12 +233,12 @@ function Card3(){
         document.getElementById("yourbid1").innerHTML = "3";
         yourbid1 = 3;
         document.getElementById("card3").disabled = true;
-        document.getElementById("card3").style.textDecoration = "line-through";
+        line1 = document.getElementById("card3");
         youradj.push(document.getElementById("card3"));
     } else {
         document.getElementById("yourbid2").innerHTML = "3";
         yourbid2 = 3;
-        document.getElementById("card3").style.textDecoration = "line-through";
+        line2 = document.getElementById("card3");
         youradj.push(document.getElementById("card3"));
         document.getElementById("commit").disabled = false;
 
@@ -246,12 +254,12 @@ function Card4(){
         document.getElementById("yourbid1").innerHTML = "4";
         yourbid1 = 4;
         document.getElementById("card4").disabled = true;
-        document.getElementById("card4").style.textDecoration = "line-through";
+        line1 = document.getElementById("card4");
         youradj.push(document.getElementById("card4"));
     } else {
         document.getElementById("yourbid2").innerHTML = "4";
         yourbid2 = 4;
-        document.getElementById("card4").style.textDecoration = "line-through";
+        line2 = document.getElementById("card4");
         youradj.push(document.getElementById("card4"));
         document.getElementById("commit").disabled = false;
 
@@ -267,12 +275,12 @@ function Card5(){
         document.getElementById("yourbid1").innerHTML = "5";
         yourbid1 = 5;
         document.getElementById("card5").disabled = true;
-        document.getElementById("card5").style.textDecoration = "line-through";
+        line1 = document.getElementById("card5");
         youradj.push(document.getElementById("card5"));
     } else {
         document.getElementById("yourbid2").innerHTML = "5";
         yourbid2 = 5;
-        document.getElementById("card5").style.textDecoration = "line-through";
+        line2 = document.getElementById("card5");
         youradj.push(document.getElementById("card5"));
         document.getElementById("commit").disabled = false;
 
@@ -288,12 +296,12 @@ function Card6(){
         document.getElementById("yourbid1").innerHTML = "6";
         yourbid1 = 6;
         document.getElementById("card6").disabled = true;
-        document.getElementById("card6").style.textDecoration = "line-through";
+        line1 = document.getElementById("card6");
         youradj.push(document.getElementById("card6"));
     } else {
         document.getElementById("yourbid2").innerHTML = "6";
         yourbid2 = 6;
-        document.getElementById("card6").style.textDecoration = "line-through";
+        line2 = document.getElementById("card6");
         youradj.push(document.getElementById("card6"));
         document.getElementById("commit").disabled = false;
 
@@ -309,12 +317,12 @@ function Card7(){
         document.getElementById("yourbid1").innerHTML = "7";
         yourbid1 = 7;
         document.getElementById("card7").disabled = true;
-        document.getElementById("card7").style.textDecoration = "line-through";
+        line1 = document.getElementById("card7");
         youradj.push(document.getElementById("card7"));
     } else {
         document.getElementById("yourbid2").innerHTML = "7";
         yourbid2 = 7;
-        document.getElementById("card7").style.textDecoration = "line-through";
+        line2 = document.getElementById("card7");
         youradj.push(document.getElementById("card7"));
         document.getElementById("commit").disabled = false;
 
@@ -330,12 +338,12 @@ function Card8(){
         document.getElementById("yourbid1").innerHTML = "8";
         yourbid1 = 8;
         document.getElementById("card8").disabled = true;
-        document.getElementById("card8").style.textDecoration = "line-through";
+        line1 = document.getElementById("card8");
         youradj.push(document.getElementById("card8"));
     } else {
         document.getElementById("yourbid2").innerHTML = "8";
         yourbid2 = 8;
-        document.getElementById("card8").style.textDecoration = "line-through";
+        line2 = document.getElementById("card8");
         youradj.push(document.getElementById("card8"));
         document.getElementById("commit").disabled = false;
 
@@ -351,12 +359,12 @@ function Card9(){
         document.getElementById("yourbid1").innerHTML = "9";
         yourbid1 = 9;
         document.getElementById("card9").disabled = true;
-        document.getElementById("card9").style.textDecoration = "line-through";
+        line1 = document.getElementById("card9");
         youradj.push(document.getElementById("card9"));
     } else {
         document.getElementById("yourbid2").innerHTML = "9";
         yourbid2 = 9;
-        document.getElementById("card9").style.textDecoration = "line-through";
+        line2 = document.getElementById("card9");
         youradj.push(document.getElementById("card9"));
         document.getElementById("commit").disabled = false;
 
@@ -372,12 +380,12 @@ function Card10(){
         document.getElementById("yourbid1").innerHTML = "10";
         yourbid1 = 10;
         document.getElementById("card10").disabled = true;
-        document.getElementById("card10").style.textDecoration = "line-through";
+        line1 = document.getElementById("card10");
         youradj.push(document.getElementById("card10"));
     } else {
         document.getElementById("yourbid2").innerHTML = "10";
         yourbid2 = 10;
-        document.getElementById("card10").style.textDecoration = "line-through";
+        line2 = document.getElementById("card10");
         youradj.push(document.getElementById("card10"));
         document.getElementById("commit").disabled = false;
 
