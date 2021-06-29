@@ -134,7 +134,7 @@ function Commit(){
     } else if (oppadj.length == 10 && oppscore > yourscore){
         alert("Just by the hair on Red's chinny-chin-chin!");
     } else if (oppadj.length == 10){
-        alert("It appears you've reached a compromise. A tie.")
+        alert("Battled to a draw!")
     } else {};
 
     if (oppadj.length == 10){
