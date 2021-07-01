@@ -176,7 +176,8 @@ function newGame(){
     document.getElementById("yourbid2").innerHTML = "";
     document.getElementById("trick1").innerHTML = "";    
     document.getElementById("trick2").innerHTML = "";
-    document.getElementById("newround").disabled = false;
+    document.getElementById("newround").disabled = false;  
+    document.getElementById("newgame").disabled = true;  
 
     for (i = 0; i < buttons.length; i++){
         buttons[i].style.textDecoration = "none";
