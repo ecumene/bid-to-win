@@ -11,17 +11,27 @@ h1 {
 
 h2 {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-top: 0px;
+}
+
+h3, h4 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: medium;
+    margin-bottom: 1px;
 }
 
 #rules {
     font-family: cursive;
     width: 30%;
     text-align: center;
-    color: rgb(0, 255, 0);
+    color: black;
+    background-color: lightgray;
+    margin-bottom: 5px;
 }
 
 #rulespar {
     margin-top: 0px;
+    padding: 5px;
 }
 
 #score {
@@ -58,6 +68,7 @@ h2 {
 
 #game {
     width: 68%;
+    margin-top: 43px;
 }
 
 #oppcards {
