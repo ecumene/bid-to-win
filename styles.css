@@ -18,7 +18,7 @@ h3, h4 {
 #rules {
     font-family: cursive;
     width: 30%;
-    height: 665px;
+    height:fit-content;
     text-align: center;
     color: black;
     background-color: transparent;
@@ -39,8 +39,7 @@ h3, h4 {
 #rulespar {
     margin-top: 0px;
     border-radius: 5px;
-    height: 525px;
-    padding-top: 5px;
+    padding: 5px;
 }
 
 #score {
@@ -115,6 +114,7 @@ h3, h4 {
 
 #yourcards {
     text-align: center;
+    margin-bottom: 100px;
 }
 
 .overdiv {

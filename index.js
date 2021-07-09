@@ -44,12 +44,12 @@ function rules() {
 
     if (rule %2 != 0){
     document.getElementById("rulespar").innerHTML = ("1. Both players have 10 buttons numbered 1-10." + "<br><br>" + 
-        "2. A round begins with two randomly generated numbers between 1-10 being placed up for bid. These numbers are called the Tricks." + "<br><br>" +  
+        "2. A round begins with two randomly generated 'Tricks' between 1-10 being placed up for bid." + "<br><br>" +  
         "3. First, the Blue player must choose their two bids. The first number they click will be for the trick on the left. Red must look away until Blue clicks 'Commit Bids'!" + "<br><br>" +
-        "4. When Red makes their selection and commits, the bids are revealed." + "<br><br>" + 
-        "5. The player that bids the highest on a trick, wins that trick and is awarded that many points." + "<br><br>" + 
+        "4. After Red makes their selections, the bids are revealed." + "<br><br>" + 
+        "5. The player that bids the highest on a trick, wins that many points." + "<br><br>" + 
         "6. Each game consists of five rounds of bidding." + "<br><br>" + 
-        "7. Once a player has used one of their buttons in a bid, it is gone for the rest of the game." + "<br><br>" +           
+        "7. Each button can only be used once a game." + "<br><br>" +           
         "8. The player with the most points after 5 rounds is the winner!" + "<br><br>" + 
         "9. The Match Tally keeps track of total wins for each player. Enjoy!");
     document.getElementById("rulespar").style.backgroundColor = "lightgray";
