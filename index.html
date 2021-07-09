@@ -4,20 +4,12 @@
         <meta charset="utf-8"/>
         <title>2-Player Strategy Bidding Game!</title>
         <link rel="stylesheet" href="styles.css">
+        <meta property="og:image" content="images/MetaScreenShot.png"/>
     </head>
     <body>
-        <div id="rules" class="overdiv">
-            <h2>The Rules</h2>
-            <p id="rulespar"> 1. Both players have 10 buttons numbered 1-10.<br><br>
-                2. A round begins with two randomly generated numbers between 1-10 being placed up for bid. These numbers are called the Tricks.<br><br> 
-                3. First, the Blue player must choose their two bids. The first number they click will be for the trick on the left. Red must look away until Blue clicks 'Commit'!<br><br>
-                4. Once both players have made their selections, and Red Commits, the bids are revealed.<br><br>
-                5. The player that bids the highest on a trick, wins that trick and is awarded that many points.<br><br>
-                6. Each game consists of five rounds of bidding.<br><br>
-                7. Once a player has used one of their buttons in a bid, it is gone for the rest of the game.<br><br>          
-                8. The player with the most points after 5 rounds is the winner!<br><br>
-                9. The Match Tally keeps track of total wins for each player. Enjoy!<br>
-            </p>
+        <div id="rules" class="overdiv">            
+            <h2><button id="rulebtn">The Rules</button></h2>            
+            <p id="rulespar"></p>
         </div>
         <div id="score" class="overdiv" class="row">
             <div id="scorediv" class="column">

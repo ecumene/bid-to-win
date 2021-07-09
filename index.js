@@ -10,11 +10,11 @@ let oppmatch = 0;
 let yourmatch = 0;
 let loop = 0;
 let count = 0;
+let rule = 0;
 let cbuttons = document.getElementsByClassName("cbutton");
 let buttons = document.getElementsByClassName("button");
 
-
-
+document.getElementById("rulebtn").addEventListener("click", rules)
 document.getElementById("newround").addEventListener("click", trickGen)
 document.getElementById("commit").addEventListener("click", Commit)
 document.getElementById("newgame").addEventListener("click", newGame)
@@ -38,6 +38,30 @@ document.getElementById("opp7").addEventListener("click", Opp7)
 document.getElementById("opp8").addEventListener("click", Opp8)
 document.getElementById("opp9").addEventListener("click", Opp9)
 document.getElementById("opp10").addEventListener("click", Opp10)
+
+function rules() {
+    rule++
+
+    if (rule %2 != 0){
+    document.getElementById("rulespar").innerHTML = ("1. Both players have 10 buttons numbered 1-10." + "<br><br>" + 
+        "2. A round begins with two randomly generated numbers between 1-10 being placed up for bid. These numbers are called the Tricks." + "<br><br>" +  
+        "3. First, the Blue player must choose their two bids. The first number they click will be for the trick on the left. Red must look away until Blue clicks 'Commit Bids'!" + "<br><br>" +
+        "4. When Red makes their selection and commits, the bids are revealed." + "<br><br>" + 
+        "5. The player that bids the highest on a trick, wins that trick and is awarded that many points." + "<br><br>" + 
+        "6. Each game consists of five rounds of bidding." + "<br><br>" + 
+        "7. Once a player has used one of their buttons in a bid, it is gone for the rest of the game." + "<br><br>" +           
+        "8. The player with the most points after 5 rounds is the winner!" + "<br><br>" + 
+        "9. The Match Tally keeps track of total wins for each player. Enjoy!");
+    document.getElementById("rulespar").style.backgroundColor = "lightgray";
+    document.getElementById("rulebtn").style.backgroundColor = "black";
+    document.getElementById("rulebtn").style.color = "white";
+    } else {
+        document.getElementById("rulespar").innerHTML = ("");
+        document.getElementById("rulespar").style.backgroundColor = "transparent";
+        document.getElementById("rulebtn").style.backgroundColor = "white";
+        document.getElementById("rulebtn").style.color = "black";
+    }
+}
 
 function trickGen(){
     let a = Math.floor((Math.random() * 10) + 1);
@@ -119,6 +143,7 @@ function Commit(){
         document.getElementById("scoreboard").style.color = "white";
     } else {
         document.getElementById("scoreboard").style.background = "lightgray";
+        document.getElementById("scoreboard").style.color = "black";
     }
 
     if (oppadj.length == 10 && (yourscore - 10) >= oppscore){
@@ -160,6 +185,7 @@ function newGame(){
         document.getElementById("matchscore").style.color = "white";
     } else {
         document.getElementById("matchscore").style.background = "lightgray";
+        document.getElementById("matchscore").style.color = "black";
     }
 
     loop = 0;
@@ -170,6 +196,7 @@ function newGame(){
     oppscore = 0;
     document.getElementById("scoreboard").innerHTML = "0 - 0";
     document.getElementById("scoreboard").style.background = "lightgray";
+    document.getElementById("scoreboard").style.color = "black";
     document.getElementById("oppbid1").innerHTML = "";
     document.getElementById("oppbid2").innerHTML = "";
     document.getElementById("yourbid1").innerHTML = "";
