@@ -2,6 +2,11 @@ let oppbid1, oppbid2;
 let yourbid1, yourbid2;
 let trick1, trick2;
 let line1, line2;
+
+// variable specific to not yet implemented computer player //
+let scorediff, trickdiff;
+// end of not yet implemented variable //
+
 let youradj = [];
 let oppadj = [];
 let oppscore = 0;
@@ -631,4 +636,58 @@ function Opp10(){
             cbuttons[i].disabled = true;
         }
     }
+}
+
+// all code from this point is the start of a computer player that is not yet implemented //
+
+function compStrat(){
+    scorediff = oppscore - yourscore;
+    stratmod = (compcards.length / 2);
+
+    if (stratmod == 5){
+        stratNorm();
+    } else if (-stratmod < scorediff < stratmod){
+        stratNorm();
+    } else if (-stratmod >= scorediff){
+        stratAggro();
+    } else if (stratmod <= scorediff){
+        stratCons();
+    } else if (stratmod == 1){
+        stratLast();
+    }  
+}
+
+function stratNorm(){
+    trickdiff = Math.abs(trick1 - trick2);
+    trickavg = (trick1 + trick2)/2;
+    let a = Math.floor((Math.random() * 100) + 1);
+    let b = Math.floor(Math.random() * 2);
+    let c = Math.floor(Math.random() * 2);
+    let d = Math.floor((Math.random() * 100) + 1);
+
+    if (stratmod == 5 && trickdiff < 4 && trickavg < 5 && a <= 70){
+        compbid1 = b + 1;
+        compbid2 = trick2 + c;
+        compcards.splice([trick2 + c - 1], 1);
+        compcards.splice(b, 1);
+        document.getElementById("compbid1").innerHTML = compbid1;
+        document.getElementById("compbid2").innerHTML = compbid2;
+    } else if (stratmod == 5 && trickdiff < 4 && trickavg < 5 && 70 < a <=90){
+        compbid1 = trick1 + b;
+        compbid2 = 1
+        compcards.splice([trick2 + c - 1], 1);
+        compcards.splice(b, 1);
+    }
+}
+
+function stratAggro(){
+
+}
+
+function stratCons(){
+
+}
+
+function stratLast(){
+    
 }
