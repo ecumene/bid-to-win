@@ -17,7 +17,7 @@ h3, h4 {
 
 #rules {
     font-family: cursive;
-    width: 30%;
+    width: 25vw;
     height:fit-content;
     text-align: center;
     color: black;
@@ -30,7 +30,7 @@ h3, h4 {
     font-size:larger;
     font-weight: bolder;
     width: 100%;
-    height: 100px;
+    height: 8vw;
     margin-top: 0px;
     margin-bottom: 0px;
     border-radius: 15px;
@@ -39,46 +39,46 @@ h3, h4 {
 #rulespar {
     margin-top: 0px;
     border-radius: 5px;
-    padding: 5px;
+    padding: 0.5vh;
 }
 
 #score {
-    width: 68%;
+    width: 66vw;
     text-align: center;
 }
 
 #matchdiv {
     float: right;
-    margin-right: 65px;
+    margin-right: 2vw;
     margin-top: 0px;
 }
 
 #scorediv {
-    margin-left: 65px;
-    margin-top: 2px;
+    margin-left: 2vw;
+    margin-top: 0.6vh;
 }
 
 #scoreboard {
-    height: 80px;
-    width: 300px;
-    font-size: 60px;
+    height: 5.9vw;
+    width: 22vw;
+    font-size: 4.4vw;
     background-color: lightgray;
     text-align: center;
     color: black;
 }
 
 #matchscore {
-    height: 80px;
-    width: 300px;
-    font-size: 60px;
+    height: 5.9vw;
+    width: 22vw;
+    font-size: 4.4vw;
     background-color: lightgray;
     text-align: center;
     color: black;
 }
 
 #game {
-    width: 68%;
-    margin-top: 43px;
+    width: 66vw;
+    margin-top: 10px;
 }
 
 #oppcards {
@@ -86,9 +86,10 @@ h3, h4 {
 }
 
 #newround {
-    margin-top: 40%;
-    margin-left: 50%;
-    height: 40px;
+    margin-top: 10.3vw;
+    margin-left: 7.79vw;
+    height: fit-content;
+    width: 11.42vw;
     font-size: larger;
 }
 
@@ -97,67 +98,66 @@ h3, h4 {
 }
 
 #commit {
-    margin-top: 32%;
-    margin-right: 50%;
-    margin-bottom: 3px;
-    height: 40px;
-    width: 156px;
+    margin-top: 8.7vw;
+    margin-right: 7.79vw;
+    margin-bottom: 0.4vw;
+    height: fit-content;
+    width: 11.42vw;
     font-size: larger;
 }
 
 #newgame {
-    height: 40px;
+    height: fit-content;
     font-size: larger;
-    margin-top: 3px;
-    width: 157px;
+    margin-top: 0.7vh;
+    width: 11.42vw;
 }
 
 #yourcards {
     text-align: center;
-    margin-bottom: 100px;
 }
 
 .overdiv {
     float: left;
-    height: fit-content
+    height: fit-content;
 }
 
 .cbidbox {
-    height: 80px;
-    width: 80px;
-    font-size: 60px;
+    height: 5.85vw;
+    width: 5.85vw;
+    font-size: 4.4vw;
     background-color: lightgray;
     color: red;
-    margin-top: 10px;
+    margin-top: 1.8vw;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 0.75vw;
 }
 
 .bidbox {
-    height: 80px;
-    width: 80px;
-    font-size: 60px;
+    height: 5.85vw;
+    width: 5.85vw;
+    font-size: 4.4vw;
     background-color: lightgray;
     color: blue;
-    margin-bottom: 10px;
+    margin-bottom: 1.8vw;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 0.75vw;
 }
 
 .trickbox {
-    height: 80px;
-    width: 80px;
-    font-size: 60px;
+    height: 5.85vw;
+    width: 5.85vw;
+    font-size: 4.4vw;
     text-align: center;
 }
 
 .cbutton {
     margin: auto;
-    height: 80px;
-    width: 80px;
+    height: 5.9vw;
+    width: 5.9vw;
     font-size: larger;
     border-style: groove;
-    border-radius: 40px;
+    border-radius: 2.95vw;
     background-color: rgb(255, 140, 140);
 }
 
@@ -172,11 +172,11 @@ h3, h4 {
 
 .button {
     margin: auto;
-    height: 80px;
-    width: 80px;
+    height: 5.9vw;
+    width: 5.9vw;
     font-size: larger;
     border-style: groove;
-    border-radius: 40px;
+    border-radius: 2.95vw;
     background-color: rgb(140, 140, 255);
 }
 
