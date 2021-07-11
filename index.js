@@ -799,8 +799,72 @@ function stratNorm(){
             compcards.splice([trick2 + d - 1], 1);
             compcards.splice([trick1 + b - c - 1], 1);
         }
-    } else if (stratmod == 5 && 4 <= trickdiff && 5 < trickavg && a <= 70){
-
+    } else if (stratmod == 5 && 4 <= trickdiff && 5 < trickavg && a <= 50){
+        if (trick1 == 1){
+            compbid1 = 1;
+            compbid2 = 10;
+            compcards.splice(9, 1);
+            compcards.splice(0, 1);
+        } else if (trick2 == 10 && trickdiff > 6){
+            compbid1 = b + 1;
+            compbid2 = 10;
+            compcards.splice(9, 1);
+            compcards.splice(b, 1);
+        } else if (trick2 == 10){
+            compbid1 = trick1 + b - c;
+            compbid2 = 10;
+            compcards.splice(9, 1);
+            compcards.splice([trick1 + b - c - 1], 1);
+        } else {
+            compbid1 = b + 1;
+            compbid2 = trick2 + c;
+            compcards.splice([trick2 + c - 1], 1);
+            compcards.splice(b, 1);
+        }
+    } else if (stratmod == 5 && 4 <= trickdiff && 5 < trickavg && 50 < a <= 75){
+        if (trick1 == 1){
+            compbid1 = 1;
+            compbid2 = 10;
+            compcards.splice(9, 1);
+            compcards.splice(0, 1);
+        } else if (trick2 == 10 && trickdiff > 6){
+            compbid1 = trick1;
+            compbid2 = 10;
+            compcards.splice(9, 1);
+            compcards.splice([trick1 - 1], 1);
+        } else if (trick2 == 10){
+            compbid1 = b + c + 1;
+            compbid2 = 10;
+            compcards.splice(9, 1);
+            compcards.splice([b + c], 1);
+        } else {
+            compbid1 = trick1 + b - c;
+            compbid2 = trick2 + d;
+            compcards.splice([trick2 + d - 1], 1);
+            compcards.splice([trick1 + b - c - 1], 1);
+        } 
+    } else if (stratmod == 5 && 4 <= trickdiff && 5 < trickavg && 75 < a){// last piece of 1st round strat //
+            if (trick1 == 1){
+                compbid1 = 1;
+                compbid2 = 10;
+                compcards.splice(9, 1);
+                compcards.splice(0, 1);
+            } else if (trick2 == 10 && trickdiff > 6){
+                compbid1 = b + 1;
+                compbid2 = 10;
+                compcards.splice(9, 1);
+                compcards.splice(b, 1);//
+            } else if (trick2 == 10){
+                compbid1 = b + c + 1;
+                compbid2 = 10;
+                compcards.splice(9, 1);
+                compcards.splice([b + c], 1);
+            } else {
+                compbid1 = trick1 + b - c;
+                compbid2 = trick2 + d;
+                compcards.splice([trick2 + d - 1], 1);
+                compcards.splice([trick1 + b - c - 1], 1);
+            }
     }
 
     
