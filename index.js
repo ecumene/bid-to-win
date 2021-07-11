@@ -21,8 +21,7 @@ let rule = 0;
 let cbuttons = document.getElementsByClassName("cbutton");
 let buttons = document.getElementsByClassName("button");
 
-document.getElementById("testbtn").addEventListener("click", test)
-document.getElementById("rulebtn").addEventListener("click", compStrat)
+document.getElementById("rulebtn").addEventListener("click", rules)
 document.getElementById("newround").addEventListener("click", trickGen)
 document.getElementById("commit").addEventListener("click", Commit)
 document.getElementById("newgame").addEventListener("click", newGame)
@@ -89,8 +88,8 @@ function trickGen(){
         trick2 = b + 1;
     }
 
-    document.getElementById("compbid1").innerHTML = "";
-    document.getElementById("compbid2").innerHTML = "";
+    document.getElementById("oppbid1").innerHTML = "";
+    document.getElementById("oppbid2").innerHTML = "";
     document.getElementById("yourbid1").innerHTML = "";
     document.getElementById("yourbid2").innerHTML = "";
     document.getElementById("trick1").innerHTML = trick1;    
@@ -645,6 +644,7 @@ function Opp10(){
 }
 
 // all code from this point is the start of a computer player that is not yet implemented //
+// when implemented, button will change id of "oppbid" boxes to "compbid" //
 
 function test(){
     console.log(compcards);
@@ -800,7 +800,7 @@ function stratNorm(){
             compcards.splice([trick1 + b - c - 1], 1);
         }
     } else if (stratmod == 5 && 4 <= trickdiff && 5 < trickavg && a <= 70){
-        
+
     }
 
     
