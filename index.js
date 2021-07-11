@@ -3,8 +3,8 @@ let yourbid1, yourbid2;
 let trick1, trick2;
 let line1, line2;
 
-// variable specific to not yet implemented computer player - unimplemented functions begin at line 664 //
-let scorediff, trickdiff, trickavg;
+// variable specific to not yet implemented computer player - unimplemented functions begin at line 646 //
+let scorediff, trickdiff, trickavg, compavg;
 let compbid1, compbid2;
 let compcards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 // end of not yet implemented variable //
@@ -675,6 +675,10 @@ function stratNorm(){
     let c = Math.floor(Math.random() * 2);
     let d = Math.floor(Math.random() * 2);
 
+    for (i = 0; i < compcards.length; i++){// this will define compavg //
+        compavg
+    }
+
     if (stratmod == 5 && trickdiff <= 3 && trickavg <= 5 && a <= 70){
         if (trick1 == 1){
             compbid1 = 1;
@@ -843,7 +847,7 @@ function stratNorm(){
             compcards.splice([trick2 + d - 1], 1);
             compcards.splice([trick1 + b - c - 1], 1);
         } 
-    } else if (stratmod == 5 && 4 <= trickdiff && 5 < trickavg && 75 < a){// last piece of 1st round strat //
+    } else if (stratmod == 5 && 4 <= trickdiff && 5 < trickavg && 75 < a){
             if (trick1 == 1){
                 compbid1 = 1;
                 compbid2 = 10;
@@ -855,16 +859,18 @@ function stratNorm(){
                 compcards.splice(9, 1);
                 compcards.splice(b, 1);//
             } else if (trick2 == 10){
-                compbid1 = b + c + 1;
+                compbid1 = trick1 + b;
                 compbid2 = 10;
                 compcards.splice(9, 1);
-                compcards.splice([b + c], 1);
+                compcards.splice([trick1 + b - 1], 1);
             } else {
-                compbid1 = trick1 + b - c;
-                compbid2 = trick2 + d;
-                compcards.splice([trick2 + d - 1], 1);
-                compcards.splice([trick1 + b - c - 1], 1);
+                compbid1 = 1;
+                compbid2 = 10;
+                compcards.splice(9, 1);
+                compcards.splice(0, 1);
             }
+    } else if (stratmod != 5 && trickdiff <=3 && trickavg <= 5 && a <= 70){
+        // the first line of non-first round strat code //
     }
 
     
