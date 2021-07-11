@@ -3,10 +3,11 @@ let yourbid1, yourbid2;
 let trick1, trick2;
 let line1, line2;
 
-// variable specific to not yet implemented computer player - unimplemented functions begin at line 646 //
+// variables specific to not yet implemented computer player - unimplemented functions begin at line 647 //
 let scorediff, trickdiff, trickavg, compavg;
 let compbid1, compbid2;
 let compcards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+let sum = 0;
 // end of not yet implemented variable //
 
 let youradj = [];
@@ -647,8 +648,19 @@ function Opp10(){
 // when implemented, button will change id of "oppbid" boxes to "compbid" //
 
 function test(){
-    console.log(compcards);
-}
+    let dog = [1, 2, 3, 4, 5, 6, 7, 8];
+
+    if (trick1 > 3){
+        compbid1 = dog.shift();
+        compbid2 = dog.shift();
+    } else {
+        compbid1 = dog.slice(0, 1);
+        compbid2 = dog.slice(0, 1);
+    }
+    console.log(dog);
+    console.log(compbid1);
+    console.log(compbid2);
+    }
 
 function compStrat(){
     scorediff = oppscore - yourscore;
@@ -675,9 +687,10 @@ function stratNorm(){
     let c = Math.floor(Math.random() * 2);
     let d = Math.floor(Math.random() * 2);
 
-    for (i = 0; i < compcards.length; i++){// this will define compavg //
-        compavg
+    for (i = 0; i < compcards.length; i++){
+        sum += compcards[i];
     }
+    compavg = sum / compcards.length;
 
     if (stratmod == 5 && trickdiff <= 3 && trickavg <= 5 && a <= 70){
         if (trick1 == 1){
@@ -869,13 +882,18 @@ function stratNorm(){
                 compcards.splice(9, 1);
                 compcards.splice(0, 1);
             }
-    } else if (stratmod != 5 && trickdiff <=3 && trickavg <= 5 && a <= 70){
-        // the first line of non-first round strat code //
+    } else if (stratmod != 5 && trickdiff <=3 && trickavg <= 5 && a <= 70){// start of round 2-4 strat //
+        if (trick2 == 2){
+            compbid1 = compcards.shift();
+            compbid2 = compcards.shift();
+        } else if (trick1 == 1){
+            compbid1 = 0;// THIS IS WHERE I LEFT OFF //
+        }
     }
 
     
-    document.getElementById("compbid1").innerHTML = compbid1;
-    document.getElementById("compbid2").innerHTML = compbid2;
+    document.getElementById("oppbid1").innerHTML = compbid1;// currently set to oppbid1 & 2 //
+    document.getElementById("oppbid2").innerHTML = compbid2;
 }
 
 function stratAggro(){
