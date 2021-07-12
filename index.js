@@ -3,11 +3,15 @@ let yourbid1, yourbid2;
 let trick1, trick2;
 let line1, line2;
 
-// variables specific to not yet implemented computer player - unimplemented functions begin at line 647 //
-let scorediff, trickdiff, trickavg, compavg;
+// variables specific to not yet implemented computer player - unimplemented functions begin at line 653 //
+let scorediff, roundmod, trickdiff, trickavg;
+let compavg, youravg, avgdiff, r23mod; 
+let comphigh, yourhigh;
 let compbid1, compbid2;
 let compcards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-let sum = 0;
+let yourcards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+let csum = 0;
+let ysum = 0;
 // end of not yet implemented variable //
 
 let youradj = [];
@@ -649,32 +653,31 @@ function Opp10(){
 
 function test(){
     let dog = [1, 2, 3, 4, 5, 6, 7, 8];
+    let cat = [9, 10, 11, 12, 13, 14];
 
-    if (trick1 > 3){
-        compbid1 = dog.shift();
-        compbid2 = dog.shift();
-    } else {
-        compbid1 = dog.slice(0, 1);
-        compbid2 = dog.slice(0, 1);
-    }
+    console.log(dog[dog.length - 1]);
+    console.log(dog[-0]);
     console.log(dog);
-    console.log(compbid1);
-    console.log(compbid2);
-    }
+}
 
 function compStrat(){
     scorediff = oppscore - yourscore;
-    stratmod = (compcards.length / 2);
+    roundmod = (compcards.length / 2);
 
-    if (stratmod == 5){
+    yourcards.splice(yourcards.indexOf(yourbid1), 1);
+    yourcards.splice(yourcards.indexOf(yourbid2), 1);
+    comphigh = compcards[compcards.length - 1];
+    yourhigh = yourcards[yourcards.length - 1];
+
+    if (roundmod == 5){
         stratNorm();
-    } else if (-stratmod < scorediff < stratmod){
+    } else if (-roundmod < scorediff < roundmod){
         stratNorm();
-    } else if (-stratmod >= scorediff){
+    } else if (-roundmod >= scorediff){
         stratAggro();
-    } else if (stratmod <= scorediff){
+    } else if (roundmod <= scorediff){
         stratCons();
-    } else if (stratmod == 1){
+    } else if (roundmod == 1){
         stratLast();
     }  
 }
@@ -688,11 +691,18 @@ function stratNorm(){
     let d = Math.floor(Math.random() * 2);
 
     for (i = 0; i < compcards.length; i++){
-        sum += compcards[i];
+        csum += compcards[i];
     }
-    compavg = sum / compcards.length;
 
-    if (stratmod == 5 && trickdiff <= 3 && trickavg <= 5 && a <= 70){
+    for (i = 0; i < yourcards.length; i++){
+        ysum += yourcards[i];
+    }
+    compavg = csum / compcards.length;
+    youravg = ysum / yourcards.length;
+    avgdiff = compavg - youravg;
+    r23mod = avgdiff * (5 - roundmod);
+
+    if (roundmod == 5 && trickdiff <= 3 && trickavg <= 5 && a <= 70){
         if (trick1 == 1){
             compbid1 = 1;
             compbid2 = trick2 + c;
@@ -704,7 +714,7 @@ function stratNorm(){
             compcards.splice([trick2 + c - 1], 1);
             compcards.splice(b, 1); // good to here //
         }           
-    } else if (stratmod == 5 && trickdiff <= 3 && trickavg <= 5 && 70 < a <=90){
+    } else if (roundmod == 5 && trickdiff <= 3 && trickavg <= 5 && 70 < a <=90){
         if (trick1 == 1){
             compbid1 = 1;
             compbid2 = 2;
@@ -715,7 +725,7 @@ function stratNorm(){
             compcards.splice([trick1 - 1], 1);
             compcards.splice(0, 1);
         }        
-    } else if (stratmod == 5 && trickdiff <= 3 && trickavg <= 5 && 90 < a) {
+    } else if (roundmod == 5 && trickdiff <= 3 && trickavg <= 5 && 90 < a) {
         if (trick1 == 1){
             compbid1 = 1;
             compbid2 = trick2;
@@ -726,7 +736,7 @@ function stratNorm(){
             compbid2 = 1;
             compcards.splice(0, 2);
         }
-    } else if (stratmod == 5 && 4 <= trickdiff && trickavg <= 5 && a <= 70) {
+    } else if (roundmod == 5 && 4 <= trickdiff && trickavg <= 5 && a <= 70) {
         if (trick1 == 1 && trick2 < 9){
             compbid1 = 1;
             compbid2 = trick2 + b + c;
@@ -743,7 +753,7 @@ function stratNorm(){
             compcards.splice([trick2 + c - 1], 1);
             compcards.splice(b, 1);
         }
-    } else if (stratmod == 5 && 4 <= trickdiff && trickavg <= 5 && 70 < a <= 90){
+    } else if (roundmod == 5 && 4 <= trickdiff && trickavg <= 5 && 70 < a <= 90){
         if (trick1 == 1){
             compbid1 = 2;
             compbid2 = 1;
@@ -754,7 +764,7 @@ function stratNorm(){
             compcards.splice([trick1 - 1], 1);
             compcards.splice(0, 1);
         }
-    } else if (stratmod == 5 && 4 <= trickdiff && trickavg <= 5 && 90 < a){
+    } else if (roundmod == 5 && 4 <= trickdiff && trickavg <= 5 && 90 < a){
         if (trick1 == 1){
             compbid1 = 1;
             compbid2 = 2 + b + c;
@@ -766,7 +776,7 @@ function stratNorm(){
             compcards.splice([trick2 + 1], 1);
             compcards.splice([trick1 - b - 1], 1);
         }
-    } else if (stratmod == 5 && trickdiff <= 3 && 5 < trickavg && a <= 50){
+    } else if (roundmod == 5 && trickdiff <= 3 && 5 < trickavg && a <= 50){
         if (trick1 != 9 && trick2 == 10){
             compbid1 = trick1 + b;
             compbid2 = 10;
@@ -782,7 +792,7 @@ function stratNorm(){
             compcards.splice([trick2 + c - 1], 1);
             compcards.splice(b, 1);
         }
-    } else if (stratmod == 5 && trickdiff <= 3 && 5 < trickavg && 50 < a <= 75){
+    } else if (roundmod == 5 && trickdiff <= 3 && 5 < trickavg && 50 < a <= 75){
         if (trick1 != 9 && trick2 == 10){
             compbid1 = b + c + 1;
             compbid2 = 10;
@@ -799,7 +809,7 @@ function stratNorm(){
             compcards.splice([trick1 + b + c - 1], 1);
             compcards.splice(d, 1);
         }
-    } else if (stratmod == 5 && trickdiff <= 3 && 5 < trickavg && 75 < a){
+    } else if (roundmod == 5 && trickdiff <= 3 && 5 < trickavg && 75 < a){
         if (trick1 != 9 && trick2 == 10){
             compbid1 = 9;
             compbid2 = 1;
@@ -816,7 +826,7 @@ function stratNorm(){
             compcards.splice([trick2 + d - 1], 1);
             compcards.splice([trick1 + b - c - 1], 1);
         }
-    } else if (stratmod == 5 && 4 <= trickdiff && 5 < trickavg && a <= 50){
+    } else if (roundmod == 5 && 4 <= trickdiff && 5 < trickavg && a <= 50){
         if (trick1 == 1){
             compbid1 = 1;
             compbid2 = 10;
@@ -838,7 +848,7 @@ function stratNorm(){
             compcards.splice([trick2 + c - 1], 1);
             compcards.splice(b, 1);
         }
-    } else if (stratmod == 5 && 4 <= trickdiff && 5 < trickavg && 50 < a <= 75){
+    } else if (roundmod == 5 && 4 <= trickdiff && 5 < trickavg && 50 < a <= 75){
         if (trick1 == 1){
             compbid1 = 1;
             compbid2 = 10;
@@ -860,7 +870,7 @@ function stratNorm(){
             compcards.splice([trick2 + d - 1], 1);
             compcards.splice([trick1 + b - c - 1], 1);
         } 
-    } else if (stratmod == 5 && 4 <= trickdiff && 5 < trickavg && 75 < a){
+    } else if (roundmod == 5 && 4 <= trickdiff && 5 < trickavg && 75 < a){
             if (trick1 == 1){
                 compbid1 = 1;
                 compbid2 = 10;
@@ -882,12 +892,44 @@ function stratNorm(){
                 compcards.splice(9, 1);
                 compcards.splice(0, 1);
             }
-    } else if (stratmod != 5 && trickdiff <=3 && trickavg <= 5 && a <= 70){// start of round 2-4 strat //
-        if (trick2 == 2){
+    } else if (3 <= roundmod <= 4 && trickdiff <=3 && trickavg <= 5 && -0.5 < r23mod < 0.5 && a <= 70){// start of round 2-4 strat //
+        if (trick2 == 2 && compcards[1] < yourcards[1]){
+            compbid2 = compcards.shift();
+            compbid1 = compcards.shift();
+        } else if (trick2 == 2) {
+            compbid1 = compcards.shift();    
+            compbid2 = compcards.shift();
+        } else if (trick1 == 1 && compcards[1] < yourcards[1]){// for lower percents divide this up according to avgs //
+            compbid2 = compcards.shift();
+            compbid1 = compcards.shift();            
+        } else if (trick1 == 1){
             compbid1 = compcards.shift();
             compbid2 = compcards.shift();
-        } else if (trick1 == 1){
-            compbid1 = 0;// THIS IS WHERE I LEFT OFF //
+        } else if (trick1 = 2){
+            compbid1 = compcards.shift();
+            if (compcards.indexOf(trick2) != -1){
+                compbid2 = trick2;
+                compcards.splice(compcards.indexOf(trick2), 1);
+            } else {
+                compbid2 = compcards.shift();
+            }
+        } else {
+            if (compcards.indexOf(trick2 + 1) != -1){                
+                compbid2 = trick2 + 1;
+                compcards.splice(compcards.indexOf(trick2 + 1), 1);
+                compbid1 = b + compcards.shift();
+            } else {
+                compbid2 = compcards.shift();
+                if (compcards.indexOf(b + trick1) != -1){
+                    compbid1 = b + trick1;
+                    compcards.splice(compcards.indexOf(b + trick1), 1);                    
+                } else if (compcards.indexOf(trick1) != -1){
+                    compbid1 = trick1;
+                    compcards.splice(compcards.indexOf(trick1), 1);        
+                } else {
+                    compbid1 = compcards.shift();
+                }
+            }
         }
     }
 
