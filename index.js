@@ -26,7 +26,7 @@ let rule = 0;
 let cbuttons = document.getElementsByClassName("cbutton");
 let buttons = document.getElementsByClassName("button");
 
-document.getElementById("rulebtn").addEventListener("click", rules)
+document.getElementById("rulebtn").addEventListener("click", test)
 document.getElementById("newround").addEventListener("click", trickGen)
 document.getElementById("commit").addEventListener("click", Commit)
 document.getElementById("newgame").addEventListener("click", newGame)
@@ -654,9 +654,11 @@ function Opp10(){
 function test(){
     let dog = [1, 2, 3, 4, 5, 6, 7, 8];
     let cat = [9, 10, 11, 12, 13, 14];
+    trick2 = 5;
+    a = 1;
 
-    console.log(dog[dog.length - 1]);
-    console.log(dog[-0]);
+    scorediff = dog.pop();
+    console.log(scorediff);
     console.log(dog);
 }
 
@@ -905,7 +907,10 @@ function stratNorm(){
         } else if (trick1 == 1){
             compbid1 = compcards.shift();
             compbid2 = compcards.shift();
-        } else if (trick1 = 2){
+        } else if (trick1 == 2 && compcards[1] < yourcards[1]){
+            compbid2 = compcards.shift();
+            compbid1 = compcards.shift();
+        } else if (trick1 == 2){
             compbid1 = compcards.shift();
             if (compcards.indexOf(trick2) != -1){
                 compbid2 = trick2;
@@ -917,7 +922,12 @@ function stratNorm(){
             if (compcards.indexOf(trick2 + 1) != -1){                
                 compbid2 = trick2 + 1;
                 compcards.splice(compcards.indexOf(trick2 + 1), 1);
-                compbid1 = b + compcards.shift();
+                if (compcards[0] < trick1 && compcards.indexOf(b + compcards[0]) != -1){
+                    compbid1 = b + compcards[0];
+                    compcards.splice(compcards.indexOf(b + compcards[0]), 1);
+                } else {
+                    compbid1 = compcards.shift();
+                }
             } else {
                 compbid2 = compcards.shift();
                 if (compcards.indexOf(b + trick1) != -1){
@@ -931,6 +941,112 @@ function stratNorm(){
                 }
             }
         }
+    } else if (3 <= roundmod <= 4 && trickdiff <=3 && trickavg <= 5 && -0.5 < r23mod < 0.5 && 70 < a){
+        if (trick2 == 2 && compcards[1] < yourcards[1]){
+            compbid2 = compcards.shift();
+            compbid1 = compcards.shift();
+        } else if (trick2 == 2) {
+            compbid1 = compcards.shift();    
+            compbid2 = compcards.shift();
+        } else if (trick1 == 1 && compcards[1] < yourcards[1]){// for lower percents divide this up according to avgs //
+            compbid2 = compcards.shift();
+            compbid1 = compcards.shift();            
+        } else if (trick1 == 1){
+            compbid1 = compcards.shift();
+            if (compcards[1] <= trick2 + 1){
+                compbid2 = compcards[1];
+                compcards.splice(compcards.indexOf(compcards[1]), 1);
+            } else {
+                compbid2 = compcards.shift();
+            }
+        } else if (trick1 == 2 && compcards[1] < yourcards[1]){
+            compbid2 = compcards.shift();
+            compbid1 = compcards.shift();
+        } else if (trick1 == 2){
+            compbid1 = compcards.shift();
+            if (compcards.indexOf(trick2 + 1) != -1){
+                compbid2 = trick2 + 1;
+                compcards.splice(compcards.indexOf(trick2 + 1), 1);
+            } else {
+                compbid2 = compcards.shift();
+            }
+        } else {
+            if (compcards.indexOf(trick2) != -1){                
+                compbid2 = trick2;
+                compcards.splice(compcards.indexOf(trick2), 1);
+                if (compcards[0] < trick1 && compcards.indexOf(b + c + compcards[0]) != -1){
+                    compbid1 = b + c + compcards[0];
+                    compcards.splice(compcards.indexOf(b + c + compcards[0]), 1);                    
+                } else {
+                    compbid1 = compcards.shift();
+                }
+            } else {
+                compbid2 = compcards.shift();
+                if (compcards.indexOf(b + trick1) != -1){
+                    compbid1 = b + trick1;
+                    compcards.splice(compcards.indexOf(b + trick1), 1);                    
+                } else if (compcards.indexOf(trick1) != -1){
+                    compbid1 = trick1;
+                    compcards.splice(compcards.indexOf(trick1), 1);        
+                } else {
+                    compbid1 = compcards.shift();
+                }
+            }
+        }
+    } else if (3 <= roundmod <= 4 && trickdiff <= 4 && trickavg <= 5 && -0.5 < r23mod < 0.5 && a <= 70){
+        if (7 < trick2 && comphigh < yourhigh){
+            compbid2 = compcards.shift();
+            compbid1 = compcards.shift();
+        } else {
+            compbid1 = compcards.shift();
+            if (7 < trick2 && yourhigh < comphigh){
+                compbid2 = compcards[compcards.length - 2];
+                compcards.splice(compcards.length - 2, 1);
+            } else if (7 < trick2){
+                compbid2 = compcards.pop();
+            } else if (compcards.indexOf(trick2 + 1) != -1){
+                compbid2 = trick2 + 1;
+                compcards.splice(compcards.indexOf(trick2 + 1), 1);
+            } else if (compavg > youravg && compcards.indexOf(trick2) != -1){
+                compbid2 = trick2;
+                compcards.splice(compcards.indexOf(trick2), 1);
+            } else if (compavg > youravg && compcards.indexOf(trick2 + 2) != -1){
+                compbid2 = trick2 + 2;
+                compcards.splice(compcards.indexOf(trick2 + 2), 1);
+            } else {
+                if (compcards[0 + b] <= trick2){
+                    compbid2 = compcards[0 + b];
+                    compcards.splice(compcards.indexOf(compcards[0 + b]), 1);
+                } else {
+                    compbid2 = compcards.shift();
+                }
+            }
+        }
+    } else if (3 <= roundmod <= 4 && trickdiff <= 4 && trickavg <= 5 && -0.5 < r23mod < 0.5 && 70 < a){
+        compbid1 = compcards.shift();
+        if (7 < trick2 && comphigh < yourhigh){            
+            compbid2 = compcards[0 + b + c];
+            compcards.splice(compcards.indexOf(compcards[0 + b + c]), 1);
+        } else {            
+            if (7 < trick2){
+                compbid2 = compcards.pop();
+            } else if (compavg > youravg && compcards.indexOf(trick2) != -1){
+                compbid2 = trick2;
+                compcards.splice(compcards.indexOf(trick2), 1);
+            } else if (compavg > youravg && compcards.indexOf(trick2 + 2) != -1){
+                compbid2 = trick2 + 2;
+                compcards.splice(compcards.indexOf(trick2 + 2), 1);
+            } else {
+                if (compcards[0 + b] <= trick2){
+                    compbid2 = compcards[0 + b];
+                    compcards.splice(compcards.indexOf(compcards[0 + b]), 1);
+                } else {
+                    compbid2 = compcards.shift();
+                }
+            }
+        }
+    } else if (3 <= roundmod <= 4 && 3 <= trickdiff && 5 < trickavg && -0.5 < r23mod < 0.5 && a <= 70){
+        
     }
 
     
