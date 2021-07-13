@@ -26,7 +26,7 @@ let rule = 0;
 let cbuttons = document.getElementsByClassName("cbutton");
 let buttons = document.getElementsByClassName("button");
 
-document.getElementById("rulebtn").addEventListener("click", test)
+document.getElementById("rulebtn").addEventListener("click", rules)
 document.getElementById("newround").addEventListener("click", trickGen)
 document.getElementById("commit").addEventListener("click", Commit)
 document.getElementById("newgame").addEventListener("click", newGame)
@@ -1239,7 +1239,7 @@ function stratNorm(){
                 compbid1 = compcards.shift();
             }
         }
-    } else if (roundmod == 2 && youravg <= compavg && a <= 70){
+    } else if (roundmod == 2 && a <= 70){
         if (yourhigh < comphigh){
             if (trick2 > 6){
                 compbid2 = compcards.pop();
@@ -1323,7 +1323,7 @@ function stratNorm(){
                 compbid1 = compcards.shift();
             }
         }
-    } else if (roundmod == 2 && youravg <= compavg && 70 < a){
+    } else if (roundmod == 2 && 70 < a){
         if (yourhigh < comphigh){
             if (trick2 > 6){
                 if (compcards[1] > yourcards[0]){
@@ -1402,6 +1402,28 @@ function stratNorm(){
                 compbid2 = compcards.shift();
                 compbid1 = compcards.shift();
             }
+        }
+    } else {
+        if (trickavg * 2 <= scorediff && b + c > 0){
+            compbid2 = compcards.pop();
+            compbid1 = compcards.pop();
+        } else if (trickavg * 2 < scorediff){
+            compbid1 = compcards.pop();
+            compbid2 = compcards.pop();
+        } else if (trick2 < scorediff && compcards[1] >= yourcards[1]){
+            compbid2 = compcards.pop();
+            compbid1 = compcards.pop();
+        } else if (trick2 < scorediff && b == 0){
+            compbid2 = compcards.pop();
+            compbid1 = compcards.pop();
+        } else if (trick2 < scorediff){
+            compbid1 = compcards.pop();
+            compbid2 = compcards.pop();
+        } else if (trick2 >= scorediff && compcards[1] >= yourcards[1]){
+            compbid2 = compcards.pop();
+            compbid1 = compcards.shift();
+        }
+
         }
     }
 
