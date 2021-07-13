@@ -1424,7 +1424,6 @@ function stratNorm(){
             compbid1 = compcards.shift();
         }
 
-        }
     }
 
     
