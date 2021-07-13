@@ -1239,7 +1239,171 @@ function stratNorm(){
                 compbid1 = compcards.shift();
             }
         }
-    } 
+    } else if (roundmod == 2 && youravg <= compavg && a <= 70){
+        if (yourhigh < comphigh){
+            if (trick2 > 6){
+                compbid2 = compcards.pop();
+                if (trick1 > 5 && compcards[2] >= yourcards[3]){
+                    compbid1 = compcards.pop();
+                } else if (2 < trick1 <=5 && compcards[1] <= trick1) {
+                    compbid1 = compcards[b];
+                    compcards.splice(b, 1);
+                } else {
+                    compbid1 = compcards.shift();
+                }
+            } else if (compcards[2] >= trick2){
+                compbid2 = compcards[2];
+                compcards.splice(2, 1);
+                compbid1 = compcards.shift();
+            } else if (compcards[1] >= yourcards[1]){
+                compbid1 = compcards.shift();
+                compbid2 = compcards.shift();
+            } else {
+                compbid2 = compcards.shift();
+                compbid1 = compcards.shift();
+            }
+        } else if (yourhigh > comphigh){
+            if (trick2 > 6){
+                if (compcards[2] >= trick2){
+                    compbid2 = compcards[2];
+                    compcards.splice(2, 1);
+                    if (compcards[1] <= trick1){
+                        compbid1 = compcards[1];
+                        compcards.splice(1, 1);
+                    } else {
+                        compbid1 = compcards.shift();
+                    }
+                } else {
+                    compbid2 = compcards.shift();
+                    if (compcards[2] >= yourcards[2] && trick1 > 5){
+                        compbid1 = compcards[2];
+                        compcards.splice(2, 1);
+                    } else {
+                        compbid1 = compcards.shift();
+                    }
+                }
+            } else if (compcards[2] >= trick2){
+                compbid2 = compcards[2];
+                compcards.splice(2, 1);
+                compbid1 = compcards.shift();
+            } else if (compcards[1] >= yourcards[1]){
+                compbid1 = compcards.shift();
+                compbid2 = compcards.shift();
+            } else {
+                compbid2 = compcards.shift();
+                compbid1 = compcards.shift();
+            }
+        } else {
+            if (trick2 > 7){
+                compbid2 = compcards.pop();
+                if (trick1 < 5){
+                    compbid1 = compcards.shift();
+                } else if (compcards[2] >= yourcards[2]){
+                    compbid1 = compcards.pop();
+                } else {
+                    compbid1 = compcards.shift();
+                }
+            } else if (4 < trick2 <= 7){
+                if (compcards[2] >= trick2){
+                    compbid2 = compcards[2];
+                    compcards.splice(2, 1);
+                    compbid1 = compcards.shift();
+                } else if (compcards[1] >= yourcards[1]){
+                    compbid1 = compcards.shift();
+                    compbid2 = compcards.shift();
+                } else {
+                    compbid2 = compcards.shift();
+                    compbid1 = compcards.shift();
+                }
+            } else if (compcards[1] >= yourcards[1]){
+                compbid1 = compcards.shift();
+                compbid2 = compcards.shift();
+            } else {
+                compbid2 = compcards.shift();
+                compbid1 = compcards.shift();
+            }
+        }
+    } else if (roundmod == 2 && youravg <= compavg && 70 < a){
+        if (yourhigh < comphigh){
+            if (trick2 > 6){
+                if (compcards[1] > yourcards[0]){
+                    compbid2 = compcards[1];
+                    compcards.splice(1, 1);
+                    if (trick1 > 4){
+                        compbid1 = compcards.pop();
+                    } else {
+                        compbid1 = compcards.shift();
+                    }
+                } else if (compcards[2] > yourcards[0]){
+                    compbid2 = compcards[2];
+                    compcards.splice(2, 1);
+                    if (trick1 > 4){
+                        compbid1 = compcards.pop();
+                    } else {
+                        compbid1 = compcards.shift();
+                    }
+                } else {
+                    compbid2 = compcards.pop();
+                    compbid1 = compcards.shift();
+                }
+            } else if (compcards[2] >= yourcards[3]){
+                compbid2 = compcards[2];
+                compcards.splice(2, 1);
+                combid1 = compcards.shift();
+            } else if (compcards[2] >= yourcards[2]){
+                compbid1 = compcards.shift();
+                compbid2 = compcards.shift();
+            } else {
+                compbid2 = compcards.shift();
+                compbid1 = compcards.shift();
+            }
+        } else if (yourhigh > comphigh){
+            if (trick2 > 6){
+                compbid2 - compcards.shift();
+                if (compcards[1] >= yourcards[2]){
+                    compbid1 = compcards[1];
+                    compcards.splice(1, 1);
+                } else if (trick1 > 5){
+                    compbid1 = compcards.pop();
+                } else {
+                    compbid1 = compcards.shift();
+                }
+            } else if (compcards[1] >= yourcards[1]){
+                compbid1 = compcards.shift();
+                compbid2 = compcards.shift();
+            } else {
+                compbid2 = compcards.shift();
+                compbid1 = compcards.shift();
+            }
+        } else {
+            if (trick2 > 6 && trickdiff <= 3){
+                compbid2 = compcards.shift();
+                if (compcards[1] > yourcards[2]){
+                    compbid1 = compcards[1];
+                    compcards.splice(1, 1);
+                } else {
+                    compbid1 = compcards.pop();
+                }
+            } else if (trick2 > 6){
+                compbid2 = compcards.pop();
+                compbid1 = compcards.shift();
+            } else if (trick2 > 3 && compcards.indexOf(trick2 + 1) != -1){
+                compbid2 = trick2 + 1;
+                compcards.splice(compcards.indexOf(trick2 + 1), 1);
+                compbid1 = compcards.shift();
+            } else if (trick2 > 3 && compcards.indexOf(trick2 + 2) != -1){
+                compbid2 = trick2 + 2;
+                compcards.splice(compcards.indexOf(trick2 + 2), 1);
+                compbid1 = compcards.shift();
+            } else if (compcards[1] >= yourcards[1]){
+                compbid1 = compcards.shift();
+                compbid2 = compcards.shift();
+            } else {
+                compbid2 = compcards.shift();
+                compbid1 = compcards.shift();
+            }
+        }
+    }
 
     
     document.getElementById("oppbid1").innerHTML = compbid1;// currently set to oppbid1 & 2 //
