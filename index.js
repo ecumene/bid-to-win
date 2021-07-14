@@ -1419,14 +1419,19 @@ function stratNorm(){
         } else if (trick2 < scorediff){
             compbid1 = compcards.pop();
             compbid2 = compcards.pop();
-        } else if (trick2 >= scorediff && compcards[1] >= yourcards[1]){
+        } else if (trick1 > scorediff && compcards[1] == yourcards[1] && compavg < youravg){
+            if (b == 0){
+                compbid2 = compcards.pop();
+                compbid1 = compcards.pop();
+            } else {
+                compbid1 = compcards.pop();
+                compbid2 = compcards.pop();
+            }            
+        } else {
             compbid2 = compcards.pop();
             compbid1 = compcards.shift();
         }
-
-    }
-
-    
+    }    
     document.getElementById("oppbid1").innerHTML = compbid1;// currently set to oppbid1 & 2 //
     document.getElementById("oppbid2").innerHTML = compbid2;
 }
