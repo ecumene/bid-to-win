@@ -1408,13 +1408,13 @@ function stratNorm(){
         } else if (trickavg * 2 < scorediff){
             oppbid1 = compcards.pop();
             oppbid2 = compcards[0];
-        } else if (trick2 < scorediff && compcards[1] >= yourcards[1]){
+        } else if (trick2 > scorediff && compcards[1] >= yourcards[1]){
             oppbid2 = compcards.pop();
             oppbid1 = compcards[0];
-        } else if (trick2 < scorediff && b == 0){
+        } else if (trick2 > scorediff && b == 0){
             oppbid2 = compcards.pop();
             oppbid1 = compcards[0];
-        } else if (trick2 < scorediff){
+        } else if (trick2 > scorediff){
             oppbid1 = compcards.pop();
             oppbid2 = compcards[0];
         } else if (trick1 >= scorediff && compcards[1] == yourcards[1] && compavg < youravg){
