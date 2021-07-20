@@ -36,7 +36,8 @@
             </div>
             <div id="playarea" class="row">
                 <div id="newroundiv" class="column">
-                <input type="button" id="newround" value="Next Round"/>
+                <input type="button" id="playcomp" value="Enable Computer Player"/>
+                <input type="button" id="play2p" value="2-Player Game"/>
                 </div>
                 <div id="tricks" class="column">
                     <textarea id="oppbid1" class="cbidbox"></textarea>
@@ -47,8 +48,9 @@
                     <textarea id="yourbid2" class="bidbox"></textarea><br>
                 </div>
                 <div id="commitdiv" class="column">
+                    <input type="button" id="newround" value="Next Round" disabled/>
                     <input type="button" id="commit" value="Commit Bids" disabled/>
-                    <input type="button" id="newgame" value="Rematch" disabled/>
+                    <input type="button" id="newgame" value="Rematch" disabled/>                    
                 </div>
             </div>
             <div id="yourcards">
@@ -64,6 +66,6 @@
                 <input type="button" id="card10" value="10" class="button" disabled/><br>
             </div>
         </div>
-        <script src="index.js"></script>
+        <script src="index1.js"></script>
     </body>
 </html>
