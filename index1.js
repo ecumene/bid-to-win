@@ -1,8 +1,7 @@
 let oppbid1, oppbid2;
 let yourbid1, yourbid2;
 let trick1, trick2;
-let line1, line2;
-let vscomp;
+let line1, line2, line3, line4;
 let cpu = 0;
 
 // variables specific to not yet implemented computer player - unimplemented functions begin at line 653 //
@@ -133,9 +132,6 @@ function trickGen(){
     }
 
     compStrat();
-    console.log(oppbid1);
-    console.log(oppbid2);
-    console.log(vscomp);
 }
 
 function Commit(){
@@ -166,10 +162,10 @@ function Commit(){
         document.getElementById("oppbid2").innerHTML = oppbid2;
         document.getElementById("commit").disabled = true;
         document.getElementById("newround").disabled = false;
-        line1.style.textDecoration = "line-through";
-        line2.style.textDecoration = "line-through";
-        document.getElementById("opp"+oppbid1).style.textDecoration = "line-through";
-        document.getElementById("opp"+oppbid2).style.textDecoration = "line-through";
+        line1.style.backgroundColor = "black";
+        line2.style.backgroundColor = "black";
+        document.getElementById("opp"+oppbid1).style.backgroundColor = "black";
+        document.getElementById("opp"+oppbid2).style.backgroundColor = "black";
     }
 
     if (yourbid1 > oppbid1){
@@ -246,11 +242,12 @@ function newGame(){
     document.getElementById("newgame").disabled = true;  
 
     for (i = 0; i < buttons.length; i++){
-        buttons[i].style.textDecoration = "none";
-        cbuttons[i].style.textDecoration = "none";
+        buttons[i].style.backgroundColor = "rgb(140, 140, 255)";
+        cbuttons[i].style.backgroundColor = "rgb(255, 140, 140)";
     }
 }
 
+// the beginning of the player button functions //
 function Card1(){
     loop++;
 
@@ -468,12 +465,12 @@ function Opp1(){
         document.getElementById("oppbid1").innerHTML = "1";
         oppbid1 = 1;
         document.getElementById("opp1").disabled = true;
-        document.getElementById("opp1").style.textDecoration = "line-through";
+        line3 = document.getElementById("opp1");
         oppadj.push(document.getElementById("opp1"));
     } else {
         document.getElementById("oppbid2").innerHTML = "1";
         oppbid2 = 1;
-        document.getElementById("opp1").style.textDecoration = "line-through";
+        line4 = document.getElementById("opp1");
         oppadj.push(document.getElementById("opp1"));
         document.getElementById("commit").disabled = false;
 
@@ -489,12 +486,12 @@ function Opp2(){
         document.getElementById("oppbid1").innerHTML = "2";
         oppbid1 = 2;
         document.getElementById("opp2").disabled = true;
-        document.getElementById("opp2").style.textDecoration = "line-through";
+        line3 = document.getElementById("opp2");
         oppadj.push(document.getElementById("opp2"));
     } else {
         document.getElementById("oppbid2").innerHTML = "2";
         oppbid2 = 2;
-        document.getElementById("opp2").style.textDecoration = "line-through";
+        line4 = document.getElementById("opp2"); 
         oppadj.push(document.getElementById("opp2"));
         document.getElementById("commit").disabled = false;
 
@@ -510,12 +507,12 @@ function Opp3(){
         document.getElementById("oppbid1").innerHTML = "3";
         oppbid1 = 3;
         document.getElementById("opp3").disabled = true;
-        document.getElementById("opp3").style.textDecoration = "line-through";
+        line3 = document.getElementById("opp3");
         oppadj.push(document.getElementById("opp3"));
     } else {
         document.getElementById("oppbid2").innerHTML = "3";
         oppbid2 = 3;
-        document.getElementById("opp3").style.textDecoration = "line-through";
+        line4 = document.getElementById("opp3");
         oppadj.push(document.getElementById("opp3"));
         document.getElementById("commit").disabled = false;
 
@@ -531,12 +528,12 @@ function Opp4(){
         document.getElementById("oppbid1").innerHTML = "4";
         oppbid1 = 4;
         document.getElementById("opp4").disabled = true;
-        document.getElementById("opp4").style.textDecoration = "line-through";
+        line3 = document.getElementById("opp4");
         oppadj.push(document.getElementById("opp4"));
     } else {
         document.getElementById("oppbid2").innerHTML = "4";
         oppbid2 = 4;
-        document.getElementById("opp4").style.textDecoration = "line-through";
+        line4 = document.getElementById("opp4");
         oppadj.push(document.getElementById("opp4"));
         document.getElementById("commit").disabled = false;
 
@@ -552,12 +549,12 @@ function Opp5(){
         document.getElementById("oppbid1").innerHTML = "5";
         oppbid1 = 5;
         document.getElementById("opp5").disabled = true;
-        document.getElementById("opp5").style.textDecoration = "line-through";
+        line3 = document.getElementById("opp5");
         oppadj.push(document.getElementById("opp5"));
     } else {
         document.getElementById("oppbid2").innerHTML = "5";
         oppbid2 = 5;
-        document.getElementById("opp5").style.textDecoration = "line-through";
+        line4 = document.getElementById("opp5");
         oppadj.push(document.getElementById("opp5"));
         document.getElementById("commit").disabled = false;
 
@@ -573,12 +570,12 @@ function Opp6(){
         document.getElementById("oppbid1").innerHTML = "6";
         oppbid1 = 6;
         document.getElementById("opp6").disabled = true;
-        document.getElementById("opp6").style.textDecoration = "line-through";
+        line3 = document.getElementById("opp6");
         oppadj.push(document.getElementById("opp6"));
     } else {
         document.getElementById("oppbid2").innerHTML = "6";
         oppbid2 = 6;
-        document.getElementById("opp6").style.textDecoration = "line-through";
+        line4 = document.getElementById("opp6");
         oppadj.push(document.getElementById("opp6"));
         document.getElementById("commit").disabled = false;
 
@@ -594,12 +591,12 @@ function Opp7(){
         document.getElementById("oppbid1").innerHTML = "7";
         oppbid1 = 7;
         document.getElementById("opp7").disabled = true;
-        document.getElementById("opp7").style.textDecoration = "line-through";
+        line3 = document.getElementById("opp7");
         oppadj.push(document.getElementById("opp7"));
     } else {
         document.getElementById("oppbid2").innerHTML = "7";
         oppbid2 = 7;
-        document.getElementById("opp7").style.textDecoration = "line-through";
+        line4 = document.getElementById("opp7");
         oppadj.push(document.getElementById("opp7"));
         document.getElementById("commit").disabled = false;
 
@@ -615,12 +612,12 @@ function Opp8(){
         document.getElementById("oppbid1").innerHTML = "8";
         oppbid1 = 8;
         document.getElementById("opp8").disabled = true;
-        document.getElementById("opp8").style.textDecoration = "line-through";
+        line3 = document.getElementById("opp8");
         oppadj.push(document.getElementById("opp8"));
     } else {
         document.getElementById("oppbid2").innerHTML = "8";
         oppbid2 = 8;
-        document.getElementById("opp8").style.textDecoration = "line-through";
+        line4 = document.getElementById("opp8");
         oppadj.push(document.getElementById("opp8"));
         document.getElementById("commit").disabled = false;
 
@@ -636,12 +633,12 @@ function Opp9(){
         document.getElementById("oppbid1").innerHTML = "9";
         oppbid1 = 9;
         document.getElementById("opp9").disabled = true;
-        document.getElementById("opp9").style.textDecoration = "line-through";
+        line3 = document.getElementById("opp9");
         oppadj.push(document.getElementById("opp9"));
     } else {
         document.getElementById("oppbid2").innerHTML = "9";
         oppbid2 = 9;
-        document.getElementById("opp9").style.textDecoration = "line-through";
+        line4 = document.getElementById("opp9");
         oppadj.push(document.getElementById("opp9"));
         document.getElementById("commit").disabled = false;
 
@@ -657,12 +654,12 @@ function Opp10(){
         document.getElementById("oppbid1").innerHTML = "10";
         oppbid1 = 10;
         document.getElementById("opp10").disabled = true;
-        document.getElementById("opp10").style.textDecoration = "line-through";
+        line3 = document.getElementById("opp10");
         oppadj.push(document.getElementById("opp10"));
     } else {
         document.getElementById("oppbid2").innerHTML = "10";
         oppbid2 = 10;
-        document.getElementById("opp10").style.textDecoration = "line-through";
+        line4 = document.getElementById("opp10");
         oppadj.push(document.getElementById("opp10"));
         document.getElementById("commit").disabled = false;
 
@@ -672,8 +669,7 @@ function Opp10(){
     }
 }
 
-// all code from this point is the start of a computer player that is not yet implemented //
-// when implemented, button will change id of "oppbid" boxes to "oppbid" //
+// the beginning of the computer strategy codes //
 
 function compStrat(){// not yet implemented fully; just a mediary right now //
     scorediff = oppscore - yourscore;
@@ -926,7 +922,7 @@ function stratNorm(){
                 oppbid2 = trick2 + 1;
                 compcards.splice(compcards.indexOf(trick2 + 1), 1);
                 if (compcards[0] < trick1){
-                    oppbid1 = compcards[0 + b];
+                    oppbid1 = compcards[b];
                     compcards.splice(b, 1);
                 } else {
                     oppbid1 = compcards.shift();
@@ -978,7 +974,7 @@ function stratNorm(){
                 oppbid2 = trick2;
                 compcards.splice(compcards.indexOf(trick2), 1);
                 if (compcards[0] < trick1){
-                    oppbid1 = compcards[0 + b];
+                    oppbid1 = compcards[b];
                     compcards.splice(b, 1);                    
                 } else {
                     oppbid1 = compcards.shift();
@@ -1018,7 +1014,7 @@ function stratNorm(){
                 compcards.splice(compcards.indexOf(trick2 + 2), 1);
             } else {
                 if (compcards[0 + b] <= trick2){
-                    oppbid2 = compcards[0 + b];
+                    oppbid2 = compcards[b];
                     compcards.splice(b, 1);
                 } else {
                     oppbid2 = compcards.shift();
@@ -1089,7 +1085,7 @@ function stratNorm(){
             }
         } else if (compcards.indexOf(trick2 + 1) != -1){
             oppbid2 = trick2 + 1
-            compcards.splice(compcards.indexOf(compcards[trick2 + 1]), 1);
+            compcards.splice(compcards.indexOf(trick2 + 1), 1);
             if (compcards[1] <= trick1){
                 oppbid1 = compcards[1];
                 compcards.splice(1, 1);
@@ -1172,7 +1168,7 @@ function stratNorm(){
             }
         } else if (compcards.indexOf(trick2 + 1) != -1){
             oppbid2 = trick2 + 1
-            compcards.splice(compcards.indexOf(compcards[trick2 + 1]), 1);
+            compcards.splice(compcards.indexOf(trick2 + 1), 1);
             if (compcards[1] <= trick1){
                 oppbid1 = compcards[1];
                 compcards.splice(1, 1);
@@ -1408,32 +1404,37 @@ function stratNorm(){
     } else {
         if (trickavg * 2 <= scorediff && b + c > 0){
             oppbid2 = compcards.pop();
-            oppbid1 = compcards.pop();
+            oppbid1 = compcards[0];
         } else if (trickavg * 2 < scorediff){
             oppbid1 = compcards.pop();
-            oppbid2 = compcards.pop();
+            oppbid2 = compcards[0];
         } else if (trick2 < scorediff && compcards[1] >= yourcards[1]){
             oppbid2 = compcards.pop();
-            oppbid1 = compcards.pop();
+            oppbid1 = compcards[0];
         } else if (trick2 < scorediff && b == 0){
             oppbid2 = compcards.pop();
-            oppbid1 = compcards.pop();
+            oppbid1 = compcards[0];
         } else if (trick2 < scorediff){
             oppbid1 = compcards.pop();
-            oppbid2 = compcards.pop();
-        } else if (trick1 > scorediff && compcards[1] == yourcards[1] && compavg < youravg){
+            oppbid2 = compcards[0];
+        } else if (trick1 >= scorediff && compcards[1] == yourcards[1] && compavg < youravg){
             if (b == 0){
                 oppbid2 = compcards.pop();
-                oppbid1 = compcards.pop();
+                oppbid1 = compcards[0];
             } else {
                 oppbid1 = compcards.pop();
-                oppbid2 = compcards.pop();
+                oppbid2 = compcards[0];
             }            
         } else {
             oppbid2 = compcards.pop();
-            oppbid1 = compcards.shift();
+            oppbid1 = compcards[0];
         }
-    }    
+    }
+    console.log(a);
+    console.log(b);
+    console.log(c);
+    console.log(oppbid1);
+    console.log(oppbid2);   
 }
 
 function stratAggro(){
