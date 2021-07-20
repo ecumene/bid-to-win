@@ -8,8 +8,8 @@ let cpu = 0;
 let scorediff, roundmod, trickdiff, trickavg;
 let compavg, youravg, avgdiff, r23mod; 
 let comphigh, yourhigh;
-let compcards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-let yourcards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+let compcards = [];
+let yourcards = [];
 let csum = 0;
 let ysum = 0;
 // end of not yet implemented variable //
@@ -82,6 +82,8 @@ function playcomp(){
     document.getElementById("playcomp").disabled = true;
     document.getElementById("play2p").disabled = true;
     document.getElementById("newround").disabled = false;
+    compcards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    yourcards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 }
 
 function play2p(){
@@ -136,6 +138,8 @@ function trickGen(){
 
 function Commit(){
     loop = 0;
+    yourcards.splice(yourcards.indexOf(yourbid1), 1);
+    yourcards.splice(yourcards.indexOf(yourbid2), 1);
     if (cpu == 0) {
         count++;
         
@@ -150,8 +154,6 @@ function Commit(){
                 oppadj[i].disabled = true;
             }      
         } else {
-            yourcards.splice(yourcards.indexOf(yourbid1), 1);
-            yourcards.splice(yourcards.indexOf(yourbid2), 1);
             document.getElementById("yourbid1").innerHTML = yourbid1;
             document.getElementById("yourbid2").innerHTML = yourbid2;
             document.getElementById("commit").disabled = true;
