@@ -802,8 +802,8 @@ function stratNorm(){
         } else if (trick1 == 9 && trick2 == 10){
             oppbid1 = 10;
             oppbid2 = b + c + 1;
-            compcards.splice(9, 0);
-            compcards.splice(b + c, 0);
+            compcards.splice(9, 1);
+            compcards.splice(b + c, 1);
         } else {
             oppbid1 = trick1 + b + c;
             oppbid2 = d + 1;
@@ -819,8 +819,8 @@ function stratNorm(){
         } else if (trick1 == 9 && trick2 == 10){
             oppbid1 = b + 1;
             oppbid2 = 10;
-            compcards.splice(9, 0);
-            compcards.splice(b, 0);
+            compcards.splice(9, 1);
+            compcards.splice(b, 1);
         } else {
             oppbid1 = trick1 + b - c;
             oppbid2 = trick2 + d;
