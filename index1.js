@@ -1429,12 +1429,7 @@ function stratNorm(){
             oppbid2 = compcards.pop();
             oppbid1 = compcards[0];
         }
-    }
-    console.log(a);
-    console.log(b);
-    console.log(c);
-    console.log(oppbid1);
-    console.log(oppbid2);   
+    }  
 }
 
 function stratAggro(){
