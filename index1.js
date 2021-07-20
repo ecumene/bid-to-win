@@ -150,6 +150,8 @@ function Commit(){
                 oppadj[i].disabled = true;
             }      
         } else {
+            yourcards.splice(yourcards.indexOf(yourbid1), 1);
+            yourcards.splice(yourcards.indexOf(yourbid2), 1);
             document.getElementById("yourbid1").innerHTML = yourbid1;
             document.getElementById("yourbid2").innerHTML = yourbid2;
             document.getElementById("commit").disabled = true;
@@ -677,10 +679,10 @@ function compStrat(){// not yet implemented fully; just a mediary right now //
     trickdiff = trick2 - trick1;
     trickavg = (trick1 + trick2)/2;
 
-    yourcards.splice(yourcards.indexOf(yourbid1), 1);
-    yourcards.splice(yourcards.indexOf(yourbid2), 1);
     comphigh = compcards[compcards.length - 1];
     yourhigh = yourcards[yourcards.length - 1];
+    console.log(yourhigh);
+    console.log(comphigh);
 
     stratNorm();//instead of just passing to stratNorm, there will be an if/else statement to decide how aggressive a strategy to use // 
 }
@@ -1429,7 +1431,7 @@ function stratNorm(){
             oppbid2 = compcards.pop();
             oppbid1 = compcards[0];
         }
-    }  
+    }
 }
 
 function stratAggro(){
