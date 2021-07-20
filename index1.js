@@ -3,17 +3,6 @@ let yourbid1, yourbid2;
 let trick1, trick2;
 let line1, line2, line3, line4;
 let cpu = 0;
-
-// variables specific to not yet implemented computer player - unimplemented functions begin at line 653 //
-let scorediff, roundmod, trickdiff, trickavg;
-let compavg, youravg, avgdiff, r23mod; 
-let comphigh, yourhigh;
-let compcards = [];
-let yourcards = [];
-let csum = 0;
-let ysum = 0;
-// end of not yet implemented variable //
-
 let youradj = [];
 let oppadj = [];
 let oppscore = 0;
@@ -25,6 +14,17 @@ let count = 0;
 let rule = 0;
 let cbuttons = document.getElementsByClassName("cbutton");
 let buttons = document.getElementsByClassName("button");
+
+// variables specific to computer player //
+let scorediff, roundmod, trickdiff, trickavg;
+let compavg, youravg, avgdiff, r23mod; 
+let comphigh, yourhigh;
+let compcards = [];
+let yourcards = [];
+let csum = 0;
+let ysum = 0;
+// variables specific to computer player //
+
 
 document.getElementById("rulebtn").addEventListener("click", rules)
 document.getElementById("playcomp").addEventListener("click", playcomp)
@@ -1434,17 +1434,5 @@ function stratNorm(){
             oppbid1 = compcards[0];
         }
     }
-}
-
-function stratAggro(){
-
-}
-
-function stratCons(){
-
-}
-
-function stratLast(){
-    
 }
 
