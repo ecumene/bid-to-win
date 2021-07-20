@@ -895,7 +895,7 @@ function stratNorm(){
                 compcards.splice(9, 1);
                 compcards.splice(0, 1);
             }
-    } else if (3 <= roundmod <= 4 && trickdiff <=3 && trickavg <= 5 && a <= 70){// start of round 2-4 strat //
+    } else if (3 <= roundmod <= 4 && trickdiff <=3 && trickavg <= 5 && a <= 70){
         if (trick2 == 2 && compcards[1] < yourcards[1]){
             compbid2 = compcards.shift();
             compbid1 = compcards.shift();
@@ -1447,3 +1447,4 @@ function stratCons(){
 function stratLast(){
     
 }
+
