@@ -705,8 +705,6 @@ function stratNorm(){
     console.log(trick2);
     console.log(b);
     console.log(c);
-    console.log(compcards);
-    console.log(yourcards);
     console.log("----------");
 
     for (i = 0; i < compcards.length; i++){
