@@ -25,7 +25,6 @@ let csum = 0;
 let ysum = 0;
 // variables specific to computer player //
 
-
 document.getElementById("rulebtn").addEventListener("click", rules)
 document.getElementById("playcomp").addEventListener("click", playcomp)
 document.getElementById("play2p").addEventListener("click", play2p)
@@ -203,6 +202,9 @@ function Commit(){
         document.getElementById("newgame").disabled = false;
         document.getElementById("newround").disabled = true;
     } else {};
+
+    console.log(compcards);
+    console.log(yourcards);
 }
 
 function newGame(){
@@ -683,8 +685,6 @@ function compStrat(){// not yet implemented fully; just a mediary right now //
 
     comphigh = compcards[compcards.length - 1];
     yourhigh = yourcards[yourcards.length - 1];
-    console.log(yourhigh);
-    console.log(comphigh);
 
     stratNorm();//instead of just passing to stratNorm, there will be an if/else statement to decide how aggressive a strategy to use // 
 }
