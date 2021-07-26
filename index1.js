@@ -117,6 +117,10 @@ function trickGen(){
         document.getElementById("oppbid2").innerHTML = "?";
     }
     
+    document.getElementById("trick1").style.backgroundColor = "white";
+    document.getElementById("trick2").style.backgroundColor = "white";
+    document.getElementById("trick1").style.color = "black";
+    document.getElementById("trick2").style.color = "black";
     document.getElementById("yourbid1").innerHTML = "";
     document.getElementById("yourbid2").innerHTML = "";
     document.getElementById("trick1").innerHTML = trick1;    
@@ -173,17 +177,25 @@ function Commit(){
 
     if (yourbid1 > oppbid1){
         yourscore = yourscore + trick1;
+        document.getElementById("trick1").style.backgroundColor = "blue";
+        document.getElementById("trick1").style.color = "white";
         document.getElementById("scoreboard").innerHTML = yourscore + " - " + oppscore;
     } else if (yourbid1 < oppbid1){
         oppscore = oppscore + trick1;
+        document.getElementById("trick1").style.backgroundColor = "red";
+        document.getElementById("trick1").style.color = "white";
         document.getElementById("scoreboard").innerHTML = yourscore + " - " + oppscore;
     } else {};
 
     if (yourbid2 > oppbid2){
             yourscore = yourscore + trick2;
+            document.getElementById("trick2").style.backgroundColor = "blue";
+            document.getElementById("trick2").style.color = "white";
             document.getElementById("scoreboard").innerHTML = yourscore + " - " + oppscore;
     } else if (yourbid2 < oppbid2){
             oppscore = oppscore + trick2;
+            document.getElementById("trick2").style.backgroundColor = "red";
+            document.getElementById("trick2").style.color = "white";
             document.getElementById("scoreboard").innerHTML = yourscore + " - " + oppscore;
     } else {};
 
@@ -243,6 +255,10 @@ function newGame(){
     document.getElementById("oppbid2").innerHTML = "";
     document.getElementById("yourbid1").innerHTML = "";
     document.getElementById("yourbid2").innerHTML = "";
+    document.getElementById("trick1").style.backgroundColor = "white";
+    document.getElementById("trick2").style.backgroundColor = "white";
+    document.getElementById("trick1").style.color = "black";
+    document.getElementById("trick2").style.color = "black";
     document.getElementById("trick1").innerHTML = "";    
     document.getElementById("trick2").innerHTML = "";
     document.getElementById("newround").disabled = false;  
@@ -696,23 +712,6 @@ function stratNorm(){
     let c = Math.floor(Math.random() * 2);
     let d = Math.floor(Math.random() * 2);
     let c0 = compcards[0];
-    console.log(roundmod);
-    console.log(trickdiff);
-    console.log(trickavg);
-    console.log(a);
-    console.log(trick1);
-    console.log(trick2);
-    console.log(b);
-    console.log(c);
-    console.log(c0);
-    console.log(compcards[1]);
-    console.log(compcards[2]);
-    console.log(yourcards[0]);
-    console.log(yourcards[1]);
-    console.log(yourcards[2]);
-    console.log(comphigh);
-    console.log(yourhigh);
-    console.log("----------");
     
     for (i = 0; i < compcards.length; i++){
         csum += compcards[i];
