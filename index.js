@@ -20,16 +20,27 @@ app.get('/testdb', (req, res) => {
     let sql = 'CREATE DATABASE testdb';
     db.query(sql, (err, result) => {
         if(err) throw err;
-        res.send("mADE DATABASE");
-    })
+        res.send("made database");
+    });
 });
 
 app.put('/user', (req, res) => {
     let sql = "INSERT INTO leaderboard.user_stats (ID, Username, GP, Wins, Losses, Ties, Abandons)" +
-                "VALUES ('3', 'Another-Test', '0', '0', '0', '0', '0')";
+                "VALUES ('2', 'Test-User', '0', '0', '0', '0', '0')";
     db.query(sql, req.body, (err, result) => {
         if(err) throw err;
         console.log("working");
         res.send('Successfully added new user to database.');
-    })
-})
+    });
+});
+
+app.put('/statchange', (req, res) => {
+    let sql = "UPDATE leaderboard.user_stats " +
+              "SET GP='"+p1GP+"', Wins='"+p1W+"', Losses='"+p1L+"', Ties='"+piT+"', Abandons='"+p1A+"' " +
+              "WHERE ID='"+p1ID+"'";
+    db.query(sql, req.body, (err, result) => {
+        if(err) throw err;
+        console.log("working");
+        res.send('Successfully gave playerID2 a GP and win.');
+    });
+});

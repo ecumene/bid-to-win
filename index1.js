@@ -16,6 +16,13 @@ let scorerev = 0;
 let cbuttons = document.getElementsByClassName("cbutton");
 let buttons = document.getElementsByClassName("button");
 
+let p1GP = 3;
+let p1ID = 2;
+let p1W = 1;
+let p1L = 2;
+let p1T = 0;
+let p1A = 0;
+
 // variables specific to computer player //
 let scorediff, roundmod, trickdiff, trickavg;
 let compavg, youravg; 
@@ -167,6 +174,10 @@ function Commit(){
     } else {
         document.getElementById("commit").disabled = true;    
     }
+
+    console.log(oppbid1);
+    console.log(oppbid2);
+    console.log("---------");
 
     if (cpu == 0 && loop % 2 != 0){
         let e = 0;
@@ -743,6 +754,17 @@ function stratNorm(){
     let c = Math.floor(Math.random() * 2);
     let d = Math.floor(Math.random() * 2);
     let c0 = compcards[0];
+
+    console.log(roundmod);
+    console.log(trick1);
+    console.log(trick2);
+    console.log(a);
+    console.log(b);
+    console.log(c);
+    console.log(d);
+    console.log(comphigh);
+    console.log(yourhigh);
+    console.log("----------");
     
     for (i = 0; i < compcards.length; i++){
         csum += compcards[i];
@@ -799,7 +821,7 @@ function stratNorm(){
             oppbid2 = 10
             compcards.splice(9, 1);
             compcards.splice(0, 1);
-        } else {
+        } else {//potential issue with this piece??//
             oppbid1 = b + 1;
             oppbid2 = trick2 + c;
             compcards.splice([trick2 + c - 1], 1);
@@ -1057,7 +1079,7 @@ function stratNorm(){
             } else if (compcards.indexOf(trick2 + 1) != -1){
                 oppbid2 = trick2 + 1;
                 compcards.splice(compcards.indexOf(trick2 + 1), 1);
-            } else if (compavg > youravg && compcards.indexOf(trick2) != -1){
+            } else if (compavg > youravg && compcards.indexOf(trick2) != -1){//compavg and/or youravg not defined properly??//
                 oppbid2 = trick2;
                 compcards.splice(compcards.indexOf(trick2), 1);
             } else if (compavg > youravg && compcards.indexOf(trick2 + 2) != -1){
@@ -1398,7 +1420,7 @@ function stratNorm(){
             } else if (compcards[2] >= yourcards[3]){
                 oppbid2 = compcards[2];
                 compcards.splice(2, 1);
-                combid1 = compcards.shift();
+                oppbid1 = compcards.shift();
             } else if (compcards[2] >= yourcards[2]){
                 oppbid1 = compcards.shift();
                 oppbid2 = compcards.shift();
