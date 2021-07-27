@@ -175,12 +175,6 @@ function Commit(){
         document.getElementById("commit").disabled = true;    
     }
 
-    console.log(oppbid1);
-    console.log(oppbid2);
-    console.log(yourbid1);
-    console.log(yourbid2);
-    console.log("---------");
-
     if (cpu == 0 && loop % 2 != 0){
         let e = 0;
     } else {
@@ -768,23 +762,6 @@ function stratNorm(){
     }
     compavg = csum / compcards.length;
     youravg = ysum / yourcards.length;
-
-    console.log(roundmod);
-    console.log(trick1);
-    console.log(trick2);
-    console.log(a);
-    console.log(b);
-    console.log(c);
-    console.log(d);
-    console.log(comphigh);
-    console.log(yourhigh);
-    console.log(compavg);
-    console.log(youravg);
-    console.log(csum);
-    console.log(ysum);
-    console.log(compcards.length);
-    console.log(yourcards.length);
-    console.log("----------");
 
     if (roundmod === 5 && trickdiff <= 3 && trickavg <= 5 && a <= 70){
         if (trick1 == 1){

@@ -36,6 +36,17 @@ app.put('/user', (req, res) => {
 
 app.put('/statchange', (req, res) => {
     let sql = "UPDATE leaderboard.user_stats " +
+              "SET GP='3', Wins='2', Losses='1', Ties='0', Abandons='0' " +
+              "WHERE ID='2'";
+    db.query(sql, req.body, (err, result) => {
+        if(err) throw err;
+        console.log("working");
+        res.send('Successfully gave playerID2 a GP and win.');
+    });
+});
+
+app.put('/statchange2', (req, res) => {
+    let sql = "UPDATE leaderboard.user_stats " +
               "SET GP='"+p1GP+"', Wins='"+p1W+"', Losses='"+p1L+"', Ties='"+piT+"', Abandons='"+p1A+"' " +
               "WHERE ID='"+p1ID+"'";
     db.query(sql, req.body, (err, result) => {
