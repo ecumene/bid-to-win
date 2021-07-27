@@ -12,6 +12,7 @@ let yourmatch = 0;
 let loop = 0;
 let count = 0;
 let rule = 0;
+let scorerev = 0;
 let cbuttons = document.getElementsByClassName("cbutton");
 let buttons = document.getElementsByClassName("button");
 
@@ -81,6 +82,7 @@ function playcomp(){
     document.getElementById("playcomp").disabled = true;
     document.getElementById("play2p").disabled = true;
     document.getElementById("newround").disabled = false;
+    document.getElementById("player2").src = "images/comp_player.png";
     compcards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     yourcards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 }
@@ -141,6 +143,7 @@ function trickGen(){
 
 function Commit(){
     loop = 0;
+    scorerev = 0;
     yourcards.splice(yourcards.indexOf(yourbid1), 1);
     yourcards.splice(yourcards.indexOf(yourbid2), 1);
     if (cpu == 0) {
@@ -157,63 +160,95 @@ function Commit(){
                 oppadj[i].disabled = true;
             }      
         } else {
-            document.getElementById("yourbid1").innerHTML = yourbid1;
-            document.getElementById("yourbid2").innerHTML = yourbid2;
             document.getElementById("commit").disabled = true;
-            document.getElementById("newround").disabled = false;
-            line1.style.textDecoration = "line-through";
-            line2.style.textDecoration = "line-through";
+            line3.style.textDecoration = "line-through";
+            line4.style.textDecoration = "line-through";
         }
     } else {
-        document.getElementById("oppbid1").innerHTML = oppbid1;
-        document.getElementById("oppbid2").innerHTML = oppbid2;
-        document.getElementById("commit").disabled = true;
-        document.getElementById("newround").disabled = false;
-        line1.style.backgroundColor = "black";
-        line2.style.backgroundColor = "black";
-        document.getElementById("opp"+oppbid1).style.backgroundColor = "black";
-        document.getElementById("opp"+oppbid2).style.backgroundColor = "black";
+        document.getElementById("commit").disabled = true;    
     }
 
-    if (yourbid1 > oppbid1){
-        yourscore = yourscore + trick1;
-        document.getElementById("trick1").style.backgroundColor = "blue";
-        document.getElementById("trick1").style.color = "white";
-        document.getElementById("scoreboard").innerHTML = yourscore + " - " + oppscore;
-    } else if (yourbid1 < oppbid1){
-        oppscore = oppscore + trick1;
-        document.getElementById("trick1").style.backgroundColor = "red";
-        document.getElementById("trick1").style.color = "white";
-        document.getElementById("scoreboard").innerHTML = yourscore + " - " + oppscore;
-    } else {};
+    if (cpu == 0 && loop % 2 != 0){
+        let e = 0;
+    } else {
+        setTimeout(scoreReveal, 800);
+    }
+}
 
-    if (yourbid2 > oppbid2){
+function scoreReveal(){
+    scorerev++
+
+    if (cpu == 0 && scorerev == 1){
+        document.getElementById("yourbid1").innerHTML = yourbid1;
+        line1.style.textDecoration = "line-through";
+    } else if (cpu == 1 && scorerev == 1){
+        document.getElementById("oppbid1").innerHTML = oppbid1;
+        line1.style.backgroundColor = "black";
+        document.getElementById("opp"+oppbid1).style.backgroundColor = "black";
+    } else if (scorerev == 2){
+        if (yourbid1 > oppbid1){
+            yourscore = yourscore + trick1;
+            document.getElementById("trick1").style.backgroundColor = "blue";
+            document.getElementById("trick1").style.color = "white";
+            document.getElementById("scoreboard").innerHTML = yourscore + " - " + oppscore;
+        } else if (yourbid1 < oppbid1){
+            oppscore = oppscore + trick1;
+            document.getElementById("trick1").style.backgroundColor = "red";
+            document.getElementById("trick1").style.color = "white";
+            document.getElementById("scoreboard").innerHTML = yourscore + " - " + oppscore;
+        } else {
+            document.getElementById("trick1").style.backgroundColor = "lightgray";
+        };
+        if (yourscore > oppscore){
+            document.getElementById("scoreboard").style.background = "blue";
+            document.getElementById("scoreboard").style.color = "white";
+        } else if (yourscore < oppscore){
+            document.getElementById("scoreboard").style.background = "red";
+            document.getElementById("scoreboard").style.color = "white";
+        } else {
+            document.getElementById("scoreboard").style.background = "lightgray";
+            document.getElementById("scoreboard").style.color = "black";
+        }
+    } else if (cpu == 0 && scorerev == 3){
+        document.getElementById("yourbid2").innerHTML = yourbid2;
+        line2.style.textDecoration = "line-through";
+    } else if (cpu == 1 && scorerev == 3){
+        document.getElementById("oppbid2").innerHTML = oppbid2;
+        line2.style.backgroundColor = "black";
+        document.getElementById("opp"+oppbid2).style.backgroundColor = "black";
+    } else {
+        if (yourbid2 > oppbid2){
             yourscore = yourscore + trick2;
             document.getElementById("trick2").style.backgroundColor = "blue";
             document.getElementById("trick2").style.color = "white";
             document.getElementById("scoreboard").innerHTML = yourscore + " - " + oppscore;
-    } else if (yourbid2 < oppbid2){
+        } else if (yourbid2 < oppbid2){
             oppscore = oppscore + trick2;
             document.getElementById("trick2").style.backgroundColor = "red";
             document.getElementById("trick2").style.color = "white";
             document.getElementById("scoreboard").innerHTML = yourscore + " - " + oppscore;
-    } else {};
-
-    if (yourscore > oppscore){
-        document.getElementById("scoreboard").style.background = "blue";
-        document.getElementById("scoreboard").style.color = "white";
-    } else if (yourscore < oppscore){
-        document.getElementById("scoreboard").style.background = "red";
-        document.getElementById("scoreboard").style.color = "white";
-    } else {
-        document.getElementById("scoreboard").style.background = "lightgray";
-        document.getElementById("scoreboard").style.color = "black";
+        } else {
+            document.getElementById("trick1").style.backgroundColor = "lightgray";
+        };
+        if (yourscore > oppscore){
+            document.getElementById("scoreboard").style.background = "blue";
+            document.getElementById("scoreboard").style.color = "white";
+        } else if (yourscore < oppscore){
+            document.getElementById("scoreboard").style.background = "red";
+            document.getElementById("scoreboard").style.color = "white";
+        } else {
+            document.getElementById("scoreboard").style.background = "lightgray";
+            document.getElementById("scoreboard").style.color = "black";
+        }
     }
 
-    if (youradj.length == 10){
-        document.getElementById("newgame").disabled = false;
-        document.getElementById("newround").disabled = true;
-    } else {};
+if (scorerev >= 4 && youradj.length != 10){    
+    document.getElementById("newround").disabled = false;
+} else if (scorerev >= 4 && youradj.length == 10){
+    document.getElementById("newgame").disabled = false;
+} else {
+    setTimeout(scoreReveal, 800);
+};
 }
 
 function newGame(){
@@ -1087,11 +1122,11 @@ function stratNorm(){
             oppbid1 = compcards.pop();
             oppbid2 = compcards[b + c];
             compcards.splice(b + c, 1);
-        } else if (7 < trick2 && yourhigh <= comphigh){// something here doesn't work??//
+        } else if (7 < trick2 && yourhigh <= comphigh){
             oppbid2 = compcards.pop();
             if (compcards.indexOf(trick1 + b) != -1){
                 oppbid1 = trick1 + b;
-                compcards.splice(compcards.indexOf(trick1 + b), 1);// to here?? //
+                compcards.splice(compcards.indexOf(trick1 + b), 1);
             } else if (compcards.indexOf(trick1 - c) != -1){
                 oppbid1 = trick1 - c;
                 compcards.splice(compcards.indexOf(trick1 - c), 1);

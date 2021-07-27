@@ -9,7 +9,14 @@ h1 {
     color: red;
 }
 
-h3, h4 {
+h3{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: medium;
+    margin-bottom: 1px;
+    margin-left: 8.75vw;
+}
+
+h4 {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: medium;
     margin-bottom: 1px;
@@ -62,6 +69,14 @@ h3, h4 {
 
 #scoreicons {
     display: inline-flex;
+}
+
+#player1 {
+    margin-right: 5px;
+}
+
+#player2 {
+    margin-left: 5px;
 }
 
 #scoreboard {
@@ -144,6 +159,11 @@ h3, h4 {
 
 #yourcards {
     text-align: center;
+}
+
+.icon {
+    height:4vw;
+    width:4vw;
 }
 
 .overdiv {
