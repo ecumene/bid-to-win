@@ -16,8 +16,17 @@ const db = mysql.createPool({
     database: 'leaderboard'
 });
 
-app.post('/user', (req, res) => {
-    let sql = "INSERT INTO leaderboard.user_stats SET ? ";
+app.get('/testdb', (req, res) => {
+    let sql = 'CREATE DATABASE testdb';
+    db.query(sql, (err, result) => {
+        if(err) throw err;
+        res.send("mADE DATABASE");
+    })
+});
+
+app.put('/user', (req, res) => {
+    let sql = "INSERT INTO leaderboard.user_stats (ID, Username, GP, Wins, Losses, Ties, Abandons)" +
+                "VALUES ('3', 'Another-Test', '0', '0', '0', '0', '0')";
     db.query(sql, req.body, (err, result) => {
         if(err) throw err;
         console.log("working");

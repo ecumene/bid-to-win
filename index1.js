@@ -214,10 +214,6 @@ function Commit(){
         document.getElementById("newgame").disabled = false;
         document.getElementById("newround").disabled = true;
     } else {};
-
-    console.log(oppbid1);
-    console.log(oppbid2);
-    console.log("--------");
 }
 
 function newGame(){
@@ -1091,12 +1087,12 @@ function stratNorm(){
             oppbid1 = compcards.pop();
             oppbid2 = compcards[b + c];
             compcards.splice(b + c, 1);
-        } else if (7 < trick2 && yourhigh <= comphigh){
+        } else if (7 < trick2 && yourhigh <= comphigh){// something here doesn't work??//
             oppbid2 = compcards.pop();
-            if (compcards.indexOf(compcards[trick1 + b]) != -1){
+            if (compcards.indexOf(trick1 + b) != -1){
                 oppbid1 = trick1 + b;
-                compcards.splice(compcards.indexOf(trick1 + b), 1);
-            } else if (compcards.indexOf(compcards[trick1 -c]) != -1){
+                compcards.splice(compcards.indexOf(trick1 + b), 1);// to here?? //
+            } else if (compcards.indexOf(trick1 - c) != -1){
                 oppbid1 = trick1 - c;
                 compcards.splice(compcards.indexOf(trick1 - c), 1);
             } else {
@@ -1160,10 +1156,10 @@ function stratNorm(){
         } else if (7 < trick2 && yourhigh < comphigh){
             oppbid2 = compcards[1 + b];
             compcards.splice(1 + b, 1);
-            if (compcards.indexOf(compcards[trick1 + b]) != -1){
+            if (compcards.indexOf(trick1 + b) != -1){
                 oppbid1 = trick1 + b;
                 compcards.splice(compcards.indexOf(trick1 + b), 1);
-            } else if (compcards.indexOf(compcards[trick1 -c]) != -1){
+            } else if (compcards.indexOf(trick1 - c) != -1){
                 oppbid1 = trick1 - c;
                 compcards.splice(compcards.indexOf(trick1 - c), 1);
             } else {
