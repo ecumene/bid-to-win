@@ -228,7 +228,7 @@ function scoreReveal(){
             document.getElementById("trick2").style.color = "white";
             document.getElementById("scoreboard").innerHTML = yourscore + " - " + oppscore;
         } else {
-            document.getElementById("trick1").style.backgroundColor = "lightgray";
+            document.getElementById("trick2").style.backgroundColor = "lightgray";
         };
         if (yourscore > oppscore){
             document.getElementById("scoreboard").style.background = "blue";
