@@ -25,8 +25,8 @@ app.get('/testdb', (req, res) => {
 });
 
 app.put('/user', (req, res) => {
-    let sql = "INSERT INTO leaderboard.user_stats (ID, Username, GP, Wins, Losses, Ties, Abandons)" +
-                "VALUES ('2', 'Test-User', '0', '0', '0', '0', '0')";
+    let sql = "INSERT INTO leaderboard.user_stats (Username, GP, Wins, Losses, Ties, Abandons)" +
+                "VALUES ('Test-User', '0', '0', '0', '0', '0')";
     db.query(sql, req.body, (err, result) => {
         if(err) throw err;
         console.log("working");

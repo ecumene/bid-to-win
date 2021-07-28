@@ -16,12 +16,15 @@ let scorerev = 0;
 let cbuttons = document.getElementsByClassName("cbutton");
 let buttons = document.getElementsByClassName("button");
 
+// experimental variables//
 let p1GP = 3;
 let p1ID = 2;
 let p1W = 1;
 let p1L = 2;
 let p1T = 0;
 let p1A = 0;
+let statchange = [p1ID, p1GP, p1W, p1L, p1T, p1A];
+//end of experimental variables//
 
 // variables specific to computer player //
 let scorediff, roundmod, trickdiff, trickavg;
@@ -1274,7 +1277,7 @@ function stratNorm(){
             oppbid1 = compcards.shift();
         }
     } else if ((roundmod === 3 || roundmod === 4) && 4 <= trickdiff && 5 < trickavg && 70 < a){
-        if (comphigh > yourhigh){
+        if (comphigh >= yourhigh){
             if  (trick1 >= 4){
                 oppbid1 = compcards[compcards.length - 3];
                 compcards.splice(compcards.length - 3, 1);      
@@ -1296,6 +1299,8 @@ function stratNorm(){
             } else {
                 oppbid1 = compcards.shift();
             }
+        } else {
+
         }
     } else if (roundmod === 2 && a <= 70){
         if (yourhigh < comphigh){
