@@ -1422,7 +1422,7 @@ function stratNorm(){
             }
         } else if (yourhigh > comphigh){
             if (trick2 > 6){
-                oppbid2 - compcards.shift();
+                oppbid2 = compcards.shift();
                 if (compcards[1] >= yourcards[2]){
                     oppbid1 = compcards[1];
                     compcards.splice(1, 1);
