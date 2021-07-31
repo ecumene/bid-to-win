@@ -252,13 +252,13 @@ function scoreReveal(){
         }
     }
 
-if (scorerev >= 4 && youradj.length != 10){    
-    document.getElementById("newround").disabled = false;
-} else if (scorerev >= 4 && youradj.length == 10){
-    document.getElementById("newgame").disabled = false;
-} else {
-    setTimeout(scoreReveal, 800);
-};
+    if (scorerev >= 4 && youradj.length != 10){    
+        document.getElementById("newround").disabled = false;
+    } else if (scorerev >= 4 && youradj.length == 10){
+        document.getElementById("newgame").disabled = false;
+    } else {
+        setTimeout(scoreReveal, 800);
+    };
 }
 
 function newGame(){
