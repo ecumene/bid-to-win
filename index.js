@@ -5,7 +5,7 @@ const app = express();
 const cors = require("cors");
 app.use(express.json());
 app.use(cors());
-app.use(express.static('./bid-to-win'));
+app.use(express.static('index.html'));
 
 app.listen(process.env.PORT, () => {
     console.log(process.env.PORT+'Step One');
