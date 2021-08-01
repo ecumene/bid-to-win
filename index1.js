@@ -147,8 +147,7 @@ function Commit(){
     yourcards.splice(yourcards.indexOf(yourbid1), 1);
     yourcards.splice(yourcards.indexOf(yourbid2), 1);
     if (cpu == 0) {
-        count++;
-        
+        count++;        
         if (count % 2 != 0){
             document.getElementById("yourbid1").innerHTML = "?";      
             document.getElementById("yourbid2").innerHTML = "?";
@@ -168,7 +167,7 @@ function Commit(){
         document.getElementById("commit").disabled = true;    
     }
 
-    if (cpu == 0 && loop % 2 != 0){
+    if (cpu == 0 && count % 2 != 0){
         let e = 0;
     } else {
         setTimeout(scoreReveal, 800);
