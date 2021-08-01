@@ -16,16 +16,6 @@ let scorerev = 0;
 let cbuttons = document.getElementsByClassName("cbutton");
 let buttons = document.getElementsByClassName("button");
 
-// experimental variables//
-let p1GP = 3;
-let p1ID = 2;
-let p1W = 1;
-let p1L = 2;
-let p1T = 0;
-let p1A = 0;
-let statchange = [p1ID, p1GP, p1W, p1L, p1T, p1A];
-//end of experimental variables//
-
 // variables specific to computer player //
 let scorediff, roundmod, trickdiff, trickavg;
 let compavg, youravg; 
