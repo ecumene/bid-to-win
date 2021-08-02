@@ -1,6 +1,75 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head>
-        <meta http-equiv="refresh" content="0; url=https://https://harbour-dog.github.io/bid-to-win/tree/main/public/index.html">
+        <meta charset="utf-8"/>
+        <title>2-Player Strategy Bidding Game!</title>
+        <link rel="stylesheet" href="styles.css">
+        <meta property="og:image" content="images/MetaScreenShot.png"/>
     </head>
+    <body>
+        <div id="rules" class="overdiv">            
+            <h2><button id="rulebtn">The Rules</button></h2>            
+            <p id="rulespar"></p>
+        </div>
+        <div id="score" class="overdiv" class="row">
+            <div id="scorediv" class="column">
+                <h3>GAME SCORE</h3> 
+                <div id="scoreicons">               
+                    <p><img src="images/blue_player.png" class="icon" id="player1"/></p>                    
+                    <textarea id="scoreboard">0 - 0</textarea>
+                    <p><img src="images/red_player.png" class="icon" id="player2"/></p>
+                </div>
+            </div>
+            <div id="matchdiv" class="column">
+                <h4>MATCH TALLY</h4>
+                <textarea id="matchscore">0 - 0</textarea>
+            </div>
+        </div>
+        <div id="game" class="overdiv">
+            <div id="oppcards">
+                <input type="button" id="card1" value="1" class="button" disabled>
+                <input type="button" id="card2" value="2" class="button" disabled/>
+                <input type="button" id="card3" value="3" class="button" disabled/>
+                <input type="button" id="card4" value="4" class="button" disabled/>
+                <input type="button" id="card5" value="5" class="button" disabled/>
+                <input type="button" id="card6" value="6" class="button" disabled/>
+                <input type="button" id="card7" value="7" class="button" disabled/>
+                <input type="button" id="card8" value="8" class="button" disabled/>
+                <input type="button" id="card9" value="9" class="button" disabled/>
+                <input type="button" id="card10" value="10" class="button" disabled/><br>
+            </div>
+            <div id="playarea" class="row">
+                <div id="newroundiv" class="column">
+                <input type="button" id="playcomp" value="Play vs. Comp"/>
+                <input type="button" id="play2p" value="2-Player Game"/>
+                </div>
+                <div id="tricks" class="column">
+                    <textarea id="yourbid1" class="bidbox"></textarea>
+                    <textarea id="yourbid2" class="bidbox"></textarea><br>
+                    <textarea id="trick1" class="trickbox"></textarea>
+                    <textarea id="trick2" class="trickbox"></textarea><br>
+                    <textarea id="oppbid1" class="cbidbox"></textarea>
+                    <textarea id="oppbid2" class="cbidbox"></textarea><br>
+                </div>
+                <div id="commitdiv" class="column">
+                    <input type="button" id="newround" value="Next Round" disabled/>
+                    <input type="button" id="commit" value="Commit Bids" disabled/>
+                    <input type="button" id="newgame" value="Rematch" disabled/>                    
+                </div>
+            </div>
+            <div id="yourcards">
+                <input type="button" id="opp1" value="1" class="cbutton" disabled/>
+                <input type="button" id="opp2" value="2" class="cbutton" disabled/>
+                <input type="button" id="opp3" value="3" class="cbutton" disabled/>
+                <input type="button" id="opp4" value="4" class="cbutton" disabled/>
+                <input type="button" id="opp5" value="5" class="cbutton" disabled/>
+                <input type="button" id="opp6" value="6" class="cbutton" disabled/>
+                <input type="button" id="opp7" value="7" class="cbutton" disabled/>
+                <input type="button" id="opp8" value="8" class="cbutton" disabled/>
+                <input type="button" id="opp9" value="9" class="cbutton" disabled/>
+                <input type="button" id="opp10" value="10" class="cbutton" disabled/><br>
+            </div>
+        </div>
+        <script src="index1.js"></script>
+    </body>
 </html>
