@@ -5,7 +5,8 @@ const app = express();
 const cors = require("cors");
 app.use(express.json());
 app.use(cors());
-app.use(express.static('index.html'));
+
+//need to implement an app.use(express.static('index.html')) function to use the retrieved data??//
 
 app.listen(process.env.PORT, () => {
     console.log(process.env.PORT+'Step One');
