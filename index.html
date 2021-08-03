@@ -40,8 +40,10 @@
             </div>
             <div id="playarea" class="row">
                 <div id="newroundiv" class="column">
-                <input type="button" id="playcomp" value="Play vs. Comp"/>
-                <input type="button" id="play2p" value="2-Player Game"/>
+                    <input type="button" id="newuser" value="Create User"/>
+                    <input type="button" id="login" value="Sign In"/>                
+                    <input type="button" id="playcomp" value="Play vs. Comp"/>
+                    <input type="button" id="play2p" value="2-Player Game"/>
                 </div>
                 <div id="tricks" class="column">
                     <textarea id="yourbid1" class="bidbox"></textarea>
@@ -69,6 +71,13 @@
                 <input type="button" id="opp9" value="9" class="cbutton" disabled/>
                 <input type="button" id="opp10" value="10" class="cbutton" disabled/><br>
             </div>
+        </div>
+        <div id="logindiv">
+            <form id="logbox" action='/user/:Username/:Password' method="GET">
+                <input placeholder="Username" name="Username"/>
+                <input placeholder="Password" name="Password"/>
+                <button id="logbtn">Submit</button>
+            </form>           
         </div>
         <script src="index1.js"></script>
     </body>

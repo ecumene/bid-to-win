@@ -106,13 +106,33 @@ h4 {
     text-align: center;
 }
 
-#playcomp {
-    margin-top: 8.4vw;
+#newuser {
+    margin-top: 2.9vw;
     margin-left: 6.29vw;
     margin-bottom: 0.6vw;
     height: 3vw;
     width: 14.42vw;
-    font-size: larger;
+    font-size:1.45vw;
+    font-weight: bolder;
+}
+
+#login {
+    margin-top: 0.6vw;
+    margin-left: 6.29vw;
+    margin-bottom: 0.6vw;
+    height: 3vw;
+    width: 14.42vw;
+    font-size:1.45vw;
+    font-weight: bolder;
+}
+
+#playcomp {
+    margin-top: 0.6vw;
+    margin-left: 6.29vw;
+    margin-bottom: 0.6vw;
+    height: 3vw;
+    width: 14.42vw;
+    font-size: 1.45vw;
     font-weight: bolder;
 }
 
@@ -121,7 +141,7 @@ h4 {
     margin-left: 6.29vw;
     height: 3vw;
     width: 14.42vw;
-    font-size: larger;
+    font-size: 1.45vw;
     font-weight: bolder;
 }
 
@@ -135,7 +155,7 @@ h4 {
     margin-bottom: 0.6vw;
     height: 3vw;
     width: 12.22vw;
-    font-size: larger;
+    font-size: 1.45vw;
     font-weight: bolder;
 }
 
@@ -145,13 +165,13 @@ h4 {
     margin-bottom: 0.6vw;
     height: 3vw;
     width: 12.22vw;
-    font-size: larger;
+    font-size: 1.45vw;
     font-weight: bolder;
 }
 
 #newgame {
     height: 3vw;
-    font-size: larger;
+    font-size: 1.45vw;
     font-weight: bolder;
     margin-top: 0.6vw;
     width: 12.22vw;
@@ -159,6 +179,16 @@ h4 {
 
 #yourcards {
     text-align: center;
+}
+
+#logindiv {
+    display: none;
+    margin: auto;
+}
+
+#logbox {
+    float: left;
+    display: inline;
 }
 
 .icon {

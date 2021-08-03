@@ -6,10 +6,14 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
-//need to implement an app.use(express.static('index.html')) function to use the retrieved data??//
+//don't fully understand these two lines. Meant to parse text from forms?//
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+
+app.use(express.static('./'));
 
 app.listen(process.env.PORT, () => {
-    console.log(process.env.PORT+'Step One');
+    console.log("Listening on Port "+ process.env.PORT);
 });
 
 const db = mysql.createPool({
@@ -20,22 +24,25 @@ const db = mysql.createPool({
 });
 
 //Fetches user object from database. To run on login.//
-app.get('/user/:Username', (req, res) => {
-    console.log('Fetching user with Username:' + req.params.Username);
-
-    db.query('SELECT * FROM leaderboard.user_stats WHERE Username = ?', req.params.Username, (err, rows, fields) => {
+app.get('/user/:Username/:Password', (req, res) => {
+    console.log(req.params.Username);
+    console.log(req.params.Password);
+    let sql = 'SELECT * FROM leaderboard.user_stats WHERE Username=? AND Password=?';
+    db.query(sql, [req.params.Username, req.body.Password], (err, rows) => {
         if(err) throw err;
-        console.log('User fetched');
+        console.log('User data retrieved');
         res.json(rows);
-    });
+    });    
 });
 
 //Adds new user to database//
-app.put('/create_user', (req, res) => {
-    let sql = 'INSERT INTO leaderboard.user_stats (Username, GP, Wins, Losses, Ties, Abandons)' +
-                'VALUES (?, 0, 0, 0, 0, 0)';
-    db.query(sql, [req.body.Username, req.body.GP, req.body.Wins, req.body.Losses, req.body.Ties, req.body.Abandons], (err, result) => {
+app.post('/create_user', (req, res) => {
+    let sql = 'INSERT INTO leaderboard.user_stats (Username, GP, Wins, Losses, Ties, Abandons, Password)' +
+                'VALUES (?, 0, 0, 0, 0, 0, ?)';
+    db.query(sql, [req.body.Username, req.body.Password], (err, result) => {
         if(err) throw err;
+        console.log(req.body.Username);
+        console.log(req.body.Password);
         console.log("New user created");
         res.send(result);
     });

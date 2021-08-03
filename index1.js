@@ -27,7 +27,9 @@ let ysum = 0;
 // variables specific to computer player //
 
 document.getElementById("rulebtn").addEventListener("click", rules)
-document.getElementById("playcomp").addEventListener("click", playcomp)
+document.getElementById("newuser").addEventListener("click", newUser)
+document.getElementById("login").addEventListener("click", logBox)
+document.getElementById("playcomp").addEventListener("click", playComp)
 document.getElementById("play2p").addEventListener("click", play2p)
 document.getElementById("newround").addEventListener("click", trickGen)
 document.getElementById("commit").addEventListener("click", Commit)
@@ -77,8 +79,27 @@ function rules() {
     }
 }
 
-function playcomp(){
+function newUser() {
+    document.getElementById("newuser").disabled = true
+    document.getElementById("login").disabled = true
+    document.getElementById("playcomp").disabled = true
+    document.getElementById("play2p").disabled = true    
+    document.getElementById("logindiv").style.display = 'inline-flex';
+    document.getElementById("logbox").action = '/create_user';
+    document.getElementById("logbox").method = 'POST';
+}
+
+function logBox() {
+    document.getElementById("newuser").disabled = true
+    document.getElementById("login").disabled = true
+    document.getElementById("playcomp").disabled = true
+    document.getElementById("play2p").disabled = true       
+    document.getElementById("logindiv").style.display = 'inline-flex';
+}
+
+function playComp(){
     cpu = 1;
+    document.getElementById("login").disabled = true;
     document.getElementById("playcomp").disabled = true;
     document.getElementById("play2p").disabled = true;
     document.getElementById("newround").disabled = false;
@@ -88,6 +109,7 @@ function playcomp(){
 }
 
 function play2p(){
+    document.getElementById("login").disabled = true;
     document.getElementById("playcomp").disabled = true;
     document.getElementById("play2p").disabled = true;
     document.getElementById("newround").disabled = false;
