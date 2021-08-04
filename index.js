@@ -40,9 +40,7 @@ app.post('/create_user', (req, res) => {
                 'VALUES (?, 0, 0, 0, 0, 0, ?)';
     db.query(sql, [req.body.Username, req.body.Password], (err, result) => {
         if(err) throw err;
-        console.log(req.body.Username);
-        console.log(req.body.Password);
-        console.log("New user created");
+        console.log(`New user created: ${req.body.Username}`);
         res.send(result);
     });
 });

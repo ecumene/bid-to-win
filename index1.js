@@ -25,9 +25,12 @@ let yourcards = [];
 let csum = 0;
 let ysum = 0;
 // variables specific to computer player //
+let data =[];
+let obj;
+let id, username, gp, wins, losses, ties, abandons, password;
 
 document.getElementById("rulebtn").addEventListener("click", rules)
-
+document.getElementById("newuser").addEventListener("click", newUser)
 document.getElementById("login").addEventListener("click", logBox)
 document.getElementById("playcomp").addEventListener("click", playComp)
 document.getElementById("play2p").addEventListener("click", play2p)
@@ -55,6 +58,70 @@ document.getElementById("opp8").addEventListener("click", Opp8)
 document.getElementById("opp9").addEventListener("click", Opp9)
 document.getElementById("opp10").addEventListener("click", Opp10)
 
+//start of login/create user functions//
+function signIn() {//fetch with GET requests cannot have a body//
+    let user = document.getElementById("Username").value;
+    let key = document.getElementById("Password").value;
+
+    const baseURL = `http://localhost:3000/user/:Username/:Password?Username=${user}&Password=${key}`;
+    fetch(baseURL)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            console.log(JSON.stringify(data));
+            obj = data[0];
+            userData();
+        });
+}
+
+function createUser(){
+    let user = document.getElementById("Username").value;
+    let key = document.getElementById("Password").value;
+
+    const baseURL = 'http://localhost:3000/create_user';
+    fetch(baseURL, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                Username: user,
+                Password: key
+            })
+    })
+}
+
+function logBox() {
+    document.getElementById("newuser").disabled = true
+    document.getElementById("login").disabled = true
+    document.getElementById("playcomp").disabled = true
+    document.getElementById("play2p").disabled = true       
+    document.getElementById("logindiv").style.display = 'inline-flex';
+}
+
+function newUser(){
+    document.getElementById("newuser").disabled = true
+    document.getElementById("login").disabled = true
+    document.getElementById("playcomp").disabled = true
+    document.getElementById("play2p").disabled = true       
+    document.getElementById("logindiv").style.display = 'inline-flex';
+
+    document.getElementById("logbtn").onclick = createUser;
+}
+
+function userData() {
+    id = obj.ID;
+    username = obj.Username;
+    gp = obj.GP;
+    wins = obj.Wins;
+    losses = obj.Losses;
+    ties = obj.Ties;
+    abandons = obj.Abandons;
+    password = obj.Password;
+}
+//end of login/create user functions//
+
 function rules() {
     rule++
 
@@ -77,24 +144,6 @@ function rules() {
         document.getElementById("rulebtn").style.backgroundColor = "white";
         document.getElementById("rulebtn").style.color = "black";
     }
-}
-
-function newUser() {
-    let Username = document.getElementById("Username").value;
-    let Password = document.getElementById("Password").value;
-
-    const baseURL = `http://localhost:3000/user/:Username/:Password?Username=${Username}&Password=${Password}`;
-    fetch(baseURL)
-        .then(response => response.json())
-        .then(data => console.log(data));
-}
-
-function logBox() {
-    document.getElementById("newuser").disabled = true
-    document.getElementById("login").disabled = true
-    document.getElementById("playcomp").disabled = true
-    document.getElementById("play2p").disabled = true       
-    document.getElementById("logindiv").style.display = 'inline-flex';
 }
 
 function playComp(){
