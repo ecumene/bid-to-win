@@ -78,8 +78,8 @@ function signIn() {//fetch with GET requests cannot have a body//
 }
 
 function createUser(){
-    let user = document.getElementById("Username").value;
-    let key = document.getElementById("Password").value;
+    user = document.getElementById("Username").value;
+    key = document.getElementById("Password").value;
 
     const baseURL = 'http://localhost:3000/create_user';
     fetch(baseURL, {
@@ -172,6 +172,7 @@ function playComp(){
     document.getElementById("play2p").disabled = true;
     document.getElementById("newround").disabled = false;
     document.getElementById("player2").src = "images/comp_player.png";
+    document.getElementById("p2").innerHTML = "COMPUTER";
     compcards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     yourcards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 }
