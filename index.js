@@ -29,7 +29,7 @@ app.get('/user/:Username/:Password', (req, res) => {
     let sql = 'SELECT * FROM leaderboard.user_stats WHERE Username=? AND Password=?';
     db.query(sql, [req.query.Username, req.query.Password], (err, rows) => {
         if(err) throw err;
-        console.log('Attempted to retrieve User Data');
+        console.log('User is logged in.');
         res.json(rows);
     });    
 });

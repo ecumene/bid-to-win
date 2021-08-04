@@ -26,7 +26,7 @@ let csum = 0;
 let ysum = 0;
 // variables specific to computer player //
 let data =[];
-let obj;
+let obj, user, key;
 let id, username, gp, wins, losses, ties, abandons, password;
 
 document.getElementById("rulebtn").addEventListener("click", rules)
@@ -60,14 +60,17 @@ document.getElementById("opp10").addEventListener("click", Opp10)
 
 //start of login/create user functions//
 function signIn() {//fetch with GET requests cannot have a body//
-    let user = document.getElementById("Username").value;
-    let key = document.getElementById("Password").value;
+    user = document.getElementById("Username").value;
+    key = document.getElementById("Password").value;
 
     const baseURL = `http://localhost:3000/user/:Username/:Password?Username=${user}&Password=${key}`;
     fetch(baseURL)
         .then(response => response.json())
         .then(data => {
             console.log(data);
+            if(data.length == 0){
+                alert("Username and Password do not match. Please refresh page and try again.")
+            } else {};
             console.log(JSON.stringify(data));
             obj = data[0];
             userData();
@@ -89,7 +92,8 @@ function createUser(){
                 Username: user,
                 Password: key
             })
-    })
+        })
+    nowLogin();
 }
 
 function logBox() {
@@ -110,7 +114,7 @@ function newUser(){
     document.getElementById("logbtn").onclick = createUser;
 }
 
-function userData() {
+function userData(){
     id = obj.ID;
     username = obj.Username;
     gp = obj.GP;
@@ -119,6 +123,20 @@ function userData() {
     ties = obj.Ties;
     abandons = obj.Abandons;
     password = obj.Password;
+
+    document.getElementById("playcomp").disabled= false;
+    document.getElementById("play2p").disabled= false;
+    document.getElementById("logindiv").style.display = "none";
+    document.getElementById("p1").innerHTML = username;
+}
+
+function nowLogin(){
+    document.getElementById("logindiv").style.display = "none";
+    document.getElementById("playcomp").disabled = false;
+    document.getElementById("play2p").disabled = false;
+    document.getElementById("p1").innerHTML = user;
+    console.log(user);
+    alert("New user created! Data currently will only be saved while playing games vs the computer.")
 }
 //end of login/create user functions//
 
@@ -164,6 +182,7 @@ function play2p(){
     document.getElementById("playcomp").disabled = true;
     document.getElementById("play2p").disabled = true;
     document.getElementById("newround").disabled = false;
+    alert("User data currently does not get recorded for two-player games.")
 }
 
 function trickGen(){
