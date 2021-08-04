@@ -27,7 +27,7 @@ let ysum = 0;
 // variables specific to computer player //
 
 document.getElementById("rulebtn").addEventListener("click", rules)
-document.getElementById("newuser").addEventListener("click", newUser)
+
 document.getElementById("login").addEventListener("click", logBox)
 document.getElementById("playcomp").addEventListener("click", playComp)
 document.getElementById("play2p").addEventListener("click", play2p)
@@ -80,13 +80,13 @@ function rules() {
 }
 
 function newUser() {
-    document.getElementById("newuser").disabled = true
-    document.getElementById("login").disabled = true
-    document.getElementById("playcomp").disabled = true
-    document.getElementById("play2p").disabled = true    
-    document.getElementById("logindiv").style.display = 'inline-flex';
-    document.getElementById("logbox").action = '/create_user';
-    document.getElementById("logbox").method = 'POST';
+    let Username = document.getElementById("Username").value;
+    let Password = document.getElementById("Password").value;
+
+    const baseURL = `http://localhost:3000/user/:Username/:Password?Username=${Username}&Password=${Password}`;
+    fetch(baseURL)
+        .then(response => response.json())
+        .then(data => console.log(data));
 }
 
 function logBox() {
@@ -99,6 +99,7 @@ function logBox() {
 
 function playComp(){
     cpu = 1;
+    document.getElementById("newuser").disabled = true
     document.getElementById("login").disabled = true;
     document.getElementById("playcomp").disabled = true;
     document.getElementById("play2p").disabled = true;
@@ -109,6 +110,7 @@ function playComp(){
 }
 
 function play2p(){
+    document.getElementById("newuser").disabled = true
     document.getElementById("login").disabled = true;
     document.getElementById("playcomp").disabled = true;
     document.getElementById("play2p").disabled = true;

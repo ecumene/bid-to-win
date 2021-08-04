@@ -73,11 +73,11 @@
             </div>
         </div>
         <div id="logindiv">
-            <form id="logbox" action='/user/:Username/:Password' method="GET">
-                <input placeholder="Username" name="Username"/>
-                <input placeholder="Password" name="Password"/>
-                <button id="logbtn">Submit</button>
-            </form>           
+            <table id="logbox">
+                <input placeholder="Username" id="Username" name="Username"/>
+                <input placeholder="Password" id="Password" name="Password"/>
+                <button id="logbtn" onclick='newUser()'>Submit</button>
+            </table>           
         </div>
         <script src="index1.js"></script>
     </body>

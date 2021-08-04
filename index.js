@@ -6,8 +6,6 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
-//don't fully understand these two lines. Meant to parse text from forms?//
-app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 app.use(express.static('./'));
@@ -25,12 +23,13 @@ const db = mysql.createPool({
 
 //Fetches user object from database. To run on login.//
 app.get('/user/:Username/:Password', (req, res) => {
-    console.log(req.params.Username);
-    console.log(req.params.Password);
+    console.log(req.query.Username);
+    console.log(req.query.Password);
+    console.log(req.query);
     let sql = 'SELECT * FROM leaderboard.user_stats WHERE Username=? AND Password=?';
-    db.query(sql, [req.params.Username, req.body.Password], (err, rows) => {
+    db.query(sql, [req.query.Username, req.query.Password], (err, rows) => {
         if(err) throw err;
-        console.log('User data retrieved');
+        console.log('Attempted to retrieve User Data');
         res.json(rows);
     });    
 });
