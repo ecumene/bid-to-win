@@ -50,7 +50,7 @@ function createUser(){
     document.getElementById("logbtn").onclick = newUser;
 }
 
-function signIn() {//fetch with GET requests cannot have a body//
+function signIn(){//fetch with GET requests cannot have a body//
     user = document.getElementById("Username").value;
     key = document.getElementById("Password").value;
 
@@ -58,11 +58,9 @@ function signIn() {//fetch with GET requests cannot have a body//
     fetch(baseURL)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             if(data.length == 0){
                 alert("Username and Password do not match. Please refresh page and try again.")
             } else {};
-            console.log(JSON.stringify(data));
             obj = data[0];
             userData();
         });
@@ -77,6 +75,7 @@ function userData(){
     ties = obj.Ties;
     abandons = obj.Abandons;
     password = obj.Password;
+    winper = (wins * 100/(wins + losses));
 
     document.getElementById("playcomp").disabled= false;
     document.getElementById("play2p").disabled= false;
@@ -89,8 +88,9 @@ function newUser(){
     user = document.getElementById("Username").value;
     key = document.getElementById("Password").value;
 
-    const baseURL = 'http://localhost:3000/create_user';
-    fetch(baseURL, {
+    if(user.length > 3 && user.length < 17 && key.length > 3 && key.length < 17){
+        const baseURL = 'http://localhost:3000/create_user';
+        fetch(baseURL, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -100,8 +100,11 @@ function newUser(){
                 Username: user,
                 Password: key
             })
-        })
-    nowLogin();
+        });
+        nowLogin();
+    } else {
+        alert("Username and Password much each be between 4 and 16 characters");
+    }
 }
 
 function nowLogin(){
@@ -112,6 +115,23 @@ function nowLogin(){
     document.getElementById("p1").innerHTML = user;
     console.log(user);
     alert("New user created! Data currently will only be saved while playing games vs the computer.")
+}
+
+function userStats(){
+    rule++
+
+    const baseURL = `http://localhost:3000/user/:Username?Username=${user}`;
+    fetch(baseURL)
+        .then(response => response.json())
+        .then(data => {
+            if(data.length == 0){
+                alert("Unable to retrieve stats for current user.")
+            } else {};            
+            obj = data[0];
+            document.getElementById("statdisplay").style.display = "block";
+            document.getElementById("stattable").style.display = "block";
+            userData();
+        });
 }
 //end of login/create user functions//
 

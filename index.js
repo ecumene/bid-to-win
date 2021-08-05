@@ -34,6 +34,16 @@ app.get('/user/:Username/:Password', (req, res) => {
     });    
 });
 
+//Fetches user's stats to display
+app.get('/user/:Username', (req, res) => {
+    let sql = 'SELECT * FROM leaderboard.user_stats WHERE Username=?';
+    db.query(sql, req.query.Username, (err, rows) => {
+        if(err) throw err;
+        console.log('User stats retrieved.');
+        res.json(rows);
+    });    
+});
+
 //Adds new user to database//
 app.post('/create_user', (req, res) => {
     let sql = 'INSERT INTO leaderboard.user_stats (Username, GP, Wins, Losses, Ties, Abandons, Password)' +

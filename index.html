@@ -8,12 +8,41 @@
     </head>
     <body>
         <div id="rules" class="overdiv">
-            <button id="userstats" onclick='userStats()'>View User Stats</button>          
+            <button id="userstats" onclick='userStats()'>User Stats</button>          
             <h2><button id="rulebtn" onclick="Rules()">The Rules</button></h2>            
             <p id="rulespar"></p>
+            <p id="statdisplay">
+                <h7 id="userhead">Name goes here</h7>
+                <table id="stattable">
+                    <tr>
+                        <td style="color:rgb(250, 189, 189)">Games Played</td>
+                        <td id="gpdisp" style="color:rgb(250, 189, 189)">5</td>
+                    </tr>
+                    <tr>
+                        <td style="color:rgb(189, 189, 250)">Wins</td>
+                        <td id="winsdisp" style="color:rgb(189, 189, 250)">2</td>
+                    </tr>
+                    <tr>
+                        <td style="color:rgb(250, 189, 189)">Losses</td>
+                        <td id="lossesdisp" style="color:rgb(250, 189, 189)">2</td>
+                    </tr>
+                    <tr>
+                        <td style="color:rgb(189, 189, 250)">Ties</td>
+                        <td id="tiesdisp" style="color:rgb(189, 189, 250)">1</td>
+                    </tr>
+                    <tr>
+                        <td style="color:rgb(250, 189, 189)">Abandons</td>
+                        <td id="abandonsdisp" style="color:rgb(250, 189, 189)">0</td>
+                    </tr>
+                    <tr>
+                        <td style="color:rgb(189, 189, 250)">Win Percentage</td>
+                        <td id="winperdisp" style="color:rgb(189, 189, 250)">50%</td>
+                    </tr>
+                </table>
+            </p>
             <p id="logindiv">
-                <input placeholder="Username" id="Username" name="Username" class="inputfld"/><br><br><br><br>
-                <input placeholder="Password" id="Password" name="Password" class="inputfld"/><br><br><br><br>
+                <input type="text" placeholder="Username" id="Username" name="Username" class="inputfld" minlength="4" maxlength="16"/><br><br><br><br>
+                <input type="password" placeholder="Password" id="Password" name="Password" class="inputfld" minlength="4" maxlength="16"/><br><br><br><br>
                 <button id="logbtn" onclick='signIn()'>Submit</button>
             </p>
         </div>

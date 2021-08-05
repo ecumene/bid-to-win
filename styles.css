@@ -30,7 +30,7 @@ h4 {
 
 #userstats {
     width: 60%;
-    height: 2vw;
+    height: fit-content;
     font-size: large;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     font-weight: bolder;
@@ -47,12 +47,30 @@ h4 {
     margin-top: 0px;
     margin-bottom: 0px;
     border-radius: 15px;
+    background-color: lightgray;
 }
 
 #rulespar {
     margin-top: 0px;
     border-radius: 5px;
     padding: 0.5vh;
+}
+
+#statdisplay {
+    color: rgb(140, 140, 255);
+    font-size:2.4vw;
+    font-weight: bolder;
+    display:inline-flex;
+    margin-top: 2vh;
+}
+
+#stattable {
+    color:white;
+    margin: auto;
+    padding: 5px;
+    width: 15vw;
+    font-size: 1.15vw;
+    display:inline-table;
 }
 
 #logindiv {
