@@ -24,41 +24,32 @@ let compcards = [];
 let yourcards = [];
 let csum = 0;
 let ysum = 0;
-// variables specific to computer player //
+
+// variables specific to retrieving/storing user data //
 let data =[];
 let obj, user, key;
 let id, username, gp, wins, losses, ties, abandons, password;
 
-document.getElementById("rulebtn").addEventListener("click", rules)
-document.getElementById("newuser").addEventListener("click", newUser)
-document.getElementById("login").addEventListener("click", logBox)
-document.getElementById("playcomp").addEventListener("click", playComp)
-document.getElementById("play2p").addEventListener("click", play2p)
-document.getElementById("newround").addEventListener("click", trickGen)
-document.getElementById("commit").addEventListener("click", Commit)
-document.getElementById("newgame").addEventListener("click", newGame)
-document.getElementById("card1").addEventListener("click", Card1)
-document.getElementById("card2").addEventListener("click", Card2)
-document.getElementById("card3").addEventListener("click", Card3)
-document.getElementById("card4").addEventListener("click", Card4)
-document.getElementById("card5").addEventListener("click", Card5)
-document.getElementById("card6").addEventListener("click", Card6)
-document.getElementById("card7").addEventListener("click", Card7)
-document.getElementById("card8").addEventListener("click", Card8)
-document.getElementById("card9").addEventListener("click", Card9)
-document.getElementById("card10").addEventListener("click", Card10)
-document.getElementById("opp1").addEventListener("click", Opp1)
-document.getElementById("opp2").addEventListener("click", Opp2)
-document.getElementById("opp3").addEventListener("click", Opp3)
-document.getElementById("opp4").addEventListener("click", Opp4)
-document.getElementById("opp5").addEventListener("click", Opp5)
-document.getElementById("opp6").addEventListener("click", Opp6)
-document.getElementById("opp7").addEventListener("click", Opp7)
-document.getElementById("opp8").addEventListener("click", Opp8)
-document.getElementById("opp9").addEventListener("click", Opp9)
-document.getElementById("opp10").addEventListener("click", Opp10)
-
 //start of login/create user functions//
+function logBox() {
+    document.getElementById("newuser").disabled = true
+    document.getElementById("login").disabled = true
+    document.getElementById("playcomp").disabled = true
+    document.getElementById("play2p").disabled = true       
+    document.getElementById("logindiv").style.display = 'inline-block';
+    
+}
+
+function createUser(){
+    document.getElementById("newuser").disabled = true
+    document.getElementById("login").disabled = true
+    document.getElementById("playcomp").disabled = true
+    document.getElementById("play2p").disabled = true       
+    document.getElementById("logindiv").style.display = 'inline-block';
+
+    document.getElementById("logbtn").onclick = newUser;
+}
+
 function signIn() {//fetch with GET requests cannot have a body//
     user = document.getElementById("Username").value;
     key = document.getElementById("Password").value;
@@ -77,7 +68,24 @@ function signIn() {//fetch with GET requests cannot have a body//
         });
 }
 
-function createUser(){
+function userData(){
+    id = obj.ID;
+    username = obj.Username;
+    gp = obj.GP;
+    wins = obj.Wins;
+    losses = obj.Losses;
+    ties = obj.Ties;
+    abandons = obj.Abandons;
+    password = obj.Password;
+
+    document.getElementById("playcomp").disabled= false;
+    document.getElementById("play2p").disabled= false;
+    document.getElementById("logindiv").style.display = "none";
+    document.getElementById("userstats").style.display = "inline";
+    document.getElementById("p1").innerHTML = username;
+}
+
+function newUser(){
     user = document.getElementById("Username").value;
     key = document.getElementById("Password").value;
 
@@ -96,42 +104,9 @@ function createUser(){
     nowLogin();
 }
 
-function logBox() {
-    document.getElementById("newuser").disabled = true
-    document.getElementById("login").disabled = true
-    document.getElementById("playcomp").disabled = true
-    document.getElementById("play2p").disabled = true       
-    document.getElementById("logindiv").style.display = 'inline-flex';
-}
-
-function newUser(){
-    document.getElementById("newuser").disabled = true
-    document.getElementById("login").disabled = true
-    document.getElementById("playcomp").disabled = true
-    document.getElementById("play2p").disabled = true       
-    document.getElementById("logindiv").style.display = 'inline-flex';
-
-    document.getElementById("logbtn").onclick = createUser;
-}
-
-function userData(){
-    id = obj.ID;
-    username = obj.Username;
-    gp = obj.GP;
-    wins = obj.Wins;
-    losses = obj.Losses;
-    ties = obj.Ties;
-    abandons = obj.Abandons;
-    password = obj.Password;
-
-    document.getElementById("playcomp").disabled= false;
-    document.getElementById("play2p").disabled= false;
-    document.getElementById("logindiv").style.display = "none";
-    document.getElementById("p1").innerHTML = username;
-}
-
 function nowLogin(){
     document.getElementById("logindiv").style.display = "none";
+    document.getElementById("userstats").style.display = "inline";
     document.getElementById("playcomp").disabled = false;
     document.getElementById("play2p").disabled = false;
     document.getElementById("p1").innerHTML = user;
@@ -140,7 +115,7 @@ function nowLogin(){
 }
 //end of login/create user functions//
 
-function rules() {
+function Rules() {
     rule++
 
     if (rule %2 != 0){
@@ -1347,10 +1322,7 @@ function stratNorm(){
                 } else {
                     oppbid1 = compcards.shift();
                 }           
-        } else if (trick1 < 5){
-            oppbid2 = compcards.shift();
-            oppbid1 = compcards.shift();
-        } else if (compcards.indexOf(trick1 + b) != -1){
+        } else if (trick1 > 4 && compcards.indexOf(trick1 + b) != -1){
             oppbid1 = trick1 + b;
             compcards.splice(compcards.indexOf(trick1 + b), 1);
             oppbid2 = compcards.shift();
@@ -1370,7 +1342,7 @@ function stratNorm(){
                 oppbid2 = compcards[compcards.length - 3];
                 compcards.splice(compcards.length - 3, 1);
             }           
-        } else if (comphigh == yourhigh){
+        } else if (comphigh < yourhigh){
             oppbid2 = compcards.pop();
             if (trick1 >= 3 && compcards.indexOf(trick1 + b) != -1){
                 oppbid1 = trick1 + b;
@@ -1381,8 +1353,6 @@ function stratNorm(){
             } else {
                 oppbid1 = compcards.shift();
             }
-        } else {
-
         }
     } else if (roundmod === 2 && a <= 70){
         if (yourhigh < comphigh){

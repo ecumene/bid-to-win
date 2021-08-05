@@ -57,8 +57,8 @@ app.delete('/delete_user', (req, res) => {
 
 //Increases user's GP and Abandons by 1. To run at start of game.//
 app.put('/game_started', (req, res) => {
-    let sql = 'UPDATE leaderboard.user_stats SET GP=GP+1, Abandons=Abandons+1 WHERE ID=?';
-    db.query(sql, req.body.ID, (err, result) => {
+    let sql = 'UPDATE leaderboard.user_stats SET GP=GP+1, Abandons=Abandons+1 WHERE Username=?';
+    db.query(sql, req.body.Username, (err, result) => {
         if(err) throw err;
         console.log("Game started");
         res.send(result);
