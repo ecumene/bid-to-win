@@ -57,30 +57,31 @@ h4 {
 }
 
 #statdisplay {
-    color: rgb(140, 140, 255);
+    color: rgb(140, 140, 255);   
     font-size:2.4vw;
     font-weight: bolder;
-    display:inline-flex;
     margin-top: 2vh;
+    margin: auto;
+    display: none;
 }
 
 #stattable {
     color:white;
     margin: auto;
+    margin-top: 2vh;
     padding: 5px;
     width: 15vw;
     font-size: 1.15vw;
-    display:inline-table;
 }
 
 #logindiv {
     display: none;
-    margin-top: 10vh;
+    margin-top: 22%;
 }
 
 #logbtn {
     width: 10vw;
-    height: 3vh;
+    height: 9%;
     font-size: large;
     font-weight: bold;
 }
@@ -233,7 +234,7 @@ h4 {
 }
 
 .inputfld {
-    height: 4vh;
+    height: 11%;
     width: 20vw;
     text-align: center;
     font-size: larger;

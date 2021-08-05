@@ -53,6 +53,10 @@ function createUser(){
 function signIn(){//fetch with GET requests cannot have a body//
     user = document.getElementById("Username").value;
     key = document.getElementById("Password").value;
+    document.getElementById("playcomp").disabled= false;
+    document.getElementById("play2p").disabled= false;
+    document.getElementById("logindiv").style.display = "none";
+    document.getElementById("userstats").style.display = "inline";
 
     const baseURL = `http://localhost:3000/user/:Username/:Password?Username=${user}&Password=${key}`;
     fetch(baseURL)
@@ -62,26 +66,8 @@ function signIn(){//fetch with GET requests cannot have a body//
                 alert("Username and Password do not match. Please refresh page and try again.")
             } else {};
             obj = data[0];
-            userData();
+            document.getElementById("p1").innerHTML = user;
         });
-}
-
-function userData(){
-    id = obj.ID;
-    username = obj.Username;
-    gp = obj.GP;
-    wins = obj.Wins;
-    losses = obj.Losses;
-    ties = obj.Ties;
-    abandons = obj.Abandons;
-    password = obj.Password;
-    winper = (wins * 100/(wins + losses));
-
-    document.getElementById("playcomp").disabled= false;
-    document.getElementById("play2p").disabled= false;
-    document.getElementById("logindiv").style.display = "none";
-    document.getElementById("userstats").style.display = "inline";
-    document.getElementById("p1").innerHTML = username;
 }
 
 function newUser(){
@@ -118,7 +104,9 @@ function nowLogin(){
 }
 
 function userStats(){
-    rule++
+    document.getElementById("statdisplay").style.display = "inline-flex";
+    document.getElementById("stattable").style.display = "";
+    document.getElementById("userstats").innerHTML = "Reload Stats";
 
     const baseURL = `http://localhost:3000/user/:Username?Username=${user}`;
     fetch(baseURL)
@@ -128,9 +116,17 @@ function userStats(){
                 alert("Unable to retrieve stats for current user.")
             } else {};            
             obj = data[0];
-            document.getElementById("statdisplay").style.display = "block";
-            document.getElementById("stattable").style.display = "block";
-            userData();
+            document.getElementById("userhead").innerHTML = obj.Username;
+            document.getElementById("gpdisp").innerHTML = obj.GP;
+            document.getElementById("winsdisp").innerHTML = obj.Wins;
+            document.getElementById("lossesdisp").innerHTML = obj.Losses;
+            document.getElementById("tiesdisp").innerHTML = obj.Ties;
+            document.getElementById("abandonsdisp").innerHTML = obj.Abandons;
+            if(obj.Wins + obj.Losses == 0){
+            document.getElementById("winperdisp").innerHTML = "0%";
+            } else {
+            document.getElementById("winperdisp").innerHTML = ((obj.Wins * 100)/(obj.Wins + obj.Losses))+"%";
+            }
         });
 }
 //end of login/create user functions//
@@ -225,6 +221,20 @@ function trickGen(){
     for (i = 0; i < youradj.length; i++){
         youradj[i].disabled = true;
     }
+
+    if(cpu == 1 && youradj.length == 0){
+        const baseURL = 'http://localhost:3000/game_started';
+        fetch(baseURL, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                Username: user,
+            })
+        });    
+    } else {}
 
     compStrat();
 }
