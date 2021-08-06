@@ -143,7 +143,8 @@ h4 {
     font-size: 1.5vw;
     font-weight: bold;
     color: rgb(140, 140, 255);
-    margin-top: 1.8vw;    
+    margin-top: 1.8vw;
+    margin-bottom: 0.6vw;    
 }
 
 #p2name {
@@ -152,6 +153,7 @@ h4 {
     font-weight: bold;
     color: rgb(255, 140, 140);
     margin-bottom: 1.8vw;
+    margin-top: 0.6vw;
 }
 
 #oppcards {

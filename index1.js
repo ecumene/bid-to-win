@@ -25,10 +25,9 @@ let yourcards = [];
 let csum = 0;
 let ysum = 0;
 
-// variables specific to retrieving/storing user data //
+// variables specific to retrieving/displaying user data //
 let data =[];
 let obj, user, key;
-let id, username, gp, wins, losses, ties, abandons, password;
 
 //start of login/create user functions//
 function logBox() {
@@ -63,9 +62,9 @@ function signIn(){//fetch with GET requests cannot have a body//
         .then(response => response.json())
         .then(data => {
             if(data.length == 0){
-                alert("Username and Password do not match. Please refresh page and try again.")
+                alert("Username and Password do not match. Refresh page and try again, or play as a guest!");
+                user = null;
             } else {};
-            obj = data[0];
             document.getElementById("p1").innerHTML = user;
         });
 }
@@ -125,7 +124,7 @@ function userStats(){
             if(obj.Wins + obj.Losses == 0){
             document.getElementById("winperdisp").innerHTML = "0%";
             } else {
-            document.getElementById("winperdisp").innerHTML = ((obj.Wins * 100)/(obj.Wins + obj.Losses))+"%";
+            document.getElementById("winperdisp").innerHTML = Math.round((obj.Wins * 100)/(obj.Wins + obj.Losses))+"%";
             }
         });
 }
@@ -342,6 +341,43 @@ function scoreReveal(){
     if (scorerev >= 4 && youradj.length != 10){    
         document.getElementById("newround").disabled = false;
     } else if (scorerev >= 4 && youradj.length == 10){
+        if(cpu == 1 && youradj.length == 10 && yourscore > oppscore){
+            const baseURL = 'http://localhost:3000/user_win';
+            fetch(baseURL, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    Username: user,
+                })
+            });    
+        } else if(cpu == 1 && youradj.length == 10 && yourscore < oppscore){
+            const baseURL = 'http://localhost:3000/user_loss';
+            fetch(baseURL, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    Username: user,
+                })
+            }); 
+        } else if (cpu == 1 && youradj.length == 10 && yourscore == oppscore){
+            const baseURL = 'http://localhost:3000/user_tie';
+            fetch(baseURL, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    Username: user,
+                })
+            }); 
+        } else {};
         document.getElementById("newgame").disabled = false;
     } else {
         setTimeout(scoreReveal, 800);
@@ -1362,7 +1398,7 @@ function stratNorm(){
         }
     } else if ((roundmod === 3 || roundmod === 4) && 4 <= trickdiff && 5 < trickavg && 70 < a){
         if (comphigh >= yourhigh){
-            if  (trick1 >= 4){
+            if  (trick1 >= 4){//could probably modify a little. There are situations (e.g. 4-8 tricks with 8-9-10 still remaining), where it makes little sense)//
                 oppbid1 = compcards[compcards.length - 3];
                 compcards.splice(compcards.length - 3, 1);      
                 oppbid2 = compcards[compcards.length - 3];

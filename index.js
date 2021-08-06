@@ -23,18 +23,15 @@ const db = mysql.createPool({
 
 //Fetches user object from database. To run on login.//
 app.get('/user/:Username/:Password', (req, res) => {
-    console.log(req.query.Username);
-    console.log(req.query.Password);
-    console.log(req.query);
     let sql = 'SELECT * FROM leaderboard.user_stats WHERE Username=? AND Password=?';
     db.query(sql, [req.query.Username, req.query.Password], (err, rows) => {
         if(err) throw err;
-        console.log('User is logged in.');
+        console.log('User is logged in.');//how can i make this log conditional?//
         res.json(rows);
     });    
 });
 
-//Fetches user's stats to display
+//Fetches user's stats to display//
 app.get('/user/:Username', (req, res) => {
     let sql = 'SELECT * FROM leaderboard.user_stats WHERE Username=?';
     db.query(sql, req.query.Username, (err, rows) => {
@@ -55,16 +52,6 @@ app.post('/create_user', (req, res) => {
     });
 });
 
-//Removes user from database. May not implement?//
-app.delete('/delete_user', (req, res) => {
-    let sql = 'DELETE FROM leaderboard.user_stats WHERE ID=?'
-    db.query (sql, req.body.ID, (err, result) => {
-        if(err) throw err;
-        console.log('Deleted user');
-        res.send(result);
-    });
-});
-
 //Increases user's GP and Abandons by 1. To run at start of game.//
 app.put('/game_started', (req, res) => {
     let sql = 'UPDATE leaderboard.user_stats SET GP=GP+1, Abandons=Abandons+1 WHERE Username=?';
@@ -77,8 +64,8 @@ app.put('/game_started', (req, res) => {
 
 //Increases users Wins by 1 and decreases Abandons by 1. To run after win//
 app.put('/user_win', (req, res) => {
-    let sql = 'UPDATE leaderboard.user_stats SET Wins=Wins+1, Abandons=Abandons-1 WHERE ID=?';
-    db.query(sql, req.body.ID, (err, result) => {
+    let sql = 'UPDATE leaderboard.user_stats SET Wins=Wins+1, Abandons=Abandons-1 WHERE Username=?';
+    db.query(sql, req.body.Username, (err, result) => {
         if(err) throw err;
         console.log("User won");
         res.send(result);
@@ -87,8 +74,8 @@ app.put('/user_win', (req, res) => {
 
 //Increases users Losses by 1 and decreases Abandons by 1. To run after loss//
 app.put('/user_loss', (req, res) => {
-    let sql = 'UPDATE leaderboard.user_stats SET Losses=Losses+1, Abandons=Abandons-1 WHERE ID=?';
-    db.query(sql, req.body.ID, (err, result) => {
+    let sql = 'UPDATE leaderboard.user_stats SET Losses=Losses+1, Abandons=Abandons-1 WHERE Username=?';
+    db.query(sql, req.body.Username, (err, result) => {
         if(err) throw err;
         console.log("User lost");
         res.send(result);
@@ -97,10 +84,20 @@ app.put('/user_loss', (req, res) => {
 
 //Increases users Ties by 1 and decreases Abandons by 1. To run after tie//
 app.put('/user_tie', (req, res) => {
-    let sql = 'UPDATE leaderboard.user_stats SET Ties=Ties+1, Abandons=Abandons-1 WHERE ID=?';
-    db.query(sql, req.body.ID, (err, result) => {
+    let sql = 'UPDATE leaderboard.user_stats SET Ties=Ties+1, Abandons=Abandons-1 WHERE Username=?';
+    db.query(sql, req.body.Username, (err, result) => {
         if(err) throw err;
         console.log("User tied");
+        res.send(result);
+    });
+});
+
+//Removes user from database. May not implement?//
+app.delete('/delete_user', (req, res) => {
+    let sql = 'DELETE FROM leaderboard.user_stats WHERE ID=?'
+    db.query (sql, req.body.ID, (err, result) => {
+        if(err) throw err;
+        console.log('Deleted user');
         res.send(result);
     });
 });
