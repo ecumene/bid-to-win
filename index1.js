@@ -28,6 +28,7 @@ let ysum = 0;
 // variables specific to retrieving/displaying user data //
 let data =[];
 let obj, user, key;
+let wins, losses, winper;
 
 //start of login/create user functions//
 function logBox() {
@@ -65,7 +66,10 @@ function signIn(){//fetch with GET requests cannot have a body//
                 alert("Username and Password do not match. Refresh page and try again, or play as a guest!");
                 user = null;
             } else {};
+            obj = data[0];
             document.getElementById("p1").innerHTML = user;
+            wins = obj.Wins;
+            losses = obj.Losses;
         });
 }
 
@@ -98,7 +102,8 @@ function nowLogin(){
     document.getElementById("playcomp").disabled = false;
     document.getElementById("play2p").disabled = false;
     document.getElementById("p1").innerHTML = user;
-    console.log(user);
+    wins = 0;
+    losses = 0;
     alert("New user created! Data currently will only be saved while playing games vs the computer.")
 }
 
@@ -121,12 +126,74 @@ function userStats(){
             document.getElementById("lossesdisp").innerHTML = obj.Losses;
             document.getElementById("tiesdisp").innerHTML = obj.Ties;
             document.getElementById("abandonsdisp").innerHTML = obj.Abandons;
-            if(obj.Wins + obj.Losses == 0){
-            document.getElementById("winperdisp").innerHTML = "0%";
-            } else {
-            document.getElementById("winperdisp").innerHTML = Math.round((obj.Wins * 100)/(obj.Wins + obj.Losses))+"%";
-            }
+            document.getElementById("winperdisp").innerHTML = obj.WinPerc+'%';
         });
+
+    baseURL2 = `http://localhost:3000/user_gprank/:Username?Username=${user}`
+    fetch(baseURL2)
+        .then(response => response.json())
+        .then(data => {
+            if(data.length == 0){
+                alert("Unable to retrieve stats for current user.")
+            } else {};            
+            obj = data[0];
+            let rem = obj.row_num % 10;
+            if(obj.row_num > 10 && obj.row_num < 14){
+                document.getElementById("gprank").innerHTML = obj.row_num+'th';
+            } else if (rem == 1){
+                document.getElementById("gprank").innerHTML = obj.row_num+'st';
+            } else if (rem == 2){
+                document.getElementById("gprank").innerHTML = obj.row_num+'nd';
+            } else if (rem == 3){
+                document.getElementById("gprank").innerHTML = obj.row_num+'rd';
+            } else {
+                document.getElementById("gprank").innerHTML = obj.row_num+'th';
+            }            
+    });
+
+    baseURL3 = `http://localhost:3000/user_winsrank/:Username?Username=${user}`
+    fetch(baseURL3)
+        .then(response => response.json())
+        .then(data => {
+            if(data.length == 0){
+                alert("Unable to retrieve stats for current user.")
+            } else {};            
+            obj = data[0];
+            let rem = obj.row_num % 10;
+            if(obj.row_num > 10 && obj.row_num < 14){
+                document.getElementById("winsrank").innerHTML = obj.row_num+'th';
+            } else if (rem == 1){
+                document.getElementById("winsrank").innerHTML = obj.row_num+'st';
+            } else if (rem == 2){
+                document.getElementById("winsrank").innerHTML = obj.row_num+'nd';
+            } else if (rem == 3){
+                document.getElementById("winsrank").innerHTML = obj.row_num+'rd';
+            } else {
+                document.getElementById("winsrank").innerHTML = obj.row_num+'th';
+            }
+    });
+
+    baseURL4 = `http://localhost:3000/user_winperrank/:Username?Username=${user}`
+    fetch(baseURL4)
+        .then(response => response.json())
+        .then(data => {
+            if(data.length == 0){
+                alert("Unable to retrieve stats for current user.")
+            } else {};            
+            obj = data[0];
+            let rem = obj.row_num % 10;
+            if(obj.row_num > 10 && obj.row_num < 14){
+                document.getElementById("winperrank").innerHTML = obj.row_num+'th';
+            } else if (rem == 1){
+                document.getElementById("winperrank").innerHTML = obj.row_num+'st';
+            } else if (rem == 2){
+                document.getElementById("winperrank").innerHTML = obj.row_num+'nd';
+            } else if (rem == 3){
+                document.getElementById("winperrank").innerHTML = obj.row_num+'rd';
+            } else {
+                document.getElementById("winperrank").innerHTML = obj.row_num+'th';
+            }
+    });
 }
 //end of login/create user functions//
 
@@ -342,6 +409,8 @@ function scoreReveal(){
         document.getElementById("newround").disabled = false;
     } else if (scorerev >= 4 && youradj.length == 10){
         if(cpu == 1 && youradj.length == 10 && yourscore > oppscore){
+            wins++
+            winper = Math.round(((wins)*100)/(wins + losses));
             const baseURL = 'http://localhost:3000/user_win';
             fetch(baseURL, {
                 method: 'PUT',
@@ -351,9 +420,12 @@ function scoreReveal(){
                 },
                 body: JSON.stringify({
                     Username: user,
+                    WinPerc: winper
                 })
             });    
         } else if(cpu == 1 && youradj.length == 10 && yourscore < oppscore){
+            losses++
+            winper = Math.round((wins * 100)/(wins + losses));
             const baseURL = 'http://localhost:3000/user_loss';
             fetch(baseURL, {
                 method: 'PUT',
@@ -363,9 +435,15 @@ function scoreReveal(){
                 },
                 body: JSON.stringify({
                     Username: user,
+                    WinPerc: winper
                 })
             }); 
         } else if (cpu == 1 && youradj.length == 10 && yourscore == oppscore){
+            if(wins + losses != 0){
+                winper = ((wins * 100)/(wins + losses));
+            } else {
+                winper = 0;
+            }
             const baseURL = 'http://localhost:3000/user_tie';
             fetch(baseURL, {
                 method: 'PUT',
@@ -375,6 +453,7 @@ function scoreReveal(){
                 },
                 body: JSON.stringify({
                     Username: user,
+                    WinPerc: winper
                 })
             }); 
         } else {};

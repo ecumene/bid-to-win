@@ -41,10 +41,37 @@ app.get('/user/:Username', (req, res) => {
     });    
 });
 
+//Fetches user's rank in GP in database for display. Runs off of same function as /user/:Username//
+app.get('/user_gprank/:Username', (req, res) => {
+    let sql = 'SELECT * FROM leaderboard.gp_rank WHERE Username=?';
+    db.query(sql, req.query.Username, (err, rows) => {
+        if(err) throw err;
+        res.json(rows);
+    });    
+});
+
+//Fetches user's rank in Wins in database for display. Runs off of same function as /user/:Username//
+app.get('/user_winsrank/:Username', (req, res) => {
+    let sql = 'SELECT * FROM leaderboard.wins_rank WHERE Username=?';
+    db.query(sql, req.query.Username, (err, rows) => {
+        if(err) throw err;
+        res.json(rows);
+    });    
+});
+
+//Fetches user's rank in Wins in database for display. Runs off of same function as /user/:Username//
+app.get('/user_winperrank/:Username', (req, res) => {
+    let sql = 'SELECT * FROM leaderboard.winperc_rank WHERE Username=?';
+    db.query(sql, req.query.Username, (err, rows) => {
+        if(err) throw err;
+        res.json(rows);
+    });    
+});
+
 //Adds new user to database//
 app.post('/create_user', (req, res) => {
-    let sql = 'INSERT INTO leaderboard.user_stats (Username, GP, Wins, Losses, Ties, Abandons, Password)' +
-                'VALUES (?, 0, 0, 0, 0, 0, ?)';
+    let sql = 'INSERT INTO leaderboard.user_stats (Username, GP, Wins, Losses, Ties, Abandons, WinPerc, Password)' +
+                'VALUES (?, 0, 0, 0, 0, 0, 0, ?)';
     db.query(sql, [req.body.Username, req.body.Password], (err, result) => {
         if(err) throw err;
         console.log(`New user created: ${req.body.Username}`);
@@ -64,8 +91,8 @@ app.put('/game_started', (req, res) => {
 
 //Increases users Wins by 1 and decreases Abandons by 1. To run after win//
 app.put('/user_win', (req, res) => {
-    let sql = 'UPDATE leaderboard.user_stats SET Wins=Wins+1, Abandons=Abandons-1 WHERE Username=?';
-    db.query(sql, req.body.Username, (err, result) => {
+    let sql = 'UPDATE leaderboard.user_stats SET Wins=Wins+1, Abandons=Abandons-1, WinPerc=? WHERE Username=?';
+    db.query(sql, [req.body.WinPerc, req.body.Username], (err, result) => {
         if(err) throw err;
         console.log("User won");
         res.send(result);
@@ -74,8 +101,8 @@ app.put('/user_win', (req, res) => {
 
 //Increases users Losses by 1 and decreases Abandons by 1. To run after loss//
 app.put('/user_loss', (req, res) => {
-    let sql = 'UPDATE leaderboard.user_stats SET Losses=Losses+1, Abandons=Abandons-1 WHERE Username=?';
-    db.query(sql, req.body.Username, (err, result) => {
+    let sql = 'UPDATE leaderboard.user_stats SET Losses=Losses+1, Abandons=Abandons-1, WinPerc=? WHERE Username=?';
+    db.query(sql, [req.body.WinPerc, req.body.Username], (err, result) => {
         if(err) throw err;
         console.log("User lost");
         res.send(result);
@@ -84,8 +111,8 @@ app.put('/user_loss', (req, res) => {
 
 //Increases users Ties by 1 and decreases Abandons by 1. To run after tie//
 app.put('/user_tie', (req, res) => {
-    let sql = 'UPDATE leaderboard.user_stats SET Ties=Ties+1, Abandons=Abandons-1 WHERE Username=?';
-    db.query(sql, req.body.Username, (err, result) => {
+    let sql = 'UPDATE leaderboard.user_stats SET Ties=Ties+1, Abandons=Abandons-1, WinPerc=? WHERE Username=?';
+    db.query(sql, [req.body.WinPerc, req.body.Username], (err, result) => {
         if(err) throw err;
         console.log("User tied");
         res.send(result);
