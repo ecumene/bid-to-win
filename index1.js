@@ -148,7 +148,7 @@ function userStats(){
     document.getElementById("userstats").innerHTML = "Refresh Stats";
     document.getElementById("rulespar").innerHTML = "";
 
-    const baseURL = `http://localhost:3000/user/:Username?Username=${user}`;
+    const baseURL = `http://localhost:3000/user_stats/:Username?Username=${user}`;
     fetch(baseURL)
         .then(response => response.json())
         .then(data => {
