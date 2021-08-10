@@ -32,19 +32,26 @@ let wins, losses, winper;
 
 //start of login/create user functions//
 function logBox() {
-    document.getElementById("newuser").disabled = true
-    document.getElementById("login").disabled = true
-    document.getElementById("playcomp").disabled = true
-    document.getElementById("play2p").disabled = true       
+    document.getElementById("newuser").style.display = "none";
+    document.getElementById("login").disabled = true;
+    document.getElementById("playcomp").disabled = true;
+    document.getElementById("play2p").disabled = true;
+    document.getElementById("leaderdiv").style.display = "none";     
+    document.getElementById("leaderboard").style.display = "none";
+    document.getElementById("leaderkey").style.display = "none";
+    document.getElementById("viewlead").disabled = true;     
     document.getElementById("logindiv").style.display = 'inline-block';
-    
 }
 
 function createUser(){
-    document.getElementById("newuser").disabled = true
-    document.getElementById("login").disabled = true
+    document.getElementById("newuser").style.display = "none";
+    document.getElementById("login").style.display = "none";
     document.getElementById("playcomp").disabled = true
-    document.getElementById("play2p").disabled = true       
+    document.getElementById("play2p").disabled = true
+    document.getElementById("leaderdiv").style.display = "none";     
+    document.getElementById("leaderboard").style.display = "none"; 
+    document.getElementById("leaderkey").style.display = "none";
+    document.getElementById("viewlead").disabled = true;     
     document.getElementById("logindiv").style.display = 'inline-block';
 
     document.getElementById("logbtn").onclick = newUser;
@@ -55,21 +62,25 @@ function signIn(){//fetch with GET requests cannot have a body//
     key = document.getElementById("Password").value;
     document.getElementById("playcomp").disabled= false;
     document.getElementById("play2p").disabled= false;
-    document.getElementById("logindiv").style.display = "none";
-    document.getElementById("userstats").style.display = "inline";
+    document.getElementById("viewlead").disabled= false;
 
     const baseURL = `http://localhost:3000/user/:Username/:Password?Username=${user}&Password=${key}`;
     fetch(baseURL)
         .then(response => response.json())
         .then(data => {
             if(data.length == 0){
-                alert("Username and Password do not match. Refresh page and try again, or play as a guest!");
+                alert("Username and Password do not match.");
                 user = null;
             } else {};
             obj = data[0];
             document.getElementById("p1").innerHTML = user;
             wins = obj.Wins;
             losses = obj.Losses;
+            document.getElementById("userstats").style.display = "inline";
+            document.getElementById("logindiv").style.display = "none";
+            document.getElementById("login").disabled = false;
+            document.getElementById("login").innerHTML = "Sign Out";
+            document.getElementById("login").onclick = signOut;
         });
 }
 
@@ -99,18 +110,42 @@ function newUser(){
 function nowLogin(){
     document.getElementById("logindiv").style.display = "none";
     document.getElementById("userstats").style.display = "inline";
+    document.getElementById("login").style.display = "inline";
+    document.getElementById("login").innerHTML = "Sign Out";
+    document.getElementById("login").onclick = signOut;
     document.getElementById("playcomp").disabled = false;
     document.getElementById("play2p").disabled = false;
+    document.getElementById("viewlead").disabled = false;
     document.getElementById("p1").innerHTML = user;
     wins = 0;
     losses = 0;
-    alert("New user created! Data currently will only be saved while playing games vs the computer.")
+    rule++
+    document.getElementById("rulespar").innerHTML = ("Welcome to Bid-to-Win, <span style='color: blue'>"+user+"</span>!" + "<br><br>" +
+        "You stats will all be saved, and you can view and retrieve them at anytime." + "<br>" +
+        " Your current ranking in the database for games played, wins, and win% is also displayed." + "<br><br>" +
+        " I hope you enjoy the game!")
+    document.getElementById("rulespar").style.backgroundColor = "lightgray";
+    document.getElementById("rulebtn").style.backgroundColor = "black";
+    document.getElementById("rulebtn").style.color = "white";
 }
 
+function signOut(){
+    user = null;
+    document.getElementById("p1").innerHTML = "PLAYER 1";
+    document.getElementById("login").innerHTML = "Sign In";
+    document.getElementById("login").onlick = logBox;
+    document.getElementById("userstats").innerHTML = "User Stats";
+    document.getElementById("userstats").style.display = "none";
+    document.getElementById("newuser").style.display = "inline";
+    document.getElementById("statdisplay").style.display = "none";
+    document.getElementById("stattable").style.display = "none";
+}
+//end of login/create user functions//
 function userStats(){
-    document.getElementById("statdisplay").style.display = "inline-flex";
-    document.getElementById("stattable").style.display = "";
-    document.getElementById("userstats").innerHTML = "Reload Stats";
+    document.getElementById("leaderdiv").style.display = "none";     
+    document.getElementById("leaderboard").style.display = "none";
+    document.getElementById("leaderkey").style.display = "none";
+    document.getElementById("userstats").innerHTML = "Refresh Stats";
 
     const baseURL = `http://localhost:3000/user/:Username?Username=${user}`;
     fetch(baseURL)
@@ -194,8 +229,36 @@ function userStats(){
                 document.getElementById("winperrank").innerHTML = obj.row_num+'th';
             }
     });
+
+    document.getElementById("statdisplay").style.display = "inline-flex";
+    document.getElementById("stattable").style.display = "";
 }
-//end of login/create user functions//
+
+function leaderboard(){
+    document.getElementById("stattable").style.display = "none";
+    document.getElementById("statdisplay").style.display = "none";
+
+    const baseURL = 'http://localhost:3000/leaderboard';
+    fetch(baseURL)
+        .then(response => response.json())
+        .then(data => {
+            for (i = 0; i < data.length; i++){
+                obj = data[i];
+                j = i + 1;
+                document.getElementById("user"+j).innerHTML = obj.Username;
+                document.getElementById("gp"+j).innerHTML = obj.GP;
+                document.getElementById("wins"+j).innerHTML = obj.Wins;
+                document.getElementById("losses"+j).innerHTML = obj.Losses;
+                document.getElementById("ties"+j).innerHTML = obj.Ties;
+                document.getElementById("winper"+j).innerHTML = obj.WinPerc;
+                document.getElementById("abs"+j).innerHTML = obj.Abandons;
+            }
+
+            document.getElementById("leaderdiv").style.display = "inline-flex";
+            document.getElementById("leaderboard").style.display = "";
+            document.getElementById("leaderkey").style.display = "inline-flex";
+        });
+}
 
 function Rules() {
     rule++
@@ -223,8 +286,6 @@ function Rules() {
 
 function playComp(){
     cpu = 1;
-    document.getElementById("newuser").disabled = true
-    document.getElementById("login").disabled = true;
     document.getElementById("playcomp").disabled = true;
     document.getElementById("play2p").disabled = true;
     document.getElementById("newround").disabled = false;
@@ -235,12 +296,54 @@ function playComp(){
 }
 
 function play2p(){
-    document.getElementById("newuser").disabled = true
-    document.getElementById("login").disabled = true;
     document.getElementById("playcomp").disabled = true;
     document.getElementById("play2p").disabled = true;
     document.getElementById("newround").disabled = false;
     alert("User data currently does not get recorded for two-player games.")
+}
+
+function undo(){
+    if (cpu == 0 && loop == 1 && count % 2 != 0){
+        document.getElementById("oppbid1").innerHTML = "3";
+        line3.disabled = false;
+        oppadj.pop();
+        loop = 0;
+    } else if (cpu == 0 && loop == 2 && count % 2 != 0){
+        document.getElementById("oppbid1").innerHTML = "";
+        document.getElementById("oppbid2").innerHTML = "";
+        oppadj.pop();
+        oppadj.pop();
+        loop = 0;
+        document.getElementById("commit").disabled = true;
+
+        for (i = 0; i < cbuttons.length; i++){
+            cbuttons[i].disabled = false;
+        }
+    
+        for (i = 0; i < oppadj.length; i++){
+            oppadj[i].disabled = true;
+        }
+    } else if (loop == 1){
+        document.getElementById("yourbid1").innerHTML = "";
+        line1.disabled = false;
+        youradj.pop();
+        loop = 0;
+    } else {
+        document.getElementById("yourbid1").innerHTML = "";
+        document.getElementById("yourbid2").innerHTML = "";
+        youradj.pop();
+        youradj.pop();
+        loop = 0;
+        document.getElementById("commit").disabled = true;
+
+        for (i = 0; i < buttons.length; i++){
+            buttons[i].disabled = false;
+        }
+    
+        for (i = 0; i < youradj.length; i++){
+            youradj[i].disabled = true;
+        }
+    }    
 }
 
 function trickGen(){
@@ -288,7 +391,7 @@ function trickGen(){
         youradj[i].disabled = true;
     }
 
-    if(cpu == 1 && youradj.length == 0){
+    if(cpu == 1 && youradj.length == 0 && user != null){
         const baseURL = 'http://localhost:3000/game_started';
         fetch(baseURL, {
             method: 'PUT',
@@ -310,6 +413,8 @@ function Commit(){
     scorerev = 0;
     yourcards.splice(yourcards.indexOf(yourbid1), 1);
     yourcards.splice(yourcards.indexOf(yourbid2), 1);
+    document.getElementById("undo").disabled = true;
+
     if (cpu == 0) {
         count++;        
         if (count % 2 != 0){
@@ -408,7 +513,7 @@ function scoreReveal(){
     if (scorerev >= 4 && youradj.length != 10){    
         document.getElementById("newround").disabled = false;
     } else if (scorerev >= 4 && youradj.length == 10){
-        if(cpu == 1 && youradj.length == 10 && yourscore > oppscore){
+        if(cpu == 1 && youradj.length == 10 && yourscore > oppscore && user != null){
             wins++
             winper = Math.round(((wins)*100)/(wins + losses));
             const baseURL = 'http://localhost:3000/user_win';
@@ -423,7 +528,7 @@ function scoreReveal(){
                     WinPerc: winper
                 })
             });    
-        } else if(cpu == 1 && youradj.length == 10 && yourscore < oppscore){
+        } else if(cpu == 1 && youradj.length == 10 && yourscore < oppscore && user != null){
             losses++
             winper = Math.round((wins * 100)/(wins + losses));
             const baseURL = 'http://localhost:3000/user_loss';
@@ -438,7 +543,7 @@ function scoreReveal(){
                     WinPerc: winper
                 })
             }); 
-        } else if (cpu == 1 && youradj.length == 10 && yourscore == oppscore){
+        } else if (cpu == 1 && youradj.length == 10 && yourscore == oppscore && user != null){
             if(wins + losses != 0){
                 winper = ((wins * 100)/(wins + losses));
             } else {
@@ -516,6 +621,7 @@ function newGame(){
 // the beginning of the player button functions //
 function Card1(){
     loop++;
+    document.getElementById("undo").disabled = false;
 
     if (loop === 1){
         document.getElementById("yourbid1").innerHTML = "1";
@@ -537,6 +643,7 @@ function Card1(){
 }
 function Card2(){
     loop++;
+    document.getElementById("undo").disabled = false;
 
     if (loop === 1){
         document.getElementById("yourbid1").innerHTML = "2";
@@ -558,6 +665,7 @@ function Card2(){
 }
 function Card3(){
     loop++;
+    document.getElementById("undo").disabled = false;
 
     if (loop === 1){
         document.getElementById("yourbid1").innerHTML = "3";
@@ -579,6 +687,7 @@ function Card3(){
 }
 function Card4(){
     loop++;
+    document.getElementById("undo").disabled = false;
 
     if (loop === 1){
         document.getElementById("yourbid1").innerHTML = "4";
@@ -600,6 +709,7 @@ function Card4(){
 }
 function Card5(){
     loop++;
+    document.getElementById("undo").disabled = false;
 
     if (loop === 1){
         document.getElementById("yourbid1").innerHTML = "5";
@@ -621,6 +731,7 @@ function Card5(){
 }
 function Card6(){
     loop++;
+    document.getElementById("undo").disabled = false;
 
     if (loop === 1){
         document.getElementById("yourbid1").innerHTML = "6";
@@ -642,6 +753,7 @@ function Card6(){
 }
 function Card7(){
     loop++;
+    document.getElementById("undo").disabled = false;
 
     if (loop === 1){
         document.getElementById("yourbid1").innerHTML = "7";
@@ -663,6 +775,7 @@ function Card7(){
 }
 function Card8(){
     loop++;
+    document.getElementById("undo").disabled = false;
 
     if (loop === 1){
         document.getElementById("yourbid1").innerHTML = "8";
@@ -684,6 +797,7 @@ function Card8(){
 }
 function Card9(){
     loop++;
+    document.getElementById("undo").disabled = false;
 
     if (loop === 1){
         document.getElementById("yourbid1").innerHTML = "9";
@@ -705,6 +819,7 @@ function Card9(){
 }
 function Card10(){
     loop++;
+    document.getElementById("undo").disabled = false;
 
     if (loop === 1){
         document.getElementById("yourbid1").innerHTML = "10";
@@ -726,6 +841,7 @@ function Card10(){
 }
 function Opp1(){
     loop++;
+    document.getElementById("undo").disabled = false;
 
     if (loop === 1){
         document.getElementById("oppbid1").innerHTML = "1";
@@ -747,6 +863,7 @@ function Opp1(){
 }
 function Opp2(){
     loop++;
+    document.getElementById("undo").disabled = false;
 
     if (loop === 1){
         document.getElementById("oppbid1").innerHTML = "2";
@@ -768,6 +885,7 @@ function Opp2(){
 }
 function Opp3(){
     loop++;
+    document.getElementById("undo").disabled = false;
 
     if (loop === 1){
         document.getElementById("oppbid1").innerHTML = "3";
@@ -789,6 +907,7 @@ function Opp3(){
 }
 function Opp4(){
     loop++;
+    document.getElementById("undo").disabled = false;
 
     if (loop === 1){
         document.getElementById("oppbid1").innerHTML = "4";
@@ -810,6 +929,7 @@ function Opp4(){
 }
 function Opp5(){
     loop++;
+    document.getElementById("undo").disabled = false;
 
     if (loop === 1){
         document.getElementById("oppbid1").innerHTML = "5";
@@ -831,6 +951,7 @@ function Opp5(){
 }
 function Opp6(){
     loop++;
+    document.getElementById("undo").disabled = false;
 
     if (loop === 1){
         document.getElementById("oppbid1").innerHTML = "6";
@@ -852,6 +973,7 @@ function Opp6(){
 }
 function Opp7(){
     loop++;
+    document.getElementById("undo").disabled = false;
 
     if (loop === 1){
         document.getElementById("oppbid1").innerHTML = "7";
@@ -873,6 +995,7 @@ function Opp7(){
 }
 function Opp8(){
     loop++;
+    document.getElementById("undo").disabled = false;
 
     if (loop === 1){
         document.getElementById("oppbid1").innerHTML = "8";
@@ -894,6 +1017,7 @@ function Opp8(){
 }
 function Opp9(){
     loop++;
+    document.getElementById("undo").disabled = false;
 
     if (loop === 1){
         document.getElementById("oppbid1").innerHTML = "9";
@@ -915,6 +1039,7 @@ function Opp9(){
 }
 function Opp10(){
     loop++;
+    document.getElementById("undo").disabled = false;
 
     if (loop === 1){
         document.getElementById("oppbid1").innerHTML = "10";

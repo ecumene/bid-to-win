@@ -26,7 +26,7 @@ app.get('/user/:Username/:Password', (req, res) => {
     let sql = 'SELECT * FROM leaderboard.user_stats WHERE Username=? AND Password=?';
     db.query(sql, [req.query.Username, req.query.Password], (err, rows) => {
         if(err) throw err;
-        console.log('User is logged in.');//how can i make this log conditional?//
+        console.log('User is logged in.');//how can I make this log conditional?//
         res.json(rows);
     });    
 });
@@ -67,6 +67,14 @@ app.get('/user_winperrank/:Username', (req, res) => {
         res.json(rows);
     });    
 });
+
+app.get('/leaderboard', (req, res) => {
+    let sql = 'SELECT * FROM leaderboard.winperc_rank WHERE row_num < 11';
+    db.query(sql, (err, rows) => {
+        if(err) throw err
+        res.json(rows);
+    })
+})
 
 //Adds new user to database//
 app.post('/create_user', (req, res) => {

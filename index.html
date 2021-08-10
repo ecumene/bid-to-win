@@ -8,40 +8,155 @@
     </head>
     <body>
         <div id="rules" class="overdiv">
-            <button id="userstats" onclick='userStats()'>User Stats</button>          
-            <h2><button id="rulebtn" onclick="Rules()">The Rules</button></h2>            
+            <button id="userstats" onclick='userStats()'>User Stats</button>
+            <button id="login" onclick='logBox()'>Sign In</button> 
+            <button id="newuser" onclick='createUser()'>Create User</button>         
+            <button id="viewlead" onclick='leaderboard()'>View Leaderboard</button>         
+            <h2><button id="rulebtn" onclick='Rules()'>The Rules</button></h2>            
             <p id="rulespar"></p>
             <p id="statdisplay">
-                <h7 id="userhead">Name</h7>
+                <h7 id="userhead"></h7>
                 <table id="stattable"  style="display:none">
                     <tr>
                         <td style="color:rgb(250, 189, 189)">GP</td>
-                        <td id="gpdisp" style="color:rgb(250, 189, 189)">10</td>
+                        <td id="gpdisp" style="color:rgb(250, 189, 189)"></td>
                         <td id="gprank" style="color:rgb(250, 189, 189)"></td>
                     </tr>
                     <tr>
                         <td style="color:rgb(189, 189, 250)">Wins</td>
-                        <td id="winsdisp" style="color:rgb(189, 189, 250)">4</td>
+                        <td id="winsdisp" style="color:rgb(189, 189, 250)"></td>
                         <td id="winsrank" style="color:rgb(189, 189, 250)"></td>
                     </tr>
                     <tr>
                         <td style="color:rgb(250, 189, 189)">Losses</td>
-                        <td id="lossesdisp" style="color:rgb(250, 189, 189)">5</td>
+                        <td id="lossesdisp" style="color:rgb(250, 189, 189)">
                     </tr>
                     <tr>
                         <td style="color:rgb(189, 189, 250)">Ties</td>
-                        <td id="tiesdisp" style="color:rgb(189, 189, 250)">1</td>
+                        <td id="tiesdisp" style="color:rgb(189, 189, 250)"></td>
                     </tr>
                     <tr>
                         <td style="color:rgb(250, 189, 189)">Abandons</td>
-                        <td id="abandonsdisp" style="color:rgb(250, 189, 189)">0</td>
+                        <td id="abandonsdisp" style="color:rgb(250, 189, 189)"></td>
                     </tr>
                     <tr>
                         <td style="color:rgb(189, 189, 250)">Win%</td>
-                        <td id="winperdisp" style="color:rgb(189, 189, 250)">44%</td>
+                        <td id="winperdisp" style="color:rgb(189, 189, 250)"></td>
                         <td id="winperrank" style="color:rgb(189, 189, 250)"></td>
                     </tr>
                 </table>
+            </p>
+            <p id="leaderdiv">
+                <h8>LEADERBOARD</h8>
+                <table id="leaderboard" style="display:none">
+                    <tr>
+                        <th style="color:white">User</th>
+                        <th style="color:white">GP</th>
+                        <th style="color:white">W</th>
+                        <th style="color:white">L</th>
+                        <th style="color:white">T</th>
+                        <th style="color:white">W%</th>
+                        <th style="color:white">Abs</th>
+                    </tr>
+                    <tr>
+                        <td id="user1" style="color:red"></td>
+                        <td id="gp1" style="color:red"></td>
+                        <td id="wins1" style="color:rgb(255, 0, 0)"></td>
+                        <td id="losses1" style="color:red"></td>
+                        <td id="ties1" style="color:red"></td>
+                        <td id="winper1" style="color:red"></td>
+                        <td id="abs1" style="color:red"></td>
+                    </tr>
+                    <tr>
+                        <td id="user2" style="color:rgb(255, 21, 21)"></td>
+                        <td id="gp2" style="color:rgb(255, 21, 21)"></td>
+                        <td id="wins2" style="color:rgb(255, 21, 21)"></td>
+                        <td id="losses2" style="color:rgb(255, 21, 21)"></td>
+                        <td id="ties2" style="color:rgb(255, 21, 21)"></td>
+                        <td id="winper2" style="color:rgb(255, 21, 21)"></td>
+                        <td id="abs2" style="color:rgb(255, 21, 21)"></td>
+                    </tr>
+                    <tr>
+                        <td id="user3" style="color:rgb(254, 42, 42)"></td>
+                        <td id="gp3" style="color:rgb(254, 42, 42)"></td>
+                        <td id="wins3" style="color:rgb(254, 42, 42)"></td>
+                        <td id="losses3" style="color:rgb(254, 42, 42)"></td>
+                        <td id="ties3" style="color:rgb(254, 42, 42)"></td>
+                        <td id="winper3" style="color:rgb(254, 42, 42)"></td>
+                        <td id="abs3" style="color:rgb(254, 42, 42)"></td>
+                    </tr>
+                    <tr>
+                        <td id="user4" style="color:rgb(254, 63, 63)"></td>
+                        <td id="gp4" style="color:rgb(254, 63, 63)"></td>
+                        <td id="wins4" style="color:rgb(254, 63, 63)"></td>
+                        <td id="losses4" style="color:rgb(254, 63, 63)"></td>
+                        <td id="ties4" style="color:rgb(254, 63, 63)"></td>
+                        <td id="winper4" style="color:rgb(254, 63, 63)"></td>
+                        <td id="abs4" style="color:rgb(254, 63, 63)"></td>
+                    </tr>
+                    <tr>
+                        <td id="user5" style="color:rgb(253, 84, 84)"></td>
+                        <td id="gp5" style="color:rgb(253, 84, 84)"></td>
+                        <td id="wins5" style="color:rgb(253, 84, 84)"></td>
+                        <td id="losses5" style="color:rgb(253, 84, 84)"></td>
+                        <td id="ties5" style="color:rgb(253, 84, 84)"></td>
+                        <td id="winper5" style="color:rgb(253, 84, 84)"></td>
+                        <td id="abs5" style="color:rgb(253, 84, 84)"></td>
+                    </tr>
+                    <tr>
+                        <td id="user6" style="color:rgb(253, 105, 105)"></td>
+                        <td id="gp6" style="color:rgb(253, 105, 105)"></td>
+                        <td id="wins6" style="color:rgb(253, 105, 105)"></td>
+                        <td id="losses6" style="color:rgb(253, 105, 105)"></td>
+                        <td id="ties6" style="color:rgb(253, 105, 105)"></td>
+                        <td id="winper6" style="color:rgb(253, 105, 105)"></td>
+                        <td id="abs6" style="color:rgb(253, 105, 105)"></td>
+                    </tr>
+                    <tr>
+                        <td id="user7" style="color:rgb(252, 126, 126)"></td>
+                        <td id="gp7" style="color:rgb(252, 126, 126)"></td>
+                        <td id="wins7" style="color:rgb(252, 126, 126)"></td>
+                        <td id="losses7" style="color:rgb(252, 126, 126)"></td>
+                        <td id="ties7" style="color:rgb(252, 126, 126)"></td>
+                        <td id="winper7" style="color:rgb(252, 126, 126)"></td>
+                        <td id="abs7" style="color:rgb(252, 126, 126)"></td>
+                    </tr>
+                    <tr>
+                        <td id="user8" style="color:rgb(252, 147, 147)"></td>
+                        <td id="gp8" style="color:rgb(252, 147, 147)"></td>
+                        <td id="wins8" style="color:rgb(252, 147, 147)"></td>
+                        <td id="losses8" style="color:rgb(252, 147, 147)"></td>
+                        <td id="ties8" style="color:rgb(252, 147, 147)"></td>
+                        <td id="winper8" style="color:rgb(252, 147, 147)"></td>
+                        <td id="abs8" style="color:rgb(252, 147, 147)"></td>
+                    </tr>
+                    <tr>
+                        <td id="user9" style="color:rgb(251, 168, 168)"></td>
+                        <td id="gp9" style="color:rgb(251, 168, 168)"></td>
+                        <td id="wins9" style="color:rgb(251, 168, 168)"></td>
+                        <td id="losses9" style="color:rgb(251, 168, 168)"></td>
+                        <td id="ties9" style="color:rgb(251, 168, 168)"></td>
+                        <td id="winper9" style="color:rgb(251, 168, 168)"></td>
+                        <td id="abs9" style="color:rgb(251, 168, 168)"></td>
+                    </tr>
+                    <tr>
+                        <td id="user10" style="color:rgb(250, 189, 189)"></td>
+                        <td id="gp10" style="color:rgb(250, 189, 189)"></td>
+                        <td id="wins10" style="color:rgb(250, 189, 189)"></td>
+                        <td id="losses10" style="color:rgb(250, 189, 189)"></td>
+                        <td id="ties10" style="color:rgb(250, 189, 189)"></td>
+                        <td id="winper10" style="color:rgb(250, 189, 189)"></td>
+                        <td id="abs10" style="color:rgb(250, 189, 189)"></td>
+                    </tr>
+                </table>
+            </p>
+            <p id="leaderkey">    
+                GP = Games Played <br>
+                W = Wins <br>
+                L = Losses <br>
+                T = Ties <br>
+                W% = Winning percentage in decisive games <br>
+                Abs = Games abandoned
             </p>
             <p id="logindiv">
                 <input type="text" placeholder="Username" id="Username" name="Username" class="inputfld" minlength="4" maxlength="16"/><br><br><br><br>
@@ -80,11 +195,10 @@
                 <h7 id="p1">PLAYER 1</h7>
             </div>
             <div id="playarea" class="row">
-                <div id="newroundiv" class="column">
-                    <input type="button" id="newuser" onclick="createUser()" value="Create User"/>
-                    <input type="button" id="login" onclick="logBox()" value="Sign In"/>                
+                <div id="newroundiv" class="column">                
                     <input type="button" id="playcomp" onclick="playComp()" value="Play vs. Comp"/>
                     <input type="button" id="play2p" onclick="play2p()" value="2-Player Game"/>
+                    <input type="button" id="undo" onclick="undo()" value="Undo" disabled/>
                 </div>
                 <div id="tricks" class="column">
                     <textarea id="yourbid1" class="bidbox"></textarea>

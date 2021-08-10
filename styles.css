@@ -16,6 +16,10 @@ h4 {
     margin-bottom: 1px;
 }
 
+th {
+    height: 40px;
+}
+
 #rules {
     font-family:'Courier New', Courier, monospace;
     font-weight: bolder;
@@ -35,7 +39,46 @@ h4 {
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     font-weight: bolder;
     border-radius: 15px;
+    margin-top: 0.1vw;
+    margin-bottom: 0.1vw;
     display: none;
+    background-color: lightgray;
+}
+
+#newuser {
+    width: 60%;
+    height: fit-content;
+    font-size: large;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bolder;
+    border-radius: 15px;
+    margin-top: 0.1vw;
+    margin-bottom: 0.1vw;
+    background-color: lightgray;
+}
+
+#login {
+    width: 60%;
+    height: fit-content;
+    font-size: large;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bolder;
+    border-radius: 15px;
+    margin-top: 0.1vw;
+    margin-bottom: 0.1vw;
+    background-color: lightgray;
+}
+
+#viewlead {
+    width: 60%;
+    height: fit-content;
+    font-size: large;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bolder;
+    border-radius: 15px;
+    margin-top: 0.1vw;
+    margin-bottom: 0.1vw;
+    background-color: lightgray;
 }
 
 #rulebtn {
@@ -72,6 +115,34 @@ h4 {
     padding: 5px;
     width: 15vw;
     font-size: 1.15vw;
+}
+
+#leaderdiv {
+    color: rgb(140, 140, 255);   
+    font-size:1.6vw;
+    font-weight: bolder;
+    margin-top: 2vh;
+    margin: auto;
+    display: none;
+}
+
+#leaderboard {
+    color:white;
+    margin: auto;
+    margin-top: 2vh;
+    padding: 5px;
+    width: 24vw;
+    font-size: 1vw;
+}
+
+#leaderkey {
+    color: rgb(140, 140, 255);   
+    font-size:0.7vw;
+    font-weight: bolder;
+    margin-top: 1vh;
+    margin: auto;
+    display: none;
+    text-align: left;
 }
 
 #logindiv {
@@ -160,37 +231,27 @@ h4 {
     text-align: center;
 }
 
-#newuser {
-    margin-top: 1.4vw;
-    margin-left: 6.29vw;
-    margin-bottom: 0.6vw;
-    height: 3vw;
-    width: 14.42vw;
-    font-size:1.45vw;
-    font-weight: bolder;
-}
-
-#login {
-    margin-top: 0.6vw;
-    margin-left: 6.29vw;
-    margin-bottom: 0.6vw;
-    height: 3vw;
-    width: 14.42vw;
-    font-size:1.45vw;
-    font-weight: bolder;
-}
-
 #playcomp {
-    margin-top: 0.6vw;
+    margin-top: 3vw;
     margin-left: 6.29vw;
     margin-bottom: 0.6vw;
+    height: 3vw;
+    width: 14.42vw;
+    font-size:1.45vw;
+    font-weight: bolder;
+}
+
+#play2p {
+    margin-top: 0.6vw;
+    margin-bottom: 0.6vw;
+    margin-left: 6.29vw;
     height: 3vw;
     width: 14.42vw;
     font-size: 1.45vw;
     font-weight: bolder;
 }
 
-#play2p {
+#undo {
     margin-top: 0.6vw;
     margin-left: 6.29vw;
     height: 3vw;
@@ -204,7 +265,7 @@ h4 {
 }
 
 #newround {
-    margin-top: 4.2vw;
+    margin-top: 3.45vw;
     margin-right: 7.79vw;
     margin-bottom: 0.6vw;
     height: 3vw;
