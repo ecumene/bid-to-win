@@ -146,6 +146,7 @@ function userStats(){
     document.getElementById("leaderboard").style.display = "none";
     document.getElementById("leaderkey").style.display = "none";
     document.getElementById("userstats").innerHTML = "Refresh Stats";
+    document.getElementById("rulespar").innerHTML = "";
 
     const baseURL = `http://localhost:3000/user/:Username?Username=${user}`;
     fetch(baseURL)
@@ -173,7 +174,7 @@ function userStats(){
             } else {};            
             obj = data[0];
             let rem = obj.row_num % 10;
-            if(obj.row_num > 10 && obj.row_num < 14){
+            if(obj.row_num > 10 && obj.row_num < 14){// this doesn't currently deal the teens in the hundreds correctly//
                 document.getElementById("gprank").innerHTML = obj.row_num+'th';
             } else if (rem == 1){
                 document.getElementById("gprank").innerHTML = obj.row_num+'st';
@@ -237,6 +238,11 @@ function userStats(){
 function leaderboard(){
     document.getElementById("stattable").style.display = "none";
     document.getElementById("statdisplay").style.display = "none";
+    document.getElementById("rulespar").innerHTML = "";
+    document.getElementById("rulespar").style.backgroundColor = "transparent";
+    document.getElementById("rulebtn").style.backgroundColor = "white";
+    document.getElementById("rulebtn").style.color = "black";
+    document.getElementById("userstats").innerHTML = "User Stats";
 
     const baseURL = 'http://localhost:3000/leaderboard';
     fetch(baseURL)
@@ -277,7 +283,7 @@ function Rules() {
     document.getElementById("rulebtn").style.backgroundColor = "black";
     document.getElementById("rulebtn").style.color = "white";
     } else {
-        document.getElementById("rulespar").innerHTML = ("");
+        document.getElementById("rulespar").innerHTML = "";
         document.getElementById("rulespar").style.backgroundColor = "transparent";
         document.getElementById("rulebtn").style.backgroundColor = "white";
         document.getElementById("rulebtn").style.color = "black";
