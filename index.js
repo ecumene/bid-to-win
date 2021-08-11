@@ -22,7 +22,7 @@ const db = mysql.createPool({
 });
 
 //Fetches user object from database. To run on login.//
-app.get('/user_stats/:Username/:Password', (req, res) => {
+app.get('/user/:Username/:Password', (req, res) => {
     let sql = 'SELECT * FROM leaderboard.user_stats WHERE Username=? AND Password=?';
     db.query(sql, [req.query.Username, req.query.Password], (err, rows) => {
         if(err) throw err;
@@ -32,7 +32,7 @@ app.get('/user_stats/:Username/:Password', (req, res) => {
 });
 
 //Fetches user's stats to display//
-app.get('/userstats/:Username', (req, res) => {
+app.get('/user_stats/:Username', (req, res) => {
     let sql = 'SELECT * FROM leaderboard.user_stats WHERE Username=?';
     db.query(sql, req.query.Username, (err, rows) => {
         if(err) throw err;
