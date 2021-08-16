@@ -30,6 +30,9 @@ let data =[];
 let obj, user, key;
 let wins, losses, winper;
 
+//variable specific to not yet implemented Gauntlet Mode//
+let mod, adj;
+
 //start of login/create user functions//
 function logBox() {
     document.getElementById("newuser").style.display = "none";
@@ -64,7 +67,7 @@ function signIn(){//fetch with GET requests cannot have a body//
     document.getElementById("play2p").disabled= false;
     document.getElementById("viewlead").disabled= false;
 
-    const baseURL = `http://localhost:3000/user/:Username/:Password?Username=${user}&Password=${key}`;
+    const baseURL = `http://localhost:3000/user/1.0.0/:Username/:Password?Username=${user}&Password=${key}`;
     fetch(baseURL)
         .then(response => response.json())
         .then(data => {
@@ -89,7 +92,7 @@ function newUser(){
     key = document.getElementById("Password").value;
 
     if(user.length > 3 && user.length < 17 && key.length > 3 && key.length < 17){
-        const baseURL = 'http://localhost:3000/create_user';
+        const baseURL = 'http://localhost:3000/user/create/1.0.0';
         fetch(baseURL, {
             method: 'POST',
             headers: {
@@ -130,15 +133,7 @@ function nowLogin(){
 }
 
 function signOut(){
-    user = null;
-    document.getElementById("p1").innerHTML = "PLAYER 1";
-    document.getElementById("login").innerHTML = "Sign In";
-    document.getElementById("login").onlick = logBox;
-    document.getElementById("userstats").innerHTML = "User Stats";
-    document.getElementById("userstats").style.display = "none";
-    document.getElementById("newuser").style.display = "inline";
-    document.getElementById("statdisplay").style.display = "none";
-    document.getElementById("stattable").style.display = "none";
+    location.reload();
 }
 //end of login/create user functions//
 function userStats(){
@@ -148,7 +143,7 @@ function userStats(){
     document.getElementById("userstats").innerHTML = "Refresh Stats";
     document.getElementById("rulespar").innerHTML = "";
 
-    const baseURL = `http://localhost:3000/user_stats/:Username?Username=${user}`;
+    const baseURL = `http://localhost:3000/user_stats/1.0.0/:Username?Username=${user}`;
     fetch(baseURL)
         .then(response => response.json())
         .then(data => {
@@ -165,7 +160,7 @@ function userStats(){
             document.getElementById("winperdisp").innerHTML = obj.WinPerc+'%';
         });
 
-    baseURL2 = `http://localhost:3000/user_gprank/:Username?Username=${user}`
+    baseURL2 = `http://localhost:3000/user_stats/gprank/1.0.0/:Username?Username=${user}`
     fetch(baseURL2)
         .then(response => response.json())
         .then(data => {
@@ -187,7 +182,7 @@ function userStats(){
             }            
     });
 
-    baseURL3 = `http://localhost:3000/user_winsrank/:Username?Username=${user}`
+    baseURL3 = `http://localhost:3000/user_stats/winsrank/1.0.0/:Username?Username=${user}`
     fetch(baseURL3)
         .then(response => response.json())
         .then(data => {
@@ -209,7 +204,7 @@ function userStats(){
             }
     });
 
-    baseURL4 = `http://localhost:3000/user_winperrank/:Username?Username=${user}`
+    baseURL4 = `http://localhost:3000/user_stats/winperrank/1.0.0/:Username?Username=${user}`
     fetch(baseURL4)
         .then(response => response.json())
         .then(data => {
@@ -244,7 +239,7 @@ function leaderboard(){
     document.getElementById("rulebtn").style.color = "black";
     document.getElementById("userstats").innerHTML = "User Stats";
 
-    const baseURL = 'http://localhost:3000/leaderboard';
+    const baseURL = 'http://localhost:3000/leaderboard/1.0.0';
     fetch(baseURL)
         .then(response => response.json())
         .then(data => {
@@ -398,7 +393,7 @@ function trickGen(){
     }
 
     if(cpu == 1 && youradj.length == 0 && user != null){
-        const baseURL = 'http://localhost:3000/game_started';
+        const baseURL = 'http://localhost:3000/user/game_started/1.0.0';
         fetch(baseURL, {
             method: 'PUT',
             headers: {
@@ -522,7 +517,7 @@ function scoreReveal(){
         if(cpu == 1 && youradj.length == 10 && yourscore > oppscore && user != null){
             wins++
             winper = Math.round(((wins)*100)/(wins + losses));
-            const baseURL = 'http://localhost:3000/user_win';
+            const baseURL = 'http://localhost:3000/user/win/1.0.0';
             fetch(baseURL, {
                 method: 'PUT',
                 headers: {
@@ -537,7 +532,7 @@ function scoreReveal(){
         } else if(cpu == 1 && youradj.length == 10 && yourscore < oppscore && user != null){
             losses++
             winper = Math.round((wins * 100)/(wins + losses));
-            const baseURL = 'http://localhost:3000/user_loss';
+            const baseURL = 'http://localhost:3000/user/loss/1.0.0';
             fetch(baseURL, {
                 method: 'PUT',
                 headers: {
@@ -555,7 +550,7 @@ function scoreReveal(){
             } else {
                 winper = 0;
             }
-            const baseURL = 'http://localhost:3000/user_tie';
+            const baseURL = 'http://localhost:3000/user/tie/1.0.0';
             fetch(baseURL, {
                 method: 'PUT',
                 headers: {
@@ -1866,3 +1861,43 @@ function stratNorm(){
         }
     } 
 }
+
+//beginning of not yet implemented Gauntlet mode//
+function theGauntlet(){
+    gauntlet++
+    mod = gauntlet*2;
+
+    if (gauntlet < 6){
+        document.getElementById('opp'+mod).value = mod+'.5';
+        document.getElementById('opp'+mod).onclick = gauntlet5Adj;//onclick will not work, as it's against the computer// 
+    }
+}
+
+function gauntlet5Adj(){
+    loop++;
+    document.getElementById("undo").disabled = false;
+    adj = gauntlet*2 + 0.5;
+
+    if (loop === 1){
+        document.getElementById("oppbid1").innerHTML = adj;
+        oppbid1 = adj;
+        document.getElementById("opp"+mod).disabled = true;
+        line3 = document.getElementById("opp"+mod);
+        oppadj.push(document.getElementById("opp"+mod));
+    } else {
+        document.getElementById("oppbid2").innerHTML = adj;
+        oppbid2 = adj;
+        line4 = document.getElementById("opp"+mod);
+        oppadj.push(document.getElementById("opp6"+mod));
+        document.getElementById("commit").disabled = false;
+
+        for (i = 0; i < buttons.length; i++){
+            cbuttons[i].disabled = true;
+        }
+    }
+}
+
+// function (){WORKING SYNTAX EXAMPLE
+//     let dog = 4;
+//     document.getElementById('opp'+dog).value = '5';
+// }
