@@ -28,7 +28,7 @@ let ysum = 0;
 // variables specific to retrieving/displaying user data //
 let data =[];
 let obj, user, key;
-let wins, losses, winper;
+let gp, wins, losses, ties, abs, winper;
 
 //variable specific to not yet implemented Gauntlet Mode//
 let mod, adj;
@@ -77,8 +77,12 @@ function signIn(){//fetch with GET requests cannot have a body//
             } else {};
             obj = data[0];
             document.getElementById("p1").innerHTML = user;
+            gp = obj.GP;
             wins = obj.Wins;
             losses = obj.Losses;
+            ties = obj.Ties;
+            abs = obj.Abandons;
+            winper = obj.WinPerc;
             document.getElementById("userstats").style.display = "inline";
             document.getElementById("logindiv").style.display = "none";
             document.getElementById("login").disabled = false;
@@ -120,8 +124,12 @@ function nowLogin(){
     document.getElementById("play2p").disabled = false;
     document.getElementById("viewlead").disabled = false;
     document.getElementById("p1").innerHTML = user;
+    gp = 0;
     wins = 0;
     losses = 0;
+    ties = 0;
+    abs = 0;
+    winper = 0;
     rule++
     document.getElementById("rulespar").innerHTML = ("Welcome to Bid-to-Win, <span style='color: blue'>"+user+"</span>!" + "<br><br>" +
         "You stats will all be saved, and you can view and retrieve them at anytime." + "<br>" +
@@ -142,23 +150,13 @@ function userStats(){
     document.getElementById("leaderkey").style.display = "none";
     document.getElementById("userstats").innerHTML = "Refresh Stats";
     document.getElementById("rulespar").innerHTML = "";
-
-    const baseURL = `http://localhost:3000/user_stats/1.0.0/:Username?Username=${user}`;
-    fetch(baseURL)
-        .then(response => response.json())
-        .then(data => {
-            if(data.length == 0){
-                alert("Unable to retrieve stats for current user.")
-            } else {};            
-            obj = data[0];
-            document.getElementById("userhead").innerHTML = obj.Username;
-            document.getElementById("gpdisp").innerHTML = obj.GP;
-            document.getElementById("winsdisp").innerHTML = obj.Wins;
-            document.getElementById("lossesdisp").innerHTML = obj.Losses;
-            document.getElementById("tiesdisp").innerHTML = obj.Ties;
-            document.getElementById("abandonsdisp").innerHTML = obj.Abandons;
-            document.getElementById("winperdisp").innerHTML = obj.WinPerc+'%';
-        });
+    document.getElementById("userhead").innerHTML = user;
+    document.getElementById("gpdisp").innerHTML = gp;
+    document.getElementById("winsdisp").innerHTML = wins;
+    document.getElementById("lossesdisp").innerHTML = losses;
+    document.getElementById("tiesdisp").innerHTML = ties;
+    document.getElementById("abandonsdisp").innerHTML = abs;
+    document.getElementById("winperdisp").innerHTML = winper+'%';
 
     baseURL2 = `http://localhost:3000/user_stats/gprank/1.0.0/:Username?Username=${user}`
     fetch(baseURL2)
@@ -393,6 +391,8 @@ function trickGen(){
     }
 
     if(cpu == 1 && youradj.length == 0 && user != null){
+        gp++
+        abs++
         const baseURL = 'http://localhost:3000/user/game_started/1.0.0';
         fetch(baseURL, {
             method: 'PUT',
@@ -516,6 +516,7 @@ function scoreReveal(){
     } else if (scorerev >= 4 && youradj.length == 10){
         if(cpu == 1 && youradj.length == 10 && yourscore > oppscore && user != null){
             wins++
+            abs--
             winper = Math.round(((wins)*100)/(wins + losses));
             const baseURL = 'http://localhost:3000/user/win/1.0.0';
             fetch(baseURL, {
@@ -531,6 +532,7 @@ function scoreReveal(){
             });    
         } else if(cpu == 1 && youradj.length == 10 && yourscore < oppscore && user != null){
             losses++
+            abs--
             winper = Math.round((wins * 100)/(wins + losses));
             const baseURL = 'http://localhost:3000/user/loss/1.0.0';
             fetch(baseURL, {
@@ -545,6 +547,8 @@ function scoreReveal(){
                 })
             }); 
         } else if (cpu == 1 && youradj.length == 10 && yourscore == oppscore && user != null){
+            ties++
+            abs--
             if(wins + losses != 0){
                 winper = ((wins * 100)/(wins + losses));
             } else {
@@ -1861,6 +1865,9 @@ function stratNorm(){
         }
     } 
 }
+
+//NOT yet implemented, improved comp strategy//
+function stratAggro(){}
 
 //beginning of not yet implemented Gauntlet mode//
 function theGauntlet(){

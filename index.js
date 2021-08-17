@@ -3,13 +3,16 @@ const mysql = require('mysql');
 require('dotenv').config();
 const app = express();
 const cors = require('cors');
+const morgan = require('morgan');//this is where I left off//
 app.use(express.json());
 app.use(cors());
 const userstats = require('./routes/userstats');
 const user = require('./routes/user');
+console.log('in '+app.settings.env+' mode');
 
 app.use(express.json());
 app.use(express.static('./'));
+app.use(morgan('dev'));
 app.use('/user_stats', userstats);
 app.use('/user', user);
 
@@ -34,7 +37,7 @@ app.get('/leaderboard/1.0.0', (req, res) => {
     })
 })
 
-//Removes user from database. May not implement?//
+//Removes user from database. NOT YET IMPLEMENTED//
 app.delete('/delete_user/1.0.0', (req, res) => {
     let sql = 'DELETE FROM leaderboard.user_stats WHERE ID=?'
     db.query (sql, req.body.ID, (err, result) => {
