@@ -1067,7 +1067,7 @@ function Opp10(){
 
 // the beginning of the computer strategy codes //
 
-function compStrat(){// not yet implemented fully; just a mediary right now //
+function compStrat(){// Not yet implemented fully; just a mediary right now //
     scorediff = oppscore - yourscore;
     roundmod = (compcards.length / 2);
     trickdiff = trick2 - trick1;
