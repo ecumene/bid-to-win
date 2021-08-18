@@ -16,6 +16,8 @@ app.use(morgan('dev'));
 app.use('/user_stats', userstats);
 app.use('/user', user);
 
+//mysql://b0283f8b9e84bf:8aec6de3@us-cdbr-east-04.cleardb.com/heroku_0809c3d3c60d73e?reconnect=true
+
 app.listen(process.env.PORT, () => {
     console.log('Listening on Port '+ process.env.PORT);
 });
