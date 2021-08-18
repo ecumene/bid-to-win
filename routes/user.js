@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 router.use(express.json());
 const mysql = require('mysql');
+const {login} = require('../controllers/user.js');
 
 const db = mysql.createPool({
     host: process.env.HOST,
@@ -11,16 +12,7 @@ const db = mysql.createPool({
 });
 
 //Fetches user object from database. To run on login.//
-router.get('/1.0.0/:Username/:Password', (req, res) => {
-    let sql = 'SELECT * FROM leaderboard.user_stats WHERE Username=? AND Password=?';
-    db.query(sql, [req.query.Username, req.query.Password], (err, rows) => {
-        if(err) {throw err;
-        } else {    
-        console.log('User is logged in.');//how can I make this log conditional?//
-        res.json(rows);
-        }
-    });    
-});
+router.route('/1.0.0/:Username/:Password', login);
 
 //Adds new user to database//
 router.post('/create/1.0.0', (req, res) => {
