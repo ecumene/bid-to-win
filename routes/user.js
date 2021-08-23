@@ -12,7 +12,16 @@ const db = mysql.createPool({
 });
 
 //Fetches user object from database. To run on login.//
-router.route('/1.0.0/:Username/:Password', login);
+router.route('/1.0.0/:Username/:Password', (req, res) => {
+    let sql = 'SELECT * FROM leaderboard.user_stats WHERE Username=? AND Password=?';
+    db.query(sql, [req.query.Username, req.query.Password], (err, rows) => {
+        if(err) {throw err;
+        } else {    
+        console.log('User is logged in.');
+        res.json(rows);
+        }
+    });
+});
 
 //Adds new user to database//
 router.post('/1.0.0/create', (req, res) => {
