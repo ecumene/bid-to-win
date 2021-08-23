@@ -12,7 +12,7 @@ const db = mysql.createPool({
 
 //Fetches user's rank in GP in database for display. Runs off of same function as /user/:Username//
 router.get('/1.0.0/gprank/:Username', (req, res) => {
-    let sql = 'SELECT * FROM leaderboard.gp_rank WHERE Username=?';
+    let sql = 'SELECT * FROM gp_rank WHERE Username=?';
     db.query(sql, req.query.Username, (err, rows) => {
         if(err) {throw err;
         } else {
@@ -23,7 +23,7 @@ router.get('/1.0.0/gprank/:Username', (req, res) => {
 
 //Fetches user's rank in Wins in database for display. Runs off of same function as /user/:Username//
 router.get('/1.0.0/winsrank/:Username', (req, res) => {
-    let sql = 'SELECT * FROM leaderboard.wins_rank WHERE Username=?';
+    let sql = 'SELECT * FROM wins_rank WHERE Username=?';
     db.query(sql, req.query.Username, (err, rows) => {
         if(err) {throw err;
         } else {
@@ -34,7 +34,7 @@ router.get('/1.0.0/winsrank/:Username', (req, res) => {
 
 //Fetches user's rank in Wins in database for display. Runs off of same function as /user/:Username//
 router.get('/1.0.0/winperrank/:Username', (req, res) => {
-    let sql = 'SELECT * FROM leaderboard.winperc_rank WHERE Username=?';
+    let sql = 'SELECT * FROM winperc_rank WHERE Username=?';
     db.query(sql, req.query.Username, (err, rows) => {
         if(err) {throw err;
         } else {
