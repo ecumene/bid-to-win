@@ -11,4 +11,5 @@ exports.login = (req, res, next) => {
     }
 
     res.status(200).json({Success: true, data: dbresults});
+    console.log(data);
 }
