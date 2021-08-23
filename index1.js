@@ -96,7 +96,7 @@ function newUser(){
     key = document.getElementById("Password").value;
 
     if(user.length > 3 && user.length < 17 && key.length > 3 && key.length < 17){
-        const baseURL = 'http://bid-to-win.herokuapp.com/user/1.0.0/create';
+        const baseURL = 'https://bid-to-win.herokuapp.com/user/1.0.0/create';
         fetch(baseURL, {
             method: 'POST',
             headers: {
