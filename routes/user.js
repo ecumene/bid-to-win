@@ -15,7 +15,7 @@ const db = mysql.createPool({
 router.route('/1.0.0/:Username/:Password', login);
 
 //Adds new user to database//
-router.post('/create/1.0.0', (req, res) => {
+router.post('/1.0.0/create', (req, res) => {
     let sql = 'INSERT INTO leaderboard.user_stats (Username, GP, Wins, Losses, Ties, Abandons, WinPerc, Password)' +
                 'VALUES (?, 0, 0, 0, 0, 0, 0, ?)';
     db.query(sql, [req.body.Username, req.body.Password], (err, result) => {
@@ -28,7 +28,7 @@ router.post('/create/1.0.0', (req, res) => {
 });
 
 //Increases user's GP and Abandons by 1. To run at start of game.//
-router.put('/game_started/1.0.0', (req, res) => {
+router.put('/1.0.0/game_started', (req, res) => {
     let sql = 'UPDATE leaderboard.user_stats SET GP=GP+1, Abandons=Abandons+1 WHERE Username=?';
     db.query(sql, req.body.Username, (err, result) => {
         if(err) {throw err;
@@ -40,7 +40,7 @@ router.put('/game_started/1.0.0', (req, res) => {
 });
 
 //Increases users Wins by 1 and decreases Abandons by 1. To run after win//
-router.put('/win/1.0.0', (req, res) => {
+router.put('/1.0.0/win', (req, res) => {
     let sql = 'UPDATE leaderboard.user_stats SET Wins=Wins+1, Abandons=Abandons-1, WinPerc=? WHERE Username=?';
     db.query(sql, [req.body.WinPerc, req.body.Username], (err, result) => {
         if(err) {throw err;
@@ -52,7 +52,7 @@ router.put('/win/1.0.0', (req, res) => {
 });
 
 //Increases users Losses by 1 and decreases Abandons by 1. To run after loss//
-router.put('/loss/1.0.0', (req, res) => {
+router.put('/1.0.0/loss', (req, res) => {
     let sql = 'UPDATE leaderboard.user_stats SET Losses=Losses+1, Abandons=Abandons-1, WinPerc=? WHERE Username=?';
     db.query(sql, [req.body.WinPerc, req.body.Username], (err, result) => {
         if(err) {throw err;

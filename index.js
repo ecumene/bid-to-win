@@ -29,7 +29,7 @@ const db = mysql.createPool({
     database: process.env.DATABASE
 });
 
-app.get('/leaderboard/1.0.0', (req, res) => {
+app.get('/1.0.0/leaderboard', (req, res) => {
     let sql = 'SELECT * FROM leaderboard.winperc_rank WHERE row_num < 11';
     db.query(sql, (err, rows) => {
         if(err) {throw err;
@@ -40,7 +40,7 @@ app.get('/leaderboard/1.0.0', (req, res) => {
 })
 
 //Removes user from database. NOT YET IMPLEMENTED//
-app.delete('/delete_user/1.0.0', (req, res) => {
+app.delete('/1.0.0/delete_user', (req, res) => {
     let sql = 'DELETE FROM leaderboard.user_stats WHERE ID=?'
     db.query (sql, req.body.ID, (err, result) => {
         if(err) {throw err;
