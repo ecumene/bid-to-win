@@ -12,7 +12,7 @@ const db = mysql.createPool({
 });
 
 //Fetches user object from database. To run on login.//
-router.route('/1.0.0/:Username/:Password', login);
+router.get('/1.0.0/:Username/:Password', login);
 
 //Adds new user to database//
 router.post('/1.0.0/create', (req, res) => {
