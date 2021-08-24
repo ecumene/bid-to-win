@@ -1,6 +1,6 @@
 exports.login = (req, res, next) => {
     const dbresults = () => {
-            let sql = 'SELECT * FROM leaderboard.user_stats WHERE Username=? AND Password=?';
+            let sql = 'SELECT * FROM user_stats WHERE Username=? AND Password=?';
         db.query(sql, [req.query.Username, req.query.Password], (err, rows) => {
             if(err) {throw err;
             } else {    
@@ -11,5 +11,5 @@ exports.login = (req, res, next) => {
     }
 
     res.status(200).json({Success: true, data: dbresults});
-    console.log(data);
+    console.log(dbresults);
 }
