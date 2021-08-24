@@ -6,15 +6,15 @@ const cors = require('cors');
 const morgan = require('morgan');//this is where I left off//
 app.use(express.json());
 app.use(cors());
-const userstats = require('./routes/userstats');
-const user = require('./routes/user');
+const userstats = require('./routes/userstats.js');
+const user = require('./routes/user.js');
 console.log('in '+app.settings.env+' mode');
 
 app.use(express.json());
 app.use(express.static('./'));
 app.use(morgan('dev'));
-app.use('/user_stats', userstats);
-app.use('/user', user);
+app.use('/user_stats', userstats); //deals with fetching user and leaderboard stats for display
+app.use('/user', user); //deals with logging in and updating user stats during games
 
 //mysql://b0283f8b9e84bf:8aec6de3@us-cdbr-east-04.cleardb.com/heroku_0809c3d3c60d73e?reconnect=true
 
@@ -28,16 +28,6 @@ const db = mysql.createPool({
     password: process.env.PASSWORD,
     database: process.env.DATABASE
 });
-
-app.get('/1.0.0/leaderboard', (req, res) => {
-    let sql = 'SELECT * FROM winperc_rank WHERE row_num < 11';
-    db.query(sql, (err, rows) => {
-        if(err) {throw err;
-        } else {
-        res.json(rows);
-        }
-    })
-})
 
 //Removes user from database. NOT YET IMPLEMENTED//
 app.delete('/1.0.0/delete_user', (req, res) => {

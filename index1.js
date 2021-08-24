@@ -237,7 +237,7 @@ function leaderboard(){
     document.getElementById("rulebtn").style.color = "black";
     document.getElementById("userstats").innerHTML = "User Stats";
 
-    const baseURL = 'http://bid-to-win.herokuapp.com/1.0.0/leaderboard';
+    const baseURL = 'http://bid-to-win.herokuapp.com/user_stats/1.0.0/leaderboard';
     fetch(baseURL)
         .then(response => response.json())
         .then(data => {
