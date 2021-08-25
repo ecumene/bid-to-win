@@ -20,7 +20,7 @@ app.use('/user', user); //deals with logging in and updating user stats during g
 //CLEARDB_OLIVE_URL:    mysql://bd4b6a87d3d45f:cd1477c5@us-cdbr-east-04.cleardb.com/heroku_d7827c3238c760e?reconnect=true
 //DATABASE_URL:         mysql://b0283f8b9e84bf:8aec6de3@us-cdbr-east-04.cleardb.com/heroku_0809c3d3c60d73e?reconnect=true
 
-app.listen(process.env.PORT || 3306, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log('Listening on Port '+ process.env.PORT);
 });
 
