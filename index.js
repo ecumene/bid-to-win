@@ -29,7 +29,6 @@ const db = mysql.createPool({
     user: process.env.USER,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
-    socketPath: '/var/lib/mysql/mysql.sock'
 });
 
 //Removes user from database. NOT YET IMPLEMENTED//
