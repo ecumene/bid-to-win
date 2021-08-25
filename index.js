@@ -32,7 +32,7 @@ const db = mysql.createPool({
 });
 
 app.put('/test', (req, res) => {
-    res.json('Hello World');
+    send.json('Hello World');
 });
 
 //Removes user from database. NOT YET IMPLEMENTED//
