@@ -11,6 +11,17 @@ const db = mysql.createPool({
     database: process.env.DATABASE
 });
 
+// Bid-to-win
+// This collection contains PUT and POST requests from a locally hosted strategy game.
+
+// It contains the following requests
+
+// Create new user
+// Game started stats update
+// User won stats update
+// User lost stats update
+// User tied stats update
+
 router.get('/1.0.0/', userController.login);
 router.post('/1.0.0/create', userController.create);
 router.put('/1.0.0/game_started', userController.gameStart);

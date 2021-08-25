@@ -11,6 +11,17 @@ const db = mysql.createPool({
     database: process.env.DATABASE
 });
 
+// Bid-to-win
+// This collection contains GET requests from a locally hosted strategy game.
+
+// It contains the following requests
+
+// User login
+// User ranking in wins in database
+// User ranking in games played in database
+// User ranking in win% in database
+// Top10 Leaderboard retrieval
+
 router.get('/1.0.0/gprank/:Username', userstatsController.gpRank);
 router.get('/1.0.0/winsrank/:Username', userstatsController.winsRank);
 router.get('/1.0.0/winperrank/:Username', userstatsController.winPercRank);
