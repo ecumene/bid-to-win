@@ -33,6 +33,12 @@ let gp, wins, losses, ties, abs, winper;
 //variable specific to not yet implemented Gauntlet Mode//
 let mod, adj;
 
+function test() {
+    const baseURL = `https://bid-to-win.herokuapp.com/test`;
+    fetch(baseURL)
+        .then(response => response.json());
+}
+
 //start of login/create user functions//
 function logBox() {
     document.getElementById("newuser").style.display = "none";

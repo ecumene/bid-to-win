@@ -31,6 +31,10 @@ const db = mysql.createPool({
     database: process.env.DATABASE,
 });
 
+app.put('/test', (req, res) => {
+    res.json('Hello World');
+});
+
 //Removes user from database. NOT YET IMPLEMENTED//
 app.delete('/1.0.0/delete_user', (req, res) => {
     let sql = 'DELETE FROM user_stats WHERE ID=?'
