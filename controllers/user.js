@@ -1,9 +1,21 @@
+const express = require("express");
+const router = express.Router();
+router.use(express.json());
+const mysql = require('mysql');
+
+const db = mysql.createPool({
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE
+});
+
 const login = (req, res, next) => {
     let sql = 'SELECT * FROM user_stats WHERE Username=? AND Password=?';
     db.query(sql, [req.query.Username, req.query.Password], (err, rows) => {
         if(err) {throw err;
         } else {    
-        res.status(200).json({Success: true, data});
+        res.status(200).json({Success: true});
         }
     });
 };
@@ -14,7 +26,7 @@ const create = (req, res, next) => {
     db.query(sql, [req.body.Username, req.body.Password], (err, result) => {
         if(err) {throw err;
         } else {
-        res.status(200).json({Success: true, data});
+        res.status(200).json({Success: true});
         }
     });
 };
@@ -24,7 +36,7 @@ const gameStart = (req, res, next) => {
     db.query(sql, req.body.Username, (err, result) => {
         if(err) {throw err;
         } else {
-        res.status(200).json({Success: true, data});
+        res.status(200).json({Success: true});
         }
     });
 }
@@ -34,7 +46,7 @@ const win = (req, res, next) => {
     db.query(sql, [req.body.WinPerc, req.body.Username], (err, result) => {
         if(err) {throw err;
         } else {
-        res.status(200).json({Success: true, data});
+        res.status(200).json({Success: true});
         }
     });   
 }
@@ -44,7 +56,7 @@ const loss = (req, res, next) => {
     db.query(sql, [req.body.WinPerc, req.body.Username], (err, result) => {
         if(err) {throw err;
         } else {
-            res.status(200).json({Success: true, data});
+            res.status(200).json({Success: true});
         }
     });
 }
@@ -54,7 +66,7 @@ const tie = (req, res, next) => {
     db.query(sql, [req.body.WinPerc, req.body.Username], (err, result) => {
         if(err) {throw err;
         } else {
-            res.status(200).json({Success: true, data});
+            res.status(200).json({Success: true});
         }
     });
 }
