@@ -67,7 +67,7 @@ function signIn(){//fetch with GET requests cannot have a body//
     document.getElementById("play2p").disabled= false;
     document.getElementById("viewlead").disabled= false;
 
-    const baseURL = `http://bid-to-win.herokuapp.com/user/1.0.0/:Username/:Password?Username=${user}&Password=${key}`;
+    const baseURL = `https://bid-to-win.herokuapp.com/user/1.0.0/:Username/:Password?Username=${user}&Password=${key}`;
     fetch(baseURL)
         .then(response => response.json())
         .then(data => {
@@ -96,7 +96,7 @@ function newUser(){
     key = document.getElementById("Password").value;
 
     if(user.length > 3 && user.length < 17 && key.length > 3 && key.length < 17){
-        const baseURL = 'http://bid-to-win.herokuapp.com/user/1.0.0/create';
+        const baseURL = 'https://bid-to-win.herokuapp.com/user/1.0.0/create';
         fetch(baseURL, {
             method: 'POST',
             headers: {
@@ -158,7 +158,7 @@ function userStats(){
     document.getElementById("abandonsdisp").innerHTML = abs;
     document.getElementById("winperdisp").innerHTML = winper+'%';
 
-    baseURL2 = `http://bid-to-win.herokuapp.com/user_stats/1.0.0/gprank/:Username?Username=${user}`
+    baseURL2 = `https://bid-to-win.herokuapp.com/user_stats/1.0.0/gprank/:Username?Username=${user}`
     fetch(baseURL2)
         .then(response => response.json())
         .then(data => {
@@ -180,7 +180,7 @@ function userStats(){
             }            
     });
 
-    baseURL3 = `http://bid-to-win.herokuapp.com/user_stats/1.0.0/winsrank/:Username?Username=${user}`
+    baseURL3 = `https://bid-to-win.herokuapp.com/user_stats/1.0.0/winsrank/:Username?Username=${user}`
     fetch(baseURL3)
         .then(response => response.json())
         .then(data => {
@@ -202,7 +202,7 @@ function userStats(){
             }
     });
 
-    baseURL4 = `http://bid-to-win.herokuapp.com/user_stats/1.0.0/winperrank/:Username?Username=${user}`
+    baseURL4 = `https://bid-to-win.herokuapp.com/user_stats/1.0.0/winperrank/:Username?Username=${user}`
     fetch(baseURL4)
         .then(response => response.json())
         .then(data => {
@@ -237,7 +237,7 @@ function leaderboard(){
     document.getElementById("rulebtn").style.color = "black";
     document.getElementById("userstats").innerHTML = "User Stats";
 
-    const baseURL = 'http://bid-to-win.herokuapp.com/user_stats/1.0.0/leaderboard';
+    const baseURL = 'https://bid-to-win.herokuapp.com/user_stats/1.0.0/leaderboard';
     fetch(baseURL)
         .then(response => response.json())
         .then(data => {
@@ -393,7 +393,7 @@ function trickGen(){
     if(cpu == 1 && youradj.length == 0 && user != null){
         gp++
         abs++
-        const baseURL = 'http://bid-to-win.herokuapp.com/user/1.0.0/game_started';
+        const baseURL = 'https://bid-to-win.herokuapp.com/user/1.0.0/game_started';
         fetch(baseURL, {
             method: 'PUT',
             headers: {
@@ -518,7 +518,7 @@ function scoreReveal(){
             wins++
             abs--
             winper = Math.round(((wins)*100)/(wins + losses));
-            const baseURL = 'http://bid-to-win.herokuapp.com/user/1.0.0/win';
+            const baseURL = 'https://bid-to-win.herokuapp.com/user/1.0.0/win';
             fetch(baseURL, {
                 method: 'PUT',
                 headers: {
@@ -534,7 +534,7 @@ function scoreReveal(){
             losses++
             abs--
             winper = Math.round((wins * 100)/(wins + losses));
-            const baseURL = 'http://bid-to-win.herokuapp.com/user/1.0.0/loss';
+            const baseURL = 'https://bid-to-win.herokuapp.com/user/1.0.0/loss';
             fetch(baseURL, {
                 method: 'PUT',
                 headers: {
@@ -554,7 +554,7 @@ function scoreReveal(){
             } else {
                 winper = 0;
             }
-            const baseURL = 'http://bid-to-win.herokuapp.com/user/1.0.0/tie';
+            const baseURL = 'https://bid-to-win.herokuapp.com/user/1.0.0/tie';
             fetch(baseURL, {
                 method: 'PUT',
                 headers: {
