@@ -29,7 +29,7 @@ const create = (req, res, next) => {
         res.status(200).json({Success: true});
         }
     });
-};
+}
 
 const gameStart = (req, res, next) => {
     let sql = 'UPDATE user_stats SET GP=GP+1, Abandons=Abandons+1 WHERE Username=?';

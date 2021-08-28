@@ -32,8 +32,18 @@ const db = mysql.createPool({
 });
 
 app.put('/test', (req, res) => {
-    send.json('Hello World');
+    res.send('Hello World');
 });
+
+app.get('https://bid-to-win.herokuapp.com/testing', (req, res) => {
+    let sql = 'SELECT * FROM user_stats WHERE Username=? AND Password=?';
+    db.query(sql, [req.query.Username, req.query.Password], (err, rows) => {
+        if(err) {throw err;
+        } else {    
+        res.json(rows);
+        }
+    });
+})
 
 //Removes user from database. NOT YET IMPLEMENTED//
 app.delete('/1.0.0/delete_user', (req, res) => {
