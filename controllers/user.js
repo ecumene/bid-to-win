@@ -46,7 +46,6 @@ const create = (req, res, next) => {
     }
 
     res.status(200).json({Success: true, data: dbresults});
-    console.log(data);
 }
 
 const gameStart = (req, res, next) => {
