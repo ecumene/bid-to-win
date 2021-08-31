@@ -28,7 +28,7 @@ const create = (req, res, next) => {
             console.log(req.body.Username);
             console.log(create);
         } else {
-            res.status(200).json({Success: true});
+            res.status(200).json({Success: true, res: create});
         }
     });
 }
