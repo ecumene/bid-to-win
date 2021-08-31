@@ -22,7 +22,13 @@ const login = (req, res, next) => {
 };
 
 const test = (req, res, next) => {
-    console.log(req.body.Username);
+    let sql = 'SELECT * FROM user_stats';
+    db.query(sql, (err, rows) =>{
+        if (err) {throw err
+        } else {
+            res.json(rows);
+        }
+    })
 };
 
 const create = (req, res, next) => {
