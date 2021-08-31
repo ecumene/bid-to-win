@@ -23,12 +23,12 @@ const login = (req, res, next) => {
 const create = (req, res, next) => {
     let sql = 'INSERT INTO user_stats (Username, GP, Wins, Losses, Ties, Abandons, WinPerc, Password)' +
         'VALUES (?, 0, 0, 0, 0, 0, 0, ?)';
-    db.query(sql, [req.body.Username, req.body.Password], (err, result) => {
+    db.query(sql, [req.body.Username, req.body.Password], (err, res) => {
         if(err) {
             console.log(req.body.Username);
             console.log(create);
         } else {
-        res.status(200).json({Success: true});
+            res.status(200).json({Success: true});
         }
     });
 }
