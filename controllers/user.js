@@ -38,7 +38,7 @@ const create = (req, res, next) => {
             let sql = 'SELECT * FROM leaderboard.user_stats WHERE Username=? AND Password=?';
         db.query(sql, [req.query.Username, req.query.Password], (err, result) => {
             if(err) {
-                console.log(result);
+                console.log(req.body.Username);
             } else {    
             console.log('User is logged in.');
             res.status(200).json({Success: true, res: dbresults});
