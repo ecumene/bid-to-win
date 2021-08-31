@@ -21,6 +21,10 @@ const login = (req, res, next) => {
     });
 };
 
+const test = (req, res, next) => {
+    console.log(req.body.Username);
+};
+
 const create = (req, res, next) => {
     let sql = 'INSERT INTO user_stats (Username, GP, Wins, Losses, Ties, Abandons, WinPerc, Password)' +
         'VALUES (?, 0, 0, 0, 0, 0, 0, ?)';
@@ -88,6 +92,6 @@ const tie = (req, res, next) => {
     });
 }
 
-module.exports = {login, create, gameStart, win, loss, tie};
+module.exports = {login, test, create, gameStart, win, loss, tie};
 
 console.log("bottom");
