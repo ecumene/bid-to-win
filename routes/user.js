@@ -28,6 +28,5 @@ router.put('/1.0.0/game_started', userController.gameStart);
 router.put('/1.0.0/win', userController.win);
 router.put('/1.0.0/loss', userController.loss);
 router.put('/1.0.0/tie', userController.tie);
-router.get('/test', userController.test);
 
 module.exports = router;
