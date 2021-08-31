@@ -21,32 +21,32 @@ const login = (req, res, next) => {
     });
 };
 
-const create = (req, res, next) => {
-    let sql = 'INSERT INTO user_stats (Username, GP, Wins, Losses, Ties, Abandons, WinPerc, Password)' +
-        'VALUES (?, 0, 0, 0, 0, 0, 0, ?)';
-    db.query(sql, [req.body.Username, req.body.Password], (err, result) => {
-        if(err) {
-            console.log(req.body.Password);
-            console.log()
-        } else {
-            res.status(200).json({Success: true});
-        }
-    });
-}
-
 // const create = (req, res, next) => {
-//     const dbresults = () => {
-//             let sql = 'SELECT * FROM leaderboard.user_stats WHERE Username=? AND Password=?';
-//         db.query(sql, [req.query.Username, req.query.Password], (err, result) => {
-//             if(err) {
-//                 console.log(req.body.Username);
-//             } else {    
-//             console.log('User is logged in.');
-//             res.status(200).json({Success: true, res: dbresults});
-//             }
-//         });
-//     }
+//     let sql = 'INSERT INTO user_stats (Username, GP, Wins, Losses, Ties, Abandons, WinPerc, Password)' +
+//         'VALUES (?, 0, 0, 0, 0, 0, 0, ?)';
+//     db.query(sql, [req.body.Username, req.body.Password], (err, result) => {
+//         if(err) {
+//             console.log(req.body.Password);
+//             console.log()
+//         } else {
+//             res.status(200).json({Success: true});
+//         }
+//     });
 // }
+
+exports.create = (req, res, next) => {
+    const dbresults = () => {
+            let sql = 'SELECT * FROM leaderboard.user_stats WHERE Username=? AND Password=?';
+        db.query(sql, [req.query.Username, req.query.Password], (err, result) => {
+            if(err) {
+                console.log(req.body.Username);
+            } else {    
+            console.log('User is logged in.');
+            res.status(200).json({Success: true, res: dbresults});
+            }
+        });
+    }
+}
 
 const gameStart = (req, res, next) => {
     let sql = 'UPDATE user_stats SET GP=GP+1, Abandons=Abandons+1 WHERE Username=?';
@@ -88,6 +88,6 @@ const tie = (req, res, next) => {
     });
 }
 
-module.exports = {login, create, gameStart, win, loss, tie};
+module.exports = {login, gameStart, win, loss, tie};
 
 console.log("bottom");
