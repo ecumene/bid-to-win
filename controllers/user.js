@@ -26,7 +26,7 @@ const create = (req, res, next) => {
     db.query(sql, [req.body.Username, req.body.Password], (err, result) => {
         if(err) {
             console.log(req.body.Username);
-            res.send("not working");
+            console.log(create);
         } else {
         res.status(200).json({Success: true});
         }
