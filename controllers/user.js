@@ -21,16 +21,32 @@ const login = (req, res, next) => {
     });
 };
 
+// const create = (req, res, next) => {
+//     let sql = 'INSERT INTO user_stats (Username, GP, Wins, Losses, Ties, Abandons, WinPerc, Password)' +
+//         'VALUES (?, 0, 0, 0, 0, 0, 0, ?)';
+//     db.query(sql, [req.body.Username, req.body.Password], (err, result) => {
+//         if(err) {
+//             console.log(req.body.Password);
+//         } else {
+//             res.status(200).json({Success: true});
+//         }
+//     });
+// }
+
 const create = (req, res, next) => {
-    let sql = 'INSERT INTO user_stats (Username, GP, Wins, Losses, Ties, Abandons, WinPerc, Password)' +
-        'VALUES (?, 0, 0, 0, 0, 0, 0, ?)';
-    db.query(sql, [req.body.Username, req.body.Password], (err, result) => {
-        if(err) {
-            console.log(req.body.Password);
-        } else {
-            res.status(200).json({Success: true});
-        }
-    });
+    const dbresults = () => {
+            let sql = 'SELECT * FROM leaderboard.user_stats WHERE Username=? AND Password=?';
+        db.query(sql, [req.query.Username, req.query.Password], (err, rows) => {
+            if(err) {throw err;
+            } else {    
+            console.log('User is logged in.');
+            res.json(rows);
+            }
+        });
+    }
+
+    res.status(200).json({Success: true, data: dbresults});
+    console.log(data);
 }
 
 const gameStart = (req, res, next) => {
@@ -74,19 +90,3 @@ const tie = (req, res, next) => {
 }
 
 module.exports = {login, create, gameStart, win, loss, tie};
-
-// exports.login = (req, res, next) => {
-//     const dbresults = () => {
-//             let sql = 'SELECT * FROM leaderboard.user_stats WHERE Username=? AND Password=?';
-//         db.query(sql, [req.query.Username, req.query.Password], (err, rows) => {
-//             if(err) {throw err;
-//             } else {    
-//             console.log('User is logged in.');
-//             res.json(rows);
-//             }
-//         });
-//     }
-
-//     res.status(200).json({Success: true, data: dbresults});
-//     console.log(data);
-// }
