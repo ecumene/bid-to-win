@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 router.use(express.json());
 const mysql = require('mysql');
+require('dotenv').config();
 
 const db = mysql.createPool({
     host: process.env.HOST,
