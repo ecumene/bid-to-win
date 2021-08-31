@@ -4,11 +4,11 @@ router.use(express.json());
 const mysql = require('mysql');
 require('dotenv').config();
 
-const db = mysql.createPool({
+const db = mysql.createConnection({
     host: process.env.HOST,
     user: process.env.USER,
     password: process.env.PASSWORD,
-    database: process.env.DATABASE
+    database: process.env.DATABASE,
 });
 
 const login = (req, res, next) => {
@@ -26,10 +26,7 @@ const create = (req, res, next) => {
         'VALUES (?, 0, 0, 0, 0, 0, 0, ?)';
     db.query(sql, [req.body.Username, req.body.Password], (err, res) => {
         if(err) {
-            console.log(process.env.HOST);
-            console.log(process.env.USER);
-            console.log(process.env.PASSWORD);
-            console.log(process.env.DATABASE);
+            console.log(re.body.Password);
         } else {
             res.status(200).json({Success: true, res: create});
         }
