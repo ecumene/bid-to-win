@@ -25,8 +25,7 @@ const create = (req, res, next) => {
         'VALUES (?, 0, 0, 0, 0, 0, 0, ?)';
     db.query(sql, [req.body.Username, req.body.Password], (err, res) => {
         if(err) {
-            console.log(req.body.Username);
-            console.log(create);
+            console.log(err);
         } else {
             res.status(200).json({Success: true, res: create});
         }
