@@ -82,13 +82,13 @@ function signIn(){//fetch with GET requests cannot have a body//
             document.getElementById("login").onclick = signOut;
             document.getElementById("p1").innerHTML = user;
             obj = data[0];
+            console.log(obj);
             gp = obj.GP;
             wins = obj.Wins;
             losses = obj.Losses;
             ties = obj.Ties;
             abs = obj.Abandons;
-            winper = obj.WinPerc;
-            console.log(winper);
+            winper = obj.WinPer;
         });
 }
 
