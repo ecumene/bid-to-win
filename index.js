@@ -16,7 +16,7 @@ app.use(morgan('dev'));
 app.use('/user_stats', userstats); //deals with fetching user and leaderboard stats for display
 app.use('/user', user); //deals with logging in and updating user stats during games
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(process.env.PORT || 31801, () => {
     console.log('Listening on Port '+ process.env.PORT);
 });
 
