@@ -86,4 +86,8 @@ const tie = (req, res, next) => {
     });
 }
 
-module.exports = {login, create, gameStart, win, loss, tie};
+//const test = (req, res, next) => {
+    //res.send("Hello World");
+//}
+
+module.exports = {login, create, gameStart, win, loss, tie}

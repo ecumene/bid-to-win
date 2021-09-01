@@ -28,5 +28,8 @@ router.put('/1.0.0/game_started', userController.gameStart);
 router.put('/1.0.0/win', userController.win);
 router.put('/1.0.0/loss', userController.loss);
 router.put('/1.0.0/tie', userController.tie);
+//router.route('/test', (req, res) => {
+    //res.send("Hello World");
+//});
 
 module.exports = router;
