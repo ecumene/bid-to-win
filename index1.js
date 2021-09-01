@@ -75,19 +75,20 @@ function signIn(){//fetch with GET requests cannot have a body//
                 alert("Username and Password do not match.");
                 user = null;
             } else {};
-            obj = data[0];
+            document.getElementById("userstats").style.display = "inline";
+            document.getElementById("logindiv").style.display = "none";
+            document.getElementById("login").disabled = false;
+            document.getElementById("login").innerHTML = "Sign Out";
+            document.getElementById("login").onclick = signOut;
             document.getElementById("p1").innerHTML = user;
+            obj = data[0];
             gp = obj.GP;
             wins = obj.Wins;
             losses = obj.Losses;
             ties = obj.Ties;
             abs = obj.Abandons;
             winper = obj.WinPerc;
-            document.getElementById("userstats").style.display = "inline";
-            document.getElementById("logindiv").style.display = "none";
-            document.getElementById("login").disabled = false;
-            document.getElementById("login").innerHTML = "Sign Out";
-            document.getElementById("login").onclick = signOut;
+            console.log(winper);
         });
 }
 
