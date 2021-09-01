@@ -22,7 +22,7 @@ const db = mysql.createPool({
 // User lost stats update
 // User tied stats update
 
-router.get('/1.0.0/', userController.login);
+router.get('/1.0.0/:Username/:Password', userController.login);
 router.post('/1.0.0/create', userController.create);
 router.put('/1.0.0/game_started', userController.gameStart);
 router.put('/1.0.0/win', userController.win);
