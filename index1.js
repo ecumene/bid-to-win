@@ -70,18 +70,13 @@ function signIn(){//fetch with GET requests cannot have a body//
     const baseURL = `https://bid-to-win.herokuapp.com/user/1.0.0/:Username/:Password?Username=${user}&Password=${key}`;
     fetch(baseURL)
         .then(response => response.json())
-        .then(data => {
-            if(data.length == 0){
+        .then(result => {
+            if(result.data.length == 0){
                 alert("Username and Password do not match.");
-                user = null;
-            } else {};
-            document.getElementById("userstats").style.display = "inline";
-            document.getElementById("logindiv").style.display = "none";
-            document.getElementById("login").disabled = false;
-            document.getElementById("login").innerHTML = "Sign Out";
-            document.getElementById("login").onclick = signOut;
-            document.getElementById("p1").innerHTML = user;
-            obj = data[0];
+                user = null;lt
+            } else {}
+            console.log(result.data);
+            obj = result.data[0];
             console.log(obj);
             gp = obj.GP;
             wins = obj.Wins;
@@ -89,6 +84,12 @@ function signIn(){//fetch with GET requests cannot have a body//
             ties = obj.Ties;
             abs = obj.Abandons;
             winper = obj.WinPer;
+            document.getElementById("userstats").style.display = "inline";
+            document.getElementById("logindiv").style.display = "none";
+            document.getElementById("login").disabled = false;
+            document.getElementById("login").innerHTML = "Sign Out";
+            document.getElementById("login").onclick = signOut;
+            document.getElementById("p1").innerHTML = user;
         });
 }
 

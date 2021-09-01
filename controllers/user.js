@@ -14,9 +14,10 @@ const db = mysql.createPool({
 const login = (req, res, next) => {
     let sql = 'SELECT * FROM user_stats WHERE Username=? AND Password=?';
     db.query(sql, [req.query.Username, req.query.Password], (err, rows) => {
-        if(err) {throw err;
+        if(err) {
+            res.status(400).json({Success: false});
         } else {    
-        res.status(200).json({Success: true});
+        res.status(200).json({Success: true, data: rows});
         }
     });
 };
