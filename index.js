@@ -3,7 +3,7 @@ const mysql = require('mysql');
 require('dotenv').config();
 const app = express();
 const cors = require('cors');
-const morgan = require('morgan');//this is where I left off//
+const morgan = require('morgan');
 app.use(express.json());
 app.use(cors());
 const userstats = require('./routes/userstats.js');
