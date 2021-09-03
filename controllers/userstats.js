@@ -53,7 +53,7 @@ const winPercRank = (req, res, next) => {
 // @route           user_stats/1.0.0/leaderboard
 // @access          Public
 const leaderboard = (req, res, next) => {
-    let sql = 'SELECT * FROM winperc_rank WHERE row_num < 11';
+    let sql = 'SELECT * FROM user_stats ORDER BY WinPerc DESC, GP DESC'
     db.query(sql, (err, rows) => {
         if(err) {throw err;
         } else {

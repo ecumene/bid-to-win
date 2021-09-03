@@ -73,18 +73,15 @@ function signIn(){//fetch with GET requests cannot have a body//
         .then(result => {
             if(result.data.length == 0){
                 alert("Username and Password do not match.");
-                user = null;lt
+                user = null;
             } else {}
-            console.log(result.data);
             obj = result.data[0];
-            console.log(obj);
             gp = obj.GP;
             wins = obj.Wins;
             losses = obj.Losses;
             ties = obj.Ties;
             abs = obj.Abandons;
             winper = obj.WinPerc;
-            console.log(winper);
             document.getElementById("userstats").style.display = "inline";
             document.getElementById("logindiv").style.display = "none";
             document.getElementById("login").disabled = false;
