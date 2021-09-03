@@ -83,7 +83,7 @@ function signIn(){//fetch with GET requests cannot have a body//
             losses = obj.Losses;
             ties = obj.Ties;
             abs = obj.Abandons;
-            winper = obj.WinPer;
+            winper = obj.WinPerc;
             console.log(winper);
             document.getElementById("userstats").style.display = "inline";
             document.getElementById("logindiv").style.display = "none";
