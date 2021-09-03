@@ -84,6 +84,7 @@ function signIn(){//fetch with GET requests cannot have a body//
             ties = obj.Ties;
             abs = obj.Abandons;
             winper = obj.WinPer;
+            console.log(winper);
             document.getElementById("userstats").style.display = "inline";
             document.getElementById("logindiv").style.display = "none";
             document.getElementById("login").disabled = false;
