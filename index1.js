@@ -166,6 +166,7 @@ function userStats(){
                 alert("Unable to retrieve stats for current user.")
             } else {};            
             obj = result.data[0];
+            console.log(obj);
             let rem = obj.row_num % 10;
             if(obj.row_num > 10 && obj.row_num < 14){// this doesn't currently deal the teens in the hundreds correctly//
                 document.getElementById("gprank").innerHTML = obj.row_num+'th';
