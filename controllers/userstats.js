@@ -40,7 +40,7 @@ const winsRank = (req, res, next) => {
 // @route           user_stats/1.0.0/winperrank/:Username
 // @access          Private
 const winPercRank = (req, res, next) => {
-    let sql = 'SELECT * FROM (SELECT Username, WinPerc, @winperrank := @winperrank + 1 AS row_num FROM user_stats p, (SELECT @winperrank := 0) r ORDER BY WinPerc DESC) AS tempw% WHERE Username=?';
+    let sql = 'SELECT * FROM (SELECT Username, WinPerc, @winperrank := @winperrank + 1 AS row_num FROM user_stats p, (SELECT @winperrank := 0) r ORDER BY WinPerc DESC) AS tempwinper WHERE Username=?';
     db.query(sql, req.query.Username, (err, rows) => {
         if(err) {throw err;
         } else {
