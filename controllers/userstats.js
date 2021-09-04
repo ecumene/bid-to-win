@@ -40,11 +40,11 @@ const winsRank = (req, res, next) => {
 // @route           user_stats/1.0.0/winperrank/:Username
 // @access          Private
 const winPercRank = (req, res, next) => {
-    let sql = 'SELECT * FROM winperc_rank WHERE Username=?';
+    let sql = 'SELECT Username, GP, @gprank := @gprank + 1 AS rank FROM user_stats p, (SELECT @gprank := 0) r WHERE Username=? ORDER BY GP DESC';
     db.query(sql, req.query.Username, (err, rows) => {
         if(err) {throw err;
         } else {
-            res.status(200).json({Success: true});
+            res.status(200).json({Success: true, data: rows});
         }
     });    
 }

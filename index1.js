@@ -205,11 +205,11 @@ function userStats(){
     baseURL4 = `https://bid-to-win.herokuapp.com/user_stats/1.0.0/winperrank/:Username?Username=${user}`
     fetch(baseURL4)
         .then(response => response.json())
-        .then(data => {
-            if(data.length == 0){
+        .then(result => {
+            if(result.data.length == 0){
                 alert("Unable to retrieve stats for current user.")
             } else {};            
-            obj = data[0];
+            obj = result.data[0];
             let rem = obj.row_num % 10;
             if(obj.row_num > 10 && obj.row_num < 14){
                 document.getElementById("winperrank").innerHTML = obj.row_num+'th';
