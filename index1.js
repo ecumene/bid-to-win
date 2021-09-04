@@ -245,6 +245,7 @@ function leaderboard(){
                 obj = result.data[i];
                 j = i + 1;
                 console.log(obj);
+                console.log(j);
                 document.getElementById("user"+j).innerHTML = obj.Username;
                 document.getElementById("gp"+j).innerHTML = obj.GP;
                 document.getElementById("wins"+j).innerHTML = obj.Wins;
