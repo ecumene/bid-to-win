@@ -240,9 +240,9 @@ function leaderboard(){
     const baseURL = 'https://bid-to-win.herokuapp.com/user_stats/1.0.0/leaderboard';
     fetch(baseURL)
         .then(response => response.json())
-        .then(data => {
-            for (i = 0; i < data.length; i++){
-                obj = data[i];
+        .then(result => {
+            for (i = 0; i < result.data.length; i++){
+                obj = result.data[i];
                 j = i + 1;
                 document.getElementById("user"+j).innerHTML = obj.Username;
                 document.getElementById("gp"+j).innerHTML = obj.GP;

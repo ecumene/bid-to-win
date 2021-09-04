@@ -57,7 +57,7 @@ const leaderboard = (req, res, next) => {
     db.query(sql, (err, rows) => {
         if(err) {throw err;
         } else {
-            res.status(200).json({Success: true});
+            res.status(200).json({Success: true, data: rows});
         }
     });
 }
