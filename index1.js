@@ -241,7 +241,7 @@ function leaderboard(){
     fetch(baseURL)
         .then(response => response.json())
         .then(result => {
-            for (i = 0; i < result.data.length; i++){
+            for (i = 0; i < 10; i++){
                 obj = result.data[i];
                 j = i + 1;
                 console.log(obj);
