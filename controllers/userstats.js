@@ -14,7 +14,7 @@ const db = mysql.createPool({
 // @route           user_stats/1.0.0/gprank/:Username
 // @access          Private
 const gpRank = (req, res, next) => {
-    let sql = 'SELECT Username, GP, @gprank := @gprank + 1 AS rank FROM user_stats p, (SELECT @gprank := 0) r WHERE Username=? ORDER BY GP DESC';
+    let sql = 'SELECT * FROM (SELECT Username, GP, @gprank := @gprank + 1 AS row_num FROM user_stats p, (SELECT @gprank := 0) r ORDER BY GP DESC) AS tempgp WHERE Username=?';
     db.query(sql, req.query.Username, (err, rows) => {
         if(err) {throw err;
         } else {
@@ -27,7 +27,7 @@ const gpRank = (req, res, next) => {
 // @route           user_stats/1.0.0/winsrank/:Username
 // @access          Private
 const winsRank = (req, res, next) => {
-    let sql = 'SELECT Username, Wins, @winsrank := @winsrank + 1 AS rank FROM user_stats p, (SELECT @winsrank := 0) r WHERE Username=? ORDER BY Wins DESC';
+    let sql = 'SELECT * FROM (SELECT Username, Wins, @winsrank := @winsrank + 1 AS row_num FROM user_stats p, (SELECT @winsrank := 0) r ORDER BY Wins DESC) AS tempwins WHERE Username=?';
     db.query(sql, req.query.Username, (err, rows) => {
         if(err) {throw err;
         } else {
@@ -40,7 +40,7 @@ const winsRank = (req, res, next) => {
 // @route           user_stats/1.0.0/winperrank/:Username
 // @access          Private
 const winPercRank = (req, res, next) => {
-    let sql = 'SELECT Username, WinPerc, @gprank := @gprank + 1 AS rank FROM user_stats p, (SELECT @gprank := 0) r WHERE Username=? ORDER BY WinPerc DESC';
+    let sql = 'SELECT * FROM (SELECT Username, WinPerc, @winperrank := @winperrank + 1 AS row_num FROM user_stats p, (SELECT @winperrank := 0) r ORDER BY WinPerc DESC) AS tempw% WHERE Username=?';
     db.query(sql, req.query.Username, (err, rows) => {
         if(err) {throw err;
         } else {
