@@ -12,7 +12,9 @@ const db = mysql.createPool({
 });
 
 router.get('/1.0.0/:Username/:Password', userController.login);
-router.post('/1.0.0/create', userController.create);
+router.route('/1.0.0/create')
+    .get(userController.check)
+    .post(userController.create);
 router.put('/1.0.0/game_started', userController.gameStart);
 router.put('/1.0.0/win', userController.win);
 router.put('/1.0.0/loss', userController.loss);

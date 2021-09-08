@@ -25,6 +25,20 @@ const login = (req, res, next) => {
     });
 };
 
+const check = (req, res, next) => {
+    let sql = 'SELECT Username FROM user_stats WHERE Username=?'
+    db.query(sql, [req.body.Username], (err, result) => {
+        if (err) {throw err
+        } else {
+            if (res.isEmpty()){
+                next();
+            } else {
+                res.send("Username already exists");
+            }
+        }
+    }
+    )};
+
 // @description     Create new user in database and login as that user
 // @route           /user/1.0.0/create
 // @access          Private
@@ -32,7 +46,7 @@ const create = (req, res, next) => {
     let sql = 'INSERT INTO user_stats (Username, GP, Wins, Losses, Ties, Abandons, WinPerc, Password)' + 
         'VALUES (?, 0, 0, 0, 0, 0, 0, ?)';
     db.query(sql, [req.body.Username, req.body.Password], (err, result) => {
-        if(res.status(500)) {throw err;
+        if(err) {throw err;
         } else {
             res.status(200).json({Success: true});
         }
@@ -91,4 +105,4 @@ const tie = (req, res, next) => {
     });
 }
 
-module.exports = {login, create, gameStart, win, loss, tie}
+module.exports = {login, check, create, gameStart, win, loss, tie}
