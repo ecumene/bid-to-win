@@ -34,7 +34,7 @@ const check = (req, res, next) => {
                 console.log(rows);
                 next();
             } else {
-                res.send("Username already exists");
+                console.log("user exists");
             }
         }
     }
