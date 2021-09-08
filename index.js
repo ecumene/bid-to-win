@@ -11,7 +11,7 @@ const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const expressHBS = require('express-handlebars');
-const {body, validationResult} = require('express-validator');
+const expressVDR = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
 const LocalStrat = require('passport-local').Strategy;
@@ -31,22 +31,22 @@ app.use(session({
     resave: true
 }));
 
-// app.use(expressVDR({//need better understanding of what is happening here
-//     errorFormatter: function(param, msg, value){
-//         let namespace = param.split('.'),
-//         root = namespace.shift(),
-//         formParam = root;
+app.use(expressVDR({//need better understanding of what is happening here
+    errorFormatter: function(param, msg, value){
+        let namespace = param.split('.'),
+        root = namespace.shift(),
+        formParam = root;
 
-//         while(namespace.length){
-//             formParam += '[' + namespace.shift() + ']';
-//         }
-//         return {
-//             param: formParam,
-//             msg: msg,
-//             value: value
-//         };
-//     }
-// }));
+        while(namespace.length){
+            formParam += '[' + namespace.shift() + ']';
+        }
+        return {
+            param: formParam,
+            msg: msg,
+            value: value
+        };
+    }
+}));
 
 app.use(flash());
 

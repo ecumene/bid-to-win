@@ -25,21 +25,6 @@ const login = (req, res, next) => {
     });
 };
 
-const check = (req, res, next) => {
-    let sql = 'SELECT Username FROM user_stats WHERE Username=?'
-    db.query(sql, [req.body.Username], (err, rows) => {
-        if (err) {throw err
-        } else {
-            if (rows.isEmpty()){
-                console.log(rows);
-                next();
-            } else {
-                console.log("user exists");
-            }
-        }
-    }
-    )};
-
 // @description     Create new user in database and login as that user
 // @route           /user/1.0.0/create
 // @access          Private
@@ -106,4 +91,4 @@ const tie = (req, res, next) => {
     });
 }
 
-module.exports = {login, check, create, gameStart, win, loss, tie}
+module.exports = {login, create, gameStart, win, loss, tie}

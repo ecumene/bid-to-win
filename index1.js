@@ -60,7 +60,7 @@ function createUser(){
     document.getElementById("logbtn").onclick = newUser;
 }
 
-function signIn(){//fetch with GET requests cannot have a body//
+function signIn(){
     user = document.getElementById("Username").value;
     key = document.getElementById("Password").value;
     document.getElementById("playcomp").disabled= false;
