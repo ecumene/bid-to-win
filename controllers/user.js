@@ -27,10 +27,11 @@ const login = (req, res, next) => {
 
 const check = (req, res, next) => {
     let sql = 'SELECT Username FROM user_stats WHERE Username=?'
-    db.query(sql, [req.body.Username], (err, result) => {
+    db.query(sql, [req.body.Username], (err, rows) => {
         if (err) {throw err
         } else {
-            if (res.isEmpty()){
+            if (rows.isEmpty()){
+                console.log(rows);
                 next();
             } else {
                 res.send("Username already exists");
