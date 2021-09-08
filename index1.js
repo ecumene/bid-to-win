@@ -1905,8 +1905,3 @@ function gauntlet5Adj(){
         }
     }
 }
-
-// function (){WORKING SYNTAX EXAMPLE
-//     let dog = 4;
-//     document.getElementById('opp'+dog).value = '5';
-// }
