@@ -11,7 +11,7 @@ const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const expressHBS = require('express-handlebars');
-const expressVDR = require('express-validator');
+const expressVDR = require('express-validator');//using an older version, because 6.0.0 doesn't 
 const flash = require('connect-flash');
 const session = require('express-session');
 const LocalStrat = require('passport-local').Strategy;
@@ -31,7 +31,7 @@ app.use(session({
     resave: true
 }));
 
-app.use(expressVDR({//need better understanding of what is happening here
+app.use(expressVDR({
     errorFormatter: function(param, msg, value){
         let namespace = param.split('.'),
         root = namespace.shift(),
