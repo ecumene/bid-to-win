@@ -21,9 +21,9 @@ app.use(express.json());
 app.use(express.static('./'));
 app.use(morgan('dev'));
 app.use(cookieParser());
-// app.set('views', path.join(__dirname, './'));//need clarification on what this does
-// app.engine('handlebars', expressHBS({defaultLayout:'layout'}));
-// app.set('view engine', 'handlebars');
+//app.set('views', path.join(__dirname, './'));//need clarification on what this does
+//app.engine('handlebars', expressHBS({defaultLayout:'layout'}));
+//app.set('view engine', 'handlebars');
 
 app.use(session({
     secret: 'secret',
