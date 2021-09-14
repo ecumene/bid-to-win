@@ -1480,9 +1480,9 @@ function stratNorm(){
                 oppbid1 = compcards[d];
                 compcards.splice(d, 1);
             }
-        } else if (compcards.indexOf(trick2 + 1) != -1){
-            oppbid2 = trick2 + 1;
-            compcards.splice(compcards.indexOf(trick2 + 1), 1);
+        } else if (compcards.indexOf(trick2 + 1 + b) != -1){
+            oppbid2 = trick2 + 1 + b;
+            compcards.splice(compcards.indexOf(trick2 + 1 + b), 1);
             if (compcards[1] <= trick1){
                 oppbid1 = compcards[1];
                 compcards.splice(1, 1);
