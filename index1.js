@@ -306,23 +306,19 @@ function newUser(){
     user = document.getElementById("Username").value;
     key = document.getElementById("Password").value;
 
-    if(user.length > 3 && user.length < 17 && key.length > 3 && key.length < 17){
-        const baseURL = 'https://bid-to-win.herokuapp.com/user/1.0.0/create';
-        fetch(baseURL, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                Username: user,
-                Password: key
-            })
-        });
-        nowLogin();
-    } else {
-        alert("Username and Password much each be between 4 and 16 characters");
-    }
+    const baseURL = 'https://bid-to-win.herokuapp.com/user/1.0.0/create';
+    fetch(baseURL, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            Username: user,
+            Password: key
+        })
+    });
+    nowLogin();
 }
 
 function nowLogin(){

@@ -22,9 +22,6 @@ app.use(express.json());
 app.use(express.static('./'));
 app.use(morgan('dev'));
 app.use(cookieParser());
-// app.set('views', path.join(__dirname, 'views'));
-// app.engine('handlebars', expressHBS({defaultLayout:'layout'}));
-// app.set('view engine', 'handlebars');
 
 app.use(session({
     secret: 'secret',
@@ -52,7 +49,7 @@ app.use(passport.session());
 //     }
 // }));
 
-// app.use(flash());
+//app.use(flash());
 
 //this is to create global variables for your flash messages
 // app.use(function (req, res, next) {
