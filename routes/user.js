@@ -27,8 +27,8 @@ router.post('/1.0.0/create',
             const errors = validationResult(req);
             console.log(errors);
             if (!errors.isEmpty()){
-                return res.status(400).json({errors: errors.array()});
-                res.send().json({errors: errors.array()});
+                req.flash('message', errors);
+                //return res.status(400).json({errors: errors.array()});
             } else {
                 next();
             }
