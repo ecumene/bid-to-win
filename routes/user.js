@@ -28,6 +28,7 @@ router.post('/1.0.0/create',
             console.log(errors);
             if (!errors.isEmpty()){
                 return res.status(400).json({errors: errors.array()});
+                res.send().json({errors: errors.array()});
             } else {
                 next();
             }
