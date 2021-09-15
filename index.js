@@ -22,18 +22,18 @@ app.use(express.json());
 app.use(express.static('./'));
 app.use(morgan('dev'));
 app.use(cookieParser());
-// app.set('views', path.join(__dirname, 'views'));//need clarification on what this does
+// app.set('views', path.join(__dirname, 'views'));
 // app.engine('handlebars', expressHBS({defaultLayout:'layout'}));
 // app.set('view engine', 'handlebars');
 
-// app.use(session({
-//     secret: 'secret',
-//     saveUninitialized: true,
-//     resave: true
-// }));
+app.use(session({
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true
+}));
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // app.use(expressVDR({
 //     errorFormatter: function(param, msg, value){
