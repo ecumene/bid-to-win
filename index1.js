@@ -1,3 +1,5 @@
+const { gameStart } = require("./controllers/user");
+
 let oppbid1, oppbid2;
 let yourbid1, yourbid2;
 let trick1, trick2;
@@ -135,6 +137,20 @@ function winPercRank(){
     });
 }
 
+function gameStart(){
+    const baseURL = 'https://bid-to-win.herokuapp.com/user/1.0.0/game_started';
+        fetch(baseURL, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                Username: user,
+            })
+        });
+}
+
 //start of login/create user functions//
 function logBox() {
     btnDisabler('login', 'playcomp', 'play2p', 'viewlead');
@@ -241,8 +257,7 @@ function userStats(){
 }
 
 function leaderboard(){
-    document.getElementById("stattable").style.display = "none";
-    document.getElementById("statdisplay").style.display = "none";
+    displayNone('stattable', 'statdisplay');
     document.getElementById("rulespar").innerHTML = "";
     document.getElementById("rulespar").style.backgroundColor = "transparent";
     document.getElementById("rulebtn").style.backgroundColor = "white";
@@ -256,8 +271,6 @@ function leaderboard(){
             for (i = 0; i < 10 && i < result.data.length; i++){
                 obj = result.data[i];
                 j = i + 1;
-                console.log(obj);
-                console.log(j);
                 document.getElementById("user"+j).innerHTML = obj.Username;
                 document.getElementById("gp"+j).innerHTML = obj.GP;
                 document.getElementById("wins"+j).innerHTML = obj.Wins;
@@ -299,9 +312,8 @@ function Rules() {
 
 function playComp(){
     cpu = 1;
-    document.getElementById("playcomp").disabled = true;
-    document.getElementById("play2p").disabled = true;
-    document.getElementById("newround").disabled = false;
+    btnDisabler('playcomp', 'play2p');
+    btnEnabler('newround');
     document.getElementById("player2").src = "images/comp_player.png";
     document.getElementById("p2").innerHTML = "COMPUTER";
     compcards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -309,9 +321,8 @@ function playComp(){
 }
 
 function play2p(){
-    document.getElementById("playcomp").disabled = true;
-    document.getElementById("play2p").disabled = true;
-    document.getElementById("newround").disabled = false;
+    btnDisabler('playcomp', 'play2p');
+    btnEnabler('newround');
     alert("User data currently does not get recorded for two-player games.")
 }
 
@@ -394,30 +405,17 @@ function trickGen(){
     document.getElementById("trick1").innerHTML = trick1;    
     document.getElementById("trick2").innerHTML = trick2;    
 
+    btnDisabler('newround', youradj);
     document.getElementById("newround").disabled = true;
     
     for (i = 0; i < buttons.length; i++){
         buttons[i].disabled = false;
     }
 
-    for (i = 0; i < youradj.length; i++){
-        youradj[i].disabled = true;
-    }
-
     if(cpu == 1 && youradj.length == 0 && user != null){
         gp++
         abs++
-        const baseURL = 'https://bid-to-win.herokuapp.com/user/1.0.0/game_started';
-        fetch(baseURL, {
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                Username: user,
-            })
-        });    
+        gameStart();    
     } else {}
 
     compStrat();
