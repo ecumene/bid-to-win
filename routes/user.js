@@ -29,7 +29,7 @@ router.post('/1.0.0/create',
             }
         });
 
-//router.post('/1.0.0/create', userController.create);
+router.post('/1.0.0/create', userController.create);
 router.put('/1.0.0/game_started', userController.gameStart);
 router.put('/1.0.0/win', userController.win);
 router.put('/1.0.0/loss', userController.loss);
