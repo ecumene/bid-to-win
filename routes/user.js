@@ -18,15 +18,16 @@ router.get('/1.0.0/:Username/:Password', userController.login);
 router.post('/1.0.0/create',
         check('Username').isLength({min: 4, max: 14}),
         check('Password').isLength({min: 4, max: 14}),
-        (req, res, next) => {
+        (req, res) => {
             const errors = validationResult(req);
             console.log(errors);
             if (!errors.isEmpty()){
                 return res.status(400).json({errors: errors.array()});
             }
-        });
+        },
+        userController.create);
 
-router.post('/1.0.0/create', userController.create);
+//router.post('/1.0.0/create', userController.create);
 router.put('/1.0.0/game_started', userController.gameStart);
 router.put('/1.0.0/win', userController.win);
 router.put('/1.0.0/loss', userController.loss);
