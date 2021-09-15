@@ -32,15 +32,15 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(flash());
+// app.use(flash());
 
 //this is to create global variables for your flash messages
-app.use(function (req, res, next) {
-    res.locals.success_msg = req.flash('success_msg');
-    res.locals.error_msg = req.flash('error_msg');
-    res.locals.error = req.flash('error');//need this extra one because passport sets it's own error messages to this
-    next();
-});
+// app.use(function (req, res, next) {
+//     res.locals.success_msg = req.flash('success_msg');
+//     res.locals.error_msg = req.flash('error_msg');
+//     res.locals.error = req.flash('error');//need this extra one because passport sets it's own error messages to this
+//     next();
+// });
 
 //routes handlers
 const userstats = require('./routes/userstats.js');
