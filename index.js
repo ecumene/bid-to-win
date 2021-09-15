@@ -10,8 +10,6 @@ app.use(cors());
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-// const expressHBS = require('express-handlebars');
-// const expressVDR = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
 const LocalStrat = require('passport-local').Strategy;
