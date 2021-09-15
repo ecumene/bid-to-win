@@ -19,13 +19,13 @@ router.post('/1.0.0/create',
         check('Username').not().isEmpty().withMessage('Must provide username'),
         check('Username').isLength({min: 4}),
         check('Password').not().isEmpty().withMessage('Must provide password'),
-        (req, res) => {
+        (req, res, next) => {
             const errors = validationResult(req);
             console.log(errors);
             if (!errors.isEmpty()){
                 return res.status(400).json({errors: errors.array()});
             } else {
-                userController.create
+                next();
             }
         });
 
