@@ -283,9 +283,8 @@ function signIn(){
         .then(response => response.json())
         .then(result => {
             if(result.data.length == 0){
-                alert("Username and Password do not match.");
                 user = null;
-            } else {}
+            } else {
             obj = result.data[0];
             gp = obj.GP;
             wins = obj.Wins;
@@ -299,6 +298,7 @@ function signIn(){
             document.getElementById("login").innerHTML = "Sign Out";
             document.getElementById("login").onclick = signOut;
             document.getElementById("p1").innerHTML = user;
+            }
         });
 }
 
