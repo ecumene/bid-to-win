@@ -238,6 +238,7 @@ function secondBid(){
     document.getElementById("yourbid2").innerHTML = yourbid2;
     line2 = document.getElementById("card"+yourbid2);
 }
+
 function p2FirstBid(){
     document.getElementById("oppbid1").innerHTML = oppbid1;
     line3 = document.getElementById("opp"+oppbid1);
@@ -257,8 +258,6 @@ function resultRecorder(){
         userTie(); 
     } else {};
 }
-
-
 
 //start of login/create user functions//
 function logBox() {
