@@ -32,23 +32,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use(expressVDR({
-//     errorFormatter: function(param, msg, value){
-//         let namespace = param.split('.'),
-//         root = namespace.shift(),
-//         formParam = root;
-
-//         while(namespace.length){
-//             formParam += '[' + namespace.shift() + ']';
-//         }
-//         return {
-//             param: formParam,
-//             msg: msg,
-//             value: value
-//         };
-//     }
-// }));
-
 app.use(flash());
 
 //this is to create global variables for your flash messages
