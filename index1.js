@@ -52,6 +52,12 @@ function displayNone(){
     }
 }
 
+function blankInnerHTML(){
+    for (let i = 0; i < arguments.length; i++){
+        document.getElementById(arguments[i]).innerHTML = '';
+    }
+}
+
 function greeting(){
     rule++
     document.getElementById("rulespar").innerHTML = ("Welcome to Bid-to-Win, <span style='color: blue'>"+user+"</span>!" + "<br><br>" +
@@ -149,6 +155,111 @@ function gameStart(){
         });
 }
 
+function userWin(){
+    wins++
+    winper = Math.round(((wins)*100)/(wins + losses));
+    const baseURL = 'https://bid-to-win.herokuapp.com/user/1.0.0/win';
+    fetch(baseURL, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            Username: user,
+            WinPerc: winper
+        })
+    });
+}
+
+function userLoss(){
+    losses++
+    winper = Math.round((wins * 100)/(wins + losses));
+    const baseURL = 'https://bid-to-win.herokuapp.com/user/1.0.0/loss';
+    fetch(baseURL, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            Username: user,
+            WinPerc: winper
+        })
+    }); 
+}
+
+function userTie(){
+    ties++
+    if(wins + losses != 0){
+        winper = ((wins * 100)/(wins + losses));
+    } else {
+        winper = 0;
+    }
+    const baseURL = 'https://bid-to-win.herokuapp.com/user/1.0.0/tie';
+    fetch(baseURL, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            Username: user,
+            WinPerc: winper
+        })
+    });
+}
+
+function userButtons(){
+    for (i = 0; i < buttons.length; i++){//enables all player buttons
+        buttons[i].disabled = false;
+    }
+    
+    for (i = 0; i < youradj.length; i++){//disables used player buttons
+        youradj[i].disabled = true;
+    }
+}
+
+function compButtons() {
+    for (i = 0; i < cbuttons.length; i++){
+        cbuttons[i].disabled = false;
+    }        
+    for (i = 0; i < oppadj.length; i++){
+        oppadj[i].disabled = true;
+    }
+}
+
+function firstBid(){
+    document.getElementById("yourbid1").innerHTML = yourbid1;
+    line1 = document.getElementById("card"+yourbid1);
+}
+
+function secondBid(){
+    document.getElementById("yourbid2").innerHTML = yourbid2;
+    line2 = document.getElementById("card"+yourbid2);
+}
+function p2FirstBid(){
+    document.getElementById("oppbid1").innerHTML = oppbid1;
+    line3 = document.getElementById("opp"+oppbid1);
+}
+
+function p2SecondBid(){
+    document.getElementById("oppbid2").innerHTML = oppbid2;
+    line4 = document.getElementById("opp"+oppbid2);
+}
+
+function resultRecorder(){
+    if(cpu == 1 && youradj.length == 10 && yourscore > oppscore && user != null){
+        userWin();    
+    } else if(cpu == 1 && youradj.length == 10 && yourscore < oppscore && user != null){
+        userLoss();
+    } else if (cpu == 1 && youradj.length == 10 && yourscore == oppscore && user != null){
+        userTie(); 
+    } else {};
+}
+
+
+
 //start of login/create user functions//
 function logBox() {
     btnDisabler('login', 'playcomp', 'play2p', 'viewlead');
@@ -184,8 +295,8 @@ function signIn(){
             abs = obj.Abandons;
             winper = obj.WinPerc;
             document.getElementById("userstats").style.display = "inline";
-            document.getElementById("logindiv").style.display = "none";
-            document.getElementById("login").disabled = false;
+            displayNone('logindiv');
+            btnEnabler('login');
             document.getElementById("login").innerHTML = "Sign Out";
             document.getElementById("login").onclick = signOut;
             document.getElementById("p1").innerHTML = user;
@@ -216,7 +327,7 @@ function newUser(){
 }
 
 function nowLogin(){
-    document.getElementById("logindiv").style.display = "none";
+    displayNone('logindiv');
     document.getElementById("userstats").style.display = "inline";
     document.getElementById("login").style.display = "inline";
     document.getElementById("login").innerHTML = "Sign Out";
@@ -242,7 +353,7 @@ function userStats(){
     winsRank();
     winPercRank();
     document.getElementById("userstats").innerHTML = "Refresh Stats";
-    document.getElementById("rulespar").innerHTML = "";
+    blankInnerHTML('rulespar');
     document.getElementById("userhead").innerHTML = user;
     document.getElementById("gpdisp").innerHTML = gp;
     document.getElementById("winsdisp").innerHTML = wins;
@@ -251,12 +362,12 @@ function userStats(){
     document.getElementById("abandonsdisp").innerHTML = abs;
     document.getElementById("winperdisp").innerHTML = winper+'%';
     document.getElementById("statdisplay").style.display = "inline-flex";
-    document.getElementById("stattable").style.display = "";
+    displayNone('stattable');
 }
 
 function leaderboard(){
     displayNone('stattable', 'statdisplay');
-    document.getElementById("rulespar").innerHTML = "";
+    blankInnerHTML('rulespar');
     document.getElementById("rulespar").style.backgroundColor = "transparent";
     document.getElementById("rulebtn").style.backgroundColor = "white";
     document.getElementById("rulebtn").style.color = "black";
@@ -279,7 +390,7 @@ function leaderboard(){
             }
 
             document.getElementById("leaderdiv").style.display = "inline-flex";
-            document.getElementById("leaderboard").style.display = "";
+            blankInnerHTML('leaderboard');
             document.getElementById("leaderkey").style.display = "inline-flex";
         });
 }
@@ -301,7 +412,7 @@ function Rules() {
     document.getElementById("rulebtn").style.backgroundColor = "black";
     document.getElementById("rulebtn").style.color = "white";
     } else {
-        document.getElementById("rulespar").innerHTML = "";
+        blankInnerHTML('rulespar');
         document.getElementById("rulespar").style.backgroundColor = "transparent";
         document.getElementById("rulebtn").style.backgroundColor = "white";
         document.getElementById("rulebtn").style.color = "black";
@@ -325,46 +436,30 @@ function play2p(){
 }
 
 function undo(){
+    btnDisabler('commit');
+
     if (cpu == 0 && loop == 1 && count % 2 != 0){
-        document.getElementById("oppbid1").innerHTML = "3";
+        blankInnerHTML('oppbid1');
         line3.disabled = false;
         oppadj.pop();
         loop = 0;
     } else if (cpu == 0 && loop == 2 && count % 2 != 0){
-        document.getElementById("oppbid1").innerHTML = "";
-        document.getElementById("oppbid2").innerHTML = "";
+        blankInnerHTML('oppbid1', 'oppbid2');
         oppadj.pop();
         oppadj.pop();
         loop = 0;
-        document.getElementById("commit").disabled = true;
-
-        for (i = 0; i < cbuttons.length; i++){
-            cbuttons[i].disabled = false;
-        }
-    
-        for (i = 0; i < oppadj.length; i++){
-            oppadj[i].disabled = true;
-        }
+        compButtons();
     } else if (loop == 1){
-        document.getElementById("yourbid1").innerHTML = "";
+        blankInnerHTML('yourbid1');
         line1.disabled = false;
         youradj.pop();
         loop = 0;
     } else {
-        document.getElementById("yourbid1").innerHTML = "";
-        document.getElementById("yourbid2").innerHTML = "";
+        blankInnerHTML('yourbid1', 'yourbid2');
         youradj.pop();
         youradj.pop();
         loop = 0;
-        document.getElementById("commit").disabled = true;
-
-        for (i = 0; i < buttons.length; i++){
-            buttons[i].disabled = false;
-        }
-    
-        for (i = 0; i < youradj.length; i++){
-            youradj[i].disabled = true;
-        }
+        userButtons();
     }    
 }
 
@@ -372,7 +467,7 @@ function trickGen(){
     let a = Math.floor((Math.random() * 10) + 1);
     let b = Math.floor((Math.random() * 10) + 1);
 
-    if (a != b && a > b){
+    if (a != b && a > b){//generates and places the tricks
         trick1 = b;
         trick2 = a;
     } else if (a != b && a < b){
@@ -386,29 +481,23 @@ function trickGen(){
         trick2 = b + 1;
     }
 
-    if (cpu == 0){
-        document.getElementById("oppbid1").innerHTML = "";
-        document.getElementById("oppbid2").innerHTML = "";
+    if (cpu == 0){//if vs. comp, sets cbidboxes to ?
+        blankInnerHTML('oppbid1', 'oppbid2');
     } else {
         document.getElementById("oppbid1").innerHTML = "?";
         document.getElementById("oppbid2").innerHTML = "?";
     }
     
-    document.getElementById("trick1").style.backgroundColor = "white";
+    document.getElementById("trick1").style.backgroundColor = "white";//displays the tricks, erases the last bids
     document.getElementById("trick2").style.backgroundColor = "white";
     document.getElementById("trick1").style.color = "black";
     document.getElementById("trick2").style.color = "black";
-    document.getElementById("yourbid1").innerHTML = "";
-    document.getElementById("yourbid2").innerHTML = "";
+    blankInnerHTML('yourbid1', 'yourbid2');
     document.getElementById("trick1").innerHTML = trick1;    
     document.getElementById("trick2").innerHTML = trick2;    
 
-    btnDisabler('newround', youradj);
-    document.getElementById("newround").disabled = true;
-    
-    for (i = 0; i < buttons.length; i++){
-        buttons[i].disabled = false;
-    }
+    btnDisabler('newround');//disables Next Round
+    userButtons();
 
     if(cpu == 1 && youradj.length == 0 && user != null){
         gp++
@@ -424,28 +513,19 @@ function Commit(){
     scorerev = 0;
     yourcards.splice(yourcards.indexOf(yourbid1), 1);
     yourcards.splice(yourcards.indexOf(yourbid2), 1);
-    document.getElementById("undo").disabled = true;
+    btnDisabler('undo', 'commit');
 
     if (cpu == 0) {
         count++;        
         if (count % 2 != 0){
             document.getElementById("yourbid1").innerHTML = "?";      
             document.getElementById("yourbid2").innerHTML = "?";
-            document.getElementById("commit").disabled = true;
-            for (i = 0; i < cbuttons.length; i++){
-                cbuttons[i].disabled = false;
-            }        
-            for (i = 0; i < oppadj.length; i++){
-                oppadj[i].disabled = true;
-            }      
+            compButtons();      
         } else {
-            document.getElementById("commit").disabled = true;
             line3.style.textDecoration = "line-through";
             line4.style.textDecoration = "line-through";
         }
-    } else {
-        document.getElementById("commit").disabled = true;    
-    }
+    } else {}
 
     if (cpu == 0 && count % 2 != 0){
         let e = 0;
@@ -522,62 +602,11 @@ function scoreReveal(){
     }
 
     if (scorerev >= 4 && youradj.length != 10){    
-        document.getElementById("newround").disabled = false;
+        btnEnabler('newround');
     } else if (scorerev >= 4 && youradj.length == 10){
-        if(cpu == 1 && youradj.length == 10 && yourscore > oppscore && user != null){
-            wins++
-            abs--
-            winper = Math.round(((wins)*100)/(wins + losses));
-            const baseURL = 'https://bid-to-win.herokuapp.com/user/1.0.0/win';
-            fetch(baseURL, {
-                method: 'PUT',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    Username: user,
-                    WinPerc: winper
-                })
-            });    
-        } else if(cpu == 1 && youradj.length == 10 && yourscore < oppscore && user != null){
-            losses++
-            abs--
-            winper = Math.round((wins * 100)/(wins + losses));
-            const baseURL = 'https://bid-to-win.herokuapp.com/user/1.0.0/loss';
-            fetch(baseURL, {
-                method: 'PUT',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    Username: user,
-                    WinPerc: winper
-                })
-            }); 
-        } else if (cpu == 1 && youradj.length == 10 && yourscore == oppscore && user != null){
-            ties++
-            abs--
-            if(wins + losses != 0){
-                winper = ((wins * 100)/(wins + losses));
-            } else {
-                winper = 0;
-            }
-            const baseURL = 'https://bid-to-win.herokuapp.com/user/1.0.0/tie';
-            fetch(baseURL, {
-                method: 'PUT',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    Username: user,
-                    WinPerc: winper
-                })
-            }); 
-        } else {};
-        document.getElementById("newgame").disabled = false;
+        abs--
+        resultRecorder();        
+        btnEnabler('newround');
     } else {
         setTimeout(scoreReveal, 800);
     };
@@ -614,18 +643,13 @@ function newGame(){
     document.getElementById("scoreboard").innerHTML = "0 - 0";
     document.getElementById("scoreboard").style.background = "lightgray";
     document.getElementById("scoreboard").style.color = "black";
-    document.getElementById("oppbid1").innerHTML = "";
-    document.getElementById("oppbid2").innerHTML = "";
-    document.getElementById("yourbid1").innerHTML = "";
-    document.getElementById("yourbid2").innerHTML = "";
+    blankInnerHTML('oppbid1', 'oppbid2', 'yourbid1', 'yourbid2', 'trick1', 'trick2');
     document.getElementById("trick1").style.backgroundColor = "white";
     document.getElementById("trick2").style.backgroundColor = "white";
     document.getElementById("trick1").style.color = "black";
     document.getElementById("trick2").style.color = "black";
-    document.getElementById("trick1").innerHTML = "";    
-    document.getElementById("trick2").innerHTML = "";
-    document.getElementById("newround").disabled = false;  
-    document.getElementById("newgame").disabled = true;  
+    btnEnabler('newround');
+    btnDisabler('newgame');
 
     for (i = 0; i < buttons.length; i++){
         buttons[i].style.backgroundColor = "rgb(140, 140, 255)";
@@ -636,240 +660,207 @@ function newGame(){
 // the beginning of the player button functions //
 function Card1(){
     loop++;
-    document.getElementById("undo").disabled = false;
+    btnEnabler('undo');
+    btnDisabler('card1');
+    youradj.push(document.getElementById("card1"));
 
     if (loop === 1){
-        document.getElementById("yourbid1").innerHTML = "1";
         yourbid1 = 1;
-        line1 = document.getElementById("card1");
-        document.getElementById("card1").disabled = true;
-        youradj.push(document.getElementById("card1"));
+        firstBid();
     } else {
-        document.getElementById("yourbid2").innerHTML = "1";
         yourbid2 = 1;
-        line2 = document.getElementById("card1");
-        youradj.push(document.getElementById("card1"));
-        document.getElementById("commit").disabled = false;      
+        btnEnabler('commit');
+        secondBid();      
 
         for (i = 0; i < buttons.length; i++){
-            buttons[i].disabled = true;
+        buttons[i].disabled = true;
         }
     }
 }
 function Card2(){
     loop++;
-    document.getElementById("undo").disabled = false;
+    btnEnabler('undo');
+    btnDisabler('card2');
+    youradj.push(document.getElementById("card2"));
 
     if (loop === 1){
-        document.getElementById("yourbid1").innerHTML = "2";
         yourbid1 = 2;
-        document.getElementById("card2").disabled = true;
-        line1 = document.getElementById("card2");
-        youradj.push(document.getElementById("card2"));
+        firstBid();
     } else {
-        document.getElementById("yourbid2").innerHTML = "2";
         yourbid2 = 2;
-        line2 = document.getElementById("card2");
-        youradj.push(document.getElementById("card2"));
-        document.getElementById("commit").disabled = false;
+        btnEnabler('commit');
+        secondBid();      
 
         for (i = 0; i < buttons.length; i++){
-            buttons[i].disabled = true;
+        buttons[i].disabled = true;
         }
     }
 }
 function Card3(){
     loop++;
-    document.getElementById("undo").disabled = false;
+    btnEnabler('undo');
+    btnDisabler('card3');
+    youradj.push(document.getElementById("card3"));
 
     if (loop === 1){
-        document.getElementById("yourbid1").innerHTML = "3";
         yourbid1 = 3;
-        document.getElementById("card3").disabled = true;
-        line1 = document.getElementById("card3");
-        youradj.push(document.getElementById("card3"));
+        firstBid();
     } else {
-        document.getElementById("yourbid2").innerHTML = "3";
         yourbid2 = 3;
-        line2 = document.getElementById("card3");
-        youradj.push(document.getElementById("card3"));
-        document.getElementById("commit").disabled = false;
+        btnEnabler('commit');
+        secondBid();      
 
         for (i = 0; i < buttons.length; i++){
-            buttons[i].disabled = true;
+        buttons[i].disabled = true;
         }
     }
 }
 function Card4(){
     loop++;
-    document.getElementById("undo").disabled = false;
+    btnEnabler('undo');
+    btnDisabler('card4');
+    youradj.push(document.getElementById("card4"));
 
     if (loop === 1){
-        document.getElementById("yourbid1").innerHTML = "4";
         yourbid1 = 4;
-        document.getElementById("card4").disabled = true;
-        line1 = document.getElementById("card4");
-        youradj.push(document.getElementById("card4"));
+        firstBid();
     } else {
-        document.getElementById("yourbid2").innerHTML = "4";
         yourbid2 = 4;
-        line2 = document.getElementById("card4");
-        youradj.push(document.getElementById("card4"));
-        document.getElementById("commit").disabled = false;
+        btnEnabler('commit');
+        secondBid();      
 
         for (i = 0; i < buttons.length; i++){
-            buttons[i].disabled = true;
+        buttons[i].disabled = true;
         }
     }
 }
 function Card5(){
     loop++;
-    document.getElementById("undo").disabled = false;
+    btnEnabler('undo');
+    btnDisabler('card5');
+    youradj.push(document.getElementById("card5"));
 
     if (loop === 1){
-        document.getElementById("yourbid1").innerHTML = "5";
         yourbid1 = 5;
-        document.getElementById("card5").disabled = true;
-        line1 = document.getElementById("card5");
-        youradj.push(document.getElementById("card5"));
+        firstBid();
     } else {
-        document.getElementById("yourbid2").innerHTML = "5";
         yourbid2 = 5;
-        line2 = document.getElementById("card5");
-        youradj.push(document.getElementById("card5"));
-        document.getElementById("commit").disabled = false;
+        btnEnabler('commit');
+        secondBid();      
 
         for (i = 0; i < buttons.length; i++){
-            buttons[i].disabled = true;
+        buttons[i].disabled = true;
         }
     }
 }
 function Card6(){
     loop++;
-    document.getElementById("undo").disabled = false;
+    btnEnabler('undo');
+    btnDisabler('card6');
+    youradj.push(document.getElementById("card6"));
 
     if (loop === 1){
-        document.getElementById("yourbid1").innerHTML = "6";
         yourbid1 = 6;
-        document.getElementById("card6").disabled = true;
-        line1 = document.getElementById("card6");
-        youradj.push(document.getElementById("card6"));
+        firstBid();
     } else {
-        document.getElementById("yourbid2").innerHTML = "6";
         yourbid2 = 6;
-        line2 = document.getElementById("card6");
-        youradj.push(document.getElementById("card6"));
-        document.getElementById("commit").disabled = false;
+        btnEnabler('commit');
+        secondBid();      
 
         for (i = 0; i < buttons.length; i++){
-            buttons[i].disabled = true;
+        buttons[i].disabled = true;
         }
     }
 }
 function Card7(){
     loop++;
-    document.getElementById("undo").disabled = false;
+    btnEnabler('undo');
+    btnDisabler('card7');
+    youradj.push(document.getElementById("card7"));
 
     if (loop === 1){
-        document.getElementById("yourbid1").innerHTML = "7";
         yourbid1 = 7;
-        document.getElementById("card7").disabled = true;
-        line1 = document.getElementById("card7");
-        youradj.push(document.getElementById("card7"));
+        firstBid();
     } else {
-        document.getElementById("yourbid2").innerHTML = "7";
         yourbid2 = 7;
-        line2 = document.getElementById("card7");
-        youradj.push(document.getElementById("card7"));
-        document.getElementById("commit").disabled = false;
+        btnEnabler('commit');
+        secondBid();      
 
         for (i = 0; i < buttons.length; i++){
-            buttons[i].disabled = true;
+        buttons[i].disabled = true;
         }
     }
 }
 function Card8(){
     loop++;
-    document.getElementById("undo").disabled = false;
+    btnEnabler('undo');
+    btnDisabler('card8');
+    youradj.push(document.getElementById("card8"));
 
     if (loop === 1){
-        document.getElementById("yourbid1").innerHTML = "8";
         yourbid1 = 8;
-        document.getElementById("card8").disabled = true;
-        line1 = document.getElementById("card8");
-        youradj.push(document.getElementById("card8"));
+        firstBid();
     } else {
-        document.getElementById("yourbid2").innerHTML = "8";
         yourbid2 = 8;
-        line2 = document.getElementById("card8");
-        youradj.push(document.getElementById("card8"));
-        document.getElementById("commit").disabled = false;
+        btnEnabler('commit');
+        secondBid();      
 
         for (i = 0; i < buttons.length; i++){
-            buttons[i].disabled = true;
+        buttons[i].disabled = true;
         }
     }
 }
 function Card9(){
     loop++;
-    document.getElementById("undo").disabled = false;
+    btnEnabler('undo');
+    btnDisabler('card9');
+    youradj.push(document.getElementById("card9"));
 
     if (loop === 1){
-        document.getElementById("yourbid1").innerHTML = "9";
         yourbid1 = 9;
-        document.getElementById("card9").disabled = true;
-        line1 = document.getElementById("card9");
-        youradj.push(document.getElementById("card9"));
+        firstBid();
     } else {
-        document.getElementById("yourbid2").innerHTML = "9";
         yourbid2 = 9;
-        line2 = document.getElementById("card9");
-        youradj.push(document.getElementById("card9"));
-        document.getElementById("commit").disabled = false;
+        btnEnabler('commit');
+        secondBid();      
 
         for (i = 0; i < buttons.length; i++){
-            buttons[i].disabled = true;
+        buttons[i].disabled = true;
         }
     }
 }
 function Card10(){
     loop++;
-    document.getElementById("undo").disabled = false;
+    btnEnabler('undo');
+    btnDisabler('card10');
+    youradj.push(document.getElementById("card10"));
 
     if (loop === 1){
-        document.getElementById("yourbid1").innerHTML = "10";
         yourbid1 = 10;
-        document.getElementById("card10").disabled = true;
-        line1 = document.getElementById("card10");
-        youradj.push(document.getElementById("card10"));
+        firstBid();
     } else {
-        document.getElementById("yourbid2").innerHTML = "10";
         yourbid2 = 10;
-        line2 = document.getElementById("card10");
-        youradj.push(document.getElementById("card10"));
-        document.getElementById("commit").disabled = false;
+        btnEnabler('commit');
+        secondBid();      
 
         for (i = 0; i < buttons.length; i++){
-            buttons[i].disabled = true;
+        buttons[i].disabled = true;
         }
     }
 }
 function Opp1(){
     loop++;
-    document.getElementById("undo").disabled = false;
+    btnEnabler('undo');
+    btnDisabler('opp1');
+    oppadj.push(document.getElementById("opp1"));
 
     if (loop === 1){
-        document.getElementById("oppbid1").innerHTML = "1";
         oppbid1 = 1;
-        document.getElementById("opp1").disabled = true;
-        line3 = document.getElementById("opp1");
-        oppadj.push(document.getElementById("opp1"));
+        p2FirstBid();
     } else {
-        document.getElementById("oppbid2").innerHTML = "1";
         oppbid2 = 1;
-        line4 = document.getElementById("opp1");
-        oppadj.push(document.getElementById("opp1"));
-        document.getElementById("commit").disabled = false;
+        btnEnabler('commit');
+        p2SecondBid();
 
         for (i = 0; i < buttons.length; i++){
             cbuttons[i].disabled = true;
@@ -878,20 +869,17 @@ function Opp1(){
 }
 function Opp2(){
     loop++;
-    document.getElementById("undo").disabled = false;
+    btnEnabler('undo');
+    btnDisabler('opp2');
+    oppadj.push(document.getElementById("opp2"));
 
     if (loop === 1){
-        document.getElementById("oppbid1").innerHTML = "2";
         oppbid1 = 2;
-        document.getElementById("opp2").disabled = true;
-        line3 = document.getElementById("opp2");
-        oppadj.push(document.getElementById("opp2"));
+        p2FirstBid();
     } else {
-        document.getElementById("oppbid2").innerHTML = "2";
         oppbid2 = 2;
-        line4 = document.getElementById("opp2"); 
-        oppadj.push(document.getElementById("opp2"));
-        document.getElementById("commit").disabled = false;
+        btnEnabler('commit');
+        p2SecondBid();
 
         for (i = 0; i < buttons.length; i++){
             cbuttons[i].disabled = true;
@@ -900,20 +888,17 @@ function Opp2(){
 }
 function Opp3(){
     loop++;
-    document.getElementById("undo").disabled = false;
+    btnEnabler('undo');
+    btnDisabler('opp3');
+    oppadj.push(document.getElementById("opp3"));
 
     if (loop === 1){
-        document.getElementById("oppbid1").innerHTML = "3";
         oppbid1 = 3;
-        document.getElementById("opp3").disabled = true;
-        line3 = document.getElementById("opp3");
-        oppadj.push(document.getElementById("opp3"));
+        p2FirstBid();
     } else {
-        document.getElementById("oppbid2").innerHTML = "3";
         oppbid2 = 3;
-        line4 = document.getElementById("opp3");
-        oppadj.push(document.getElementById("opp3"));
-        document.getElementById("commit").disabled = false;
+        btnEnabler('commit');
+        p2SecondBid();
 
         for (i = 0; i < buttons.length; i++){
             cbuttons[i].disabled = true;
@@ -922,20 +907,17 @@ function Opp3(){
 }
 function Opp4(){
     loop++;
-    document.getElementById("undo").disabled = false;
+    btnEnabler('undo');
+    btnDisabler('opp4');
+    oppadj.push(document.getElementById("opp4"));
 
     if (loop === 1){
-        document.getElementById("oppbid1").innerHTML = "4";
         oppbid1 = 4;
-        document.getElementById("opp4").disabled = true;
-        line3 = document.getElementById("opp4");
-        oppadj.push(document.getElementById("opp4"));
+        p2FirstBid();
     } else {
-        document.getElementById("oppbid2").innerHTML = "4";
         oppbid2 = 4;
-        line4 = document.getElementById("opp4");
-        oppadj.push(document.getElementById("opp4"));
-        document.getElementById("commit").disabled = false;
+        btnEnabler('commit');
+        p2SecondBid();
 
         for (i = 0; i < buttons.length; i++){
             cbuttons[i].disabled = true;
@@ -944,20 +926,17 @@ function Opp4(){
 }
 function Opp5(){
     loop++;
-    document.getElementById("undo").disabled = false;
+    btnEnabler('undo');
+    btnDisabler('opp5');
+    oppadj.push(document.getElementById("opp5"));
 
     if (loop === 1){
-        document.getElementById("oppbid1").innerHTML = "5";
         oppbid1 = 5;
-        document.getElementById("opp5").disabled = true;
-        line3 = document.getElementById("opp5");
-        oppadj.push(document.getElementById("opp5"));
+        p2FirstBid();
     } else {
-        document.getElementById("oppbid2").innerHTML = "5";
         oppbid2 = 5;
-        line4 = document.getElementById("opp5");
-        oppadj.push(document.getElementById("opp5"));
-        document.getElementById("commit").disabled = false;
+        btnEnabler('commit');
+        p2SecondBid();
 
         for (i = 0; i < buttons.length; i++){
             cbuttons[i].disabled = true;
@@ -966,20 +945,17 @@ function Opp5(){
 }
 function Opp6(){
     loop++;
-    document.getElementById("undo").disabled = false;
+    btnEnabler('undo');
+    btnDisabler('opp6');
+    oppadj.push(document.getElementById("opp6"));
 
     if (loop === 1){
-        document.getElementById("oppbid1").innerHTML = "6";
         oppbid1 = 6;
-        document.getElementById("opp6").disabled = true;
-        line3 = document.getElementById("opp6");
-        oppadj.push(document.getElementById("opp6"));
+        p2FirstBid();
     } else {
-        document.getElementById("oppbid2").innerHTML = "6";
         oppbid2 = 6;
-        line4 = document.getElementById("opp6");
-        oppadj.push(document.getElementById("opp6"));
-        document.getElementById("commit").disabled = false;
+        btnEnabler('commit');
+        p2SecondBid();
 
         for (i = 0; i < buttons.length; i++){
             cbuttons[i].disabled = true;
@@ -988,20 +964,17 @@ function Opp6(){
 }
 function Opp7(){
     loop++;
-    document.getElementById("undo").disabled = false;
+    btnEnabler('undo');
+    btnDisabler('opp7');
+    oppadj.push(document.getElementById("opp7"));
 
     if (loop === 1){
-        document.getElementById("oppbid1").innerHTML = "7";
         oppbid1 = 7;
-        document.getElementById("opp7").disabled = true;
-        line3 = document.getElementById("opp7");
-        oppadj.push(document.getElementById("opp7"));
+        p2FirstBid();
     } else {
-        document.getElementById("oppbid2").innerHTML = "7";
         oppbid2 = 7;
-        line4 = document.getElementById("opp7");
-        oppadj.push(document.getElementById("opp7"));
-        document.getElementById("commit").disabled = false;
+        btnEnabler('commit');
+        p2SecondBid();
 
         for (i = 0; i < buttons.length; i++){
             cbuttons[i].disabled = true;
@@ -1010,20 +983,17 @@ function Opp7(){
 }
 function Opp8(){
     loop++;
-    document.getElementById("undo").disabled = false;
+    btnEnabler('undo');
+    btnDisabler('opp8');
+    oppadj.push(document.getElementById("opp8"));
 
     if (loop === 1){
-        document.getElementById("oppbid1").innerHTML = "8";
         oppbid1 = 8;
-        document.getElementById("opp8").disabled = true;
-        line3 = document.getElementById("opp8");
-        oppadj.push(document.getElementById("opp8"));
+        p2FirstBid();
     } else {
-        document.getElementById("oppbid2").innerHTML = "8";
         oppbid2 = 8;
-        line4 = document.getElementById("opp8");
-        oppadj.push(document.getElementById("opp8"));
-        document.getElementById("commit").disabled = false;
+        btnEnabler('commit');
+        p2SecondBid();
 
         for (i = 0; i < buttons.length; i++){
             cbuttons[i].disabled = true;
@@ -1032,20 +1002,17 @@ function Opp8(){
 }
 function Opp9(){
     loop++;
-    document.getElementById("undo").disabled = false;
+    btnEnabler('undo');
+    btnDisabler('opp9');
+    oppadj.push(document.getElementById("opp9"));
 
     if (loop === 1){
-        document.getElementById("oppbid1").innerHTML = "9";
         oppbid1 = 9;
-        document.getElementById("opp9").disabled = true;
-        line3 = document.getElementById("opp9");
-        oppadj.push(document.getElementById("opp9"));
+        p2FirstBid();
     } else {
-        document.getElementById("oppbid2").innerHTML = "9";
         oppbid2 = 9;
-        line4 = document.getElementById("opp9");
-        oppadj.push(document.getElementById("opp9"));
-        document.getElementById("commit").disabled = false;
+        btnEnabler('commit');
+        p2SecondBid();
 
         for (i = 0; i < buttons.length; i++){
             cbuttons[i].disabled = true;
@@ -1054,20 +1021,17 @@ function Opp9(){
 }
 function Opp10(){
     loop++;
-    document.getElementById("undo").disabled = false;
+    btnEnabler('undo');
+    btnDisabler('opp10');
+    oppadj.push(document.getElementById("opp10"));
 
     if (loop === 1){
-        document.getElementById("oppbid1").innerHTML = "10";
         oppbid1 = 10;
-        document.getElementById("opp10").disabled = true;
-        line3 = document.getElementById("opp10");
-        oppadj.push(document.getElementById("opp10"));
+        p2FirstBid();
     } else {
-        document.getElementById("oppbid2").innerHTML = "10";
         oppbid2 = 10;
-        line4 = document.getElementById("opp10");
-        oppadj.push(document.getElementById("opp10"));
-        document.getElementById("commit").disabled = false;
+        btnEnabler('commit');
+        p2SecondBid();
 
         for (i = 0; i < buttons.length; i++){
             cbuttons[i].disabled = true;
