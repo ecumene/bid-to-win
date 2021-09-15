@@ -1,5 +1,3 @@
-const { gameStart } = require("./controllers/user");
-
 let oppbid1, oppbid2;
 let yourbid1, yourbid2;
 let trick1, trick2;
