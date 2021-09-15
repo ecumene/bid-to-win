@@ -24,9 +24,10 @@ router.post('/1.0.0/create',
             console.log(errors);
             if (!errors.isEmpty()){
                 return res.status(400).json({errors: errors.array()});
+            } else {
+                userController.create
             }
-        },
-        userController.create);
+        });
 
 //router.post('/1.0.0/create', userController.create);
 router.put('/1.0.0/game_started', userController.gameStart);
