@@ -34,15 +34,27 @@ let gp, wins, losses, ties, abs, winper;
 let mod, adj;
 
 //start of login/create user functions//
+function btnDisabler(){
+    for (let i = 0; i < arguments.length; i++){
+        document.getElementById(arguments[i]).disabled = true;
+    }
+}
+
+function btnEnabler(){
+    for (let i = 0; i < arguments.length; i++){
+        document.getElementById(arguments[i]).disabled = false;
+    }
+}
+
+function displayNone(){
+    for (let i = 0; i < arguments.length; i++){
+        document.getElementById(arguments[i]).style.display = "none";
+    }
+}
+
 function logBox() {
-    document.getElementById("newuser").style.display = "none";
-    document.getElementById("login").disabled = true;
-    document.getElementById("playcomp").disabled = true;
-    document.getElementById("play2p").disabled = true;
-    document.getElementById("leaderdiv").style.display = "none";     
-    document.getElementById("leaderboard").style.display = "none";
-    document.getElementById("leaderkey").style.display = "none";
-    document.getElementById("viewlead").disabled = true;     
+    btnDisabler('login', 'playcomp', 'play2p', 'viewlead');
+    displayNone('newuser', 'leaderdiv', 'leaderboard', 'leaderkey');     
     document.getElementById("logindiv").style.display = 'inline-block';
 }
 
