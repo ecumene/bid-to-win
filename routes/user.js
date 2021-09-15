@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 router.use(express.json());
 const mysql = require('mysql');
+const {check , validationResult} = require('express-validator');
 const userController = require('../controllers/user.js');
 
 const db = mysql.createPool({
@@ -10,6 +11,8 @@ const db = mysql.createPool({
     password: process.env.PASSWORD,
     database: process.env.DATABASE
 });
+
+
 
 router.get('/1.0.0/:Username/:Password', userController.login);
 router.post('/1.0.0/create', userController.create);

@@ -21,7 +21,6 @@ const login = (req, res, next) => {
             res.status(400).json({Success: false});
         } else {    
         res.status(200).json({Success: true, data: rows});
-        res.render('register');
         }
     });
 };
