@@ -11,6 +11,7 @@ const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 // const expressHBS = require('express-handlebars');
+// const expressVDR = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
 const LocalStrat = require('passport-local').Strategy;
@@ -20,7 +21,7 @@ const {check , validationResult} = require('express-validator');
 app.use(express.json());
 app.use(express.static('./'));
 app.use(morgan('dev'));
-// app.use(cookieParser());
+app.use(cookieParser());
 // app.set('views', path.join(__dirname, 'views'));//need clarification on what this does
 // app.engine('handlebars', expressHBS({defaultLayout:'layout'}));
 // app.set('view engine', 'handlebars');
