@@ -40,7 +40,7 @@ app.use(passport.session());
 //     res.locals.error_msg = req.flash('error_msg');
 //     res.locals.error = req.flash('error');//need this extra one because passport sets it's own error messages to this
 //     next();
-// });
+//});
 
 //routes handlers
 const userstats = require('./routes/userstats.js');
