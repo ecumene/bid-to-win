@@ -16,7 +16,15 @@ const db = mysql.createPool({
 router.get('1.0.0/:Username/:Password',
         check('Username').not().isEmpty().withMessage('Must provide username'),
         check('Password').not().isEmpty().withMessage('Must provide password'),
-)
+        (req, res, next) => {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()){
+                //req.flash('message', errors); //this is where the flash redirect has to go
+                return res.status(400).json({errors: errors.array()});
+            } else {
+                next();
+            }
+        });
 router.get('/1.0.0/:Username/:Password', userController.login);
 router.post('/1.0.0/create',
         check('Username').not().isEmpty().withMessage('Must provide username'),
