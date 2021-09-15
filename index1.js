@@ -1,3 +1,5 @@
+const { gpRank, winsRank, winPercRank } = require("./controllers/userstats");
+
 let oppbid1, oppbid2;
 let yourbid1, yourbid2;
 let trick1, trick2;
@@ -33,7 +35,7 @@ let gp, wins, losses, ties, abs, winper;
 //variable specific to not yet implemented Gauntlet Mode//
 let mod, adj;
 
-//start of login/create user functions//
+//general functions that get called by a variety of others
 function btnDisabler(){
     for (let i = 0; i < arguments.length; i++){
         document.getElementById(arguments[i]).disabled = true;
@@ -52,6 +54,90 @@ function displayNone(){
     }
 }
 
+function greeting(){
+    rule++
+    document.getElementById("rulespar").innerHTML = ("Welcome to Bid-to-Win, <span style='color: blue'>"+user+"</span>!" + "<br><br>" +
+        "You stats will all be saved, and you can view and retrieve them at anytime." + "<br>" +
+        " Your current ranking in the database for games played, wins, and win% is also displayed." + "<br><br>" +
+        " I hope you enjoy the game!")
+    document.getElementById("rulespar").style.backgroundColor = "lightgray";
+    document.getElementById("rulebtn").style.backgroundColor = "black";
+    document.getElementById("rulebtn").style.color = "white";
+}
+
+function gpRank(){
+    baseURL2 = `https://bid-to-win.herokuapp.com/user_stats/1.0.0/gprank/:Username?Username=${user}`
+    fetch(baseURL2)
+        .then(response => response.json())
+        .then(result => {
+            if(result.data.length == 0){
+                alert("Unable to retrieve stats for current user.")
+            } else {};            
+            obj = result.data[0];
+            let rem = obj.row_num % 10;
+            if(obj.row_num > 10 && obj.row_num < 14){// this doesn't currently deal the teens in the hundreds correctly//
+                document.getElementById("gprank").innerHTML = obj.row_num+'th';
+            } else if (rem == 1){
+                document.getElementById("gprank").innerHTML = obj.row_num+'st';
+            } else if (rem == 2){
+                document.getElementById("gprank").innerHTML = obj.row_num+'nd';
+            } else if (rem == 3){
+                document.getElementById("gprank").innerHTML = obj.row_num+'rd';
+            } else {
+                document.getElementById("gprank").innerHTML = obj.row_num+'th';
+            }            
+    });
+}
+
+function winsRank(){
+    baseURL3 = `https://bid-to-win.herokuapp.com/user_stats/1.0.0/winsrank/:Username?Username=${user}`
+    fetch(baseURL3)
+        .then(response => response.json())
+        .then(result => {
+            if(result.data.length == 0){
+                alert("Unable to retrieve stats for current user.")
+            } else {};            
+            obj = result.data[0];
+            let rem = obj.row_num % 10;
+            if(obj.row_num > 10 && obj.row_num < 14){
+                document.getElementById("winsrank").innerHTML = obj.row_num+'th';
+            } else if (rem == 1){
+                document.getElementById("winsrank").innerHTML = obj.row_num+'st';
+            } else if (rem == 2){
+                document.getElementById("winsrank").innerHTML = obj.row_num+'nd';
+            } else if (rem == 3){
+                document.getElementById("winsrank").innerHTML = obj.row_num+'rd';
+            } else {
+                document.getElementById("winsrank").innerHTML = obj.row_num+'th';
+            }
+    });
+}
+
+function winPercRank(){
+    baseURL4 = `https://bid-to-win.herokuapp.com/user_stats/1.0.0/winperrank/:Username?Username=${user}`
+    fetch(baseURL4)
+        .then(response => response.json())
+        .then(result => {
+            if(result.data.length == 0){
+                alert("Unable to retrieve stats for current user.")
+            } else {};            
+            obj = result.data[0];
+            let rem = obj.row_num % 10;
+            if(obj.row_num > 10 && obj.row_num < 14){
+                document.getElementById("winperrank").innerHTML = obj.row_num+'th';
+            } else if (rem == 1){
+                document.getElementById("winperrank").innerHTML = obj.row_num+'st';
+            } else if (rem == 2){
+                document.getElementById("winperrank").innerHTML = obj.row_num+'nd';
+            } else if (rem == 3){
+                document.getElementById("winperrank").innerHTML = obj.row_num+'rd';
+            } else {
+                document.getElementById("winperrank").innerHTML = obj.row_num+'th';
+            }
+    });
+}
+
+//start of login/create user functions//
 function logBox() {
     btnDisabler('login', 'playcomp', 'play2p', 'viewlead');
     displayNone('newuser', 'leaderdiv', 'leaderboard', 'leaderkey');     
@@ -59,25 +145,16 @@ function logBox() {
 }
 
 function createUser(){
-    document.getElementById("newuser").style.display = "none";
-    document.getElementById("login").style.display = "none";
-    document.getElementById("playcomp").disabled = true
-    document.getElementById("play2p").disabled = true
-    document.getElementById("leaderdiv").style.display = "none";     
-    document.getElementById("leaderboard").style.display = "none"; 
-    document.getElementById("leaderkey").style.display = "none";
-    document.getElementById("viewlead").disabled = true;     
+    btnDisabler('playcomp', 'play2p', 'viewlead');
+    displayNone('newuser', 'login','leaderdiv', 'leaderboard', 'leaderkey');     
     document.getElementById("logindiv").style.display = 'inline-block';
-
     document.getElementById("logbtn").onclick = newUser;
 }
 
 function signIn(){
     user = document.getElementById("Username").value;
     key = document.getElementById("Password").value;
-    document.getElementById("playcomp").disabled= false;
-    document.getElementById("play2p").disabled= false;
-    document.getElementById("viewlead").disabled= false;
+    btnEnabler('playcomp', 'play2p', 'viewlead');
 
     const baseURL = `https://bid-to-win.herokuapp.com/user/1.0.0/:Username/:Password?Username=${user}&Password=${key}`;
     fetch(baseURL)
@@ -132,9 +209,8 @@ function nowLogin(){
     document.getElementById("login").style.display = "inline";
     document.getElementById("login").innerHTML = "Sign Out";
     document.getElementById("login").onclick = signOut;
-    document.getElementById("playcomp").disabled = false;
-    document.getElementById("play2p").disabled = false;
-    document.getElementById("viewlead").disabled = false;
+    btnEnabler('playcomp', 'play2p', 'viewlead');
+    greeting();
     document.getElementById("p1").innerHTML = user;
     gp = 0;
     wins = 0;
@@ -142,14 +218,6 @@ function nowLogin(){
     ties = 0;
     abs = 0;
     winper = 0;
-    rule++
-    document.getElementById("rulespar").innerHTML = ("Welcome to Bid-to-Win, <span style='color: blue'>"+user+"</span>!" + "<br><br>" +
-        "You stats will all be saved, and you can view and retrieve them at anytime." + "<br>" +
-        " Your current ranking in the database for games played, wins, and win% is also displayed." + "<br><br>" +
-        " I hope you enjoy the game!")
-    document.getElementById("rulespar").style.backgroundColor = "lightgray";
-    document.getElementById("rulebtn").style.backgroundColor = "black";
-    document.getElementById("rulebtn").style.color = "white";
 }
 
 function signOut(){
@@ -157,9 +225,10 @@ function signOut(){
 }
 //end of login/create user functions//
 function userStats(){
-    document.getElementById("leaderdiv").style.display = "none";     
-    document.getElementById("leaderboard").style.display = "none";
-    document.getElementById("leaderkey").style.display = "none";
+    displayNone('leaderdiv', 'leaderboard', 'leaderkey');
+    gpRank();
+    winsRank();
+    winPercRank();
     document.getElementById("userstats").innerHTML = "Refresh Stats";
     document.getElementById("rulespar").innerHTML = "";
     document.getElementById("userhead").innerHTML = user;
@@ -169,73 +238,6 @@ function userStats(){
     document.getElementById("tiesdisp").innerHTML = ties;
     document.getElementById("abandonsdisp").innerHTML = abs;
     document.getElementById("winperdisp").innerHTML = winper+'%';
-
-    baseURL2 = `https://bid-to-win.herokuapp.com/user_stats/1.0.0/gprank/:Username?Username=${user}`
-    fetch(baseURL2)
-        .then(response => response.json())
-        .then(result => {
-            if(result.data.length == 0){
-                alert("Unable to retrieve stats for current user.")
-            } else {};            
-            obj = result.data[0];
-            let rem = obj.row_num % 10;
-            if(obj.row_num > 10 && obj.row_num < 14){// this doesn't currently deal the teens in the hundreds correctly//
-                document.getElementById("gprank").innerHTML = obj.row_num+'th';
-            } else if (rem == 1){
-                document.getElementById("gprank").innerHTML = obj.row_num+'st';
-            } else if (rem == 2){
-                document.getElementById("gprank").innerHTML = obj.row_num+'nd';
-            } else if (rem == 3){
-                document.getElementById("gprank").innerHTML = obj.row_num+'rd';
-            } else {
-                document.getElementById("gprank").innerHTML = obj.row_num+'th';
-            }            
-    });
-
-    baseURL3 = `https://bid-to-win.herokuapp.com/user_stats/1.0.0/winsrank/:Username?Username=${user}`
-    fetch(baseURL3)
-        .then(response => response.json())
-        .then(result => {
-            if(result.data.length == 0){
-                alert("Unable to retrieve stats for current user.")
-            } else {};            
-            obj = result.data[0];
-            let rem = obj.row_num % 10;
-            if(obj.row_num > 10 && obj.row_num < 14){
-                document.getElementById("winsrank").innerHTML = obj.row_num+'th';
-            } else if (rem == 1){
-                document.getElementById("winsrank").innerHTML = obj.row_num+'st';
-            } else if (rem == 2){
-                document.getElementById("winsrank").innerHTML = obj.row_num+'nd';
-            } else if (rem == 3){
-                document.getElementById("winsrank").innerHTML = obj.row_num+'rd';
-            } else {
-                document.getElementById("winsrank").innerHTML = obj.row_num+'th';
-            }
-    });
-
-    baseURL4 = `https://bid-to-win.herokuapp.com/user_stats/1.0.0/winperrank/:Username?Username=${user}`
-    fetch(baseURL4)
-        .then(response => response.json())
-        .then(result => {
-            if(result.data.length == 0){
-                alert("Unable to retrieve stats for current user.")
-            } else {};            
-            obj = result.data[0];
-            let rem = obj.row_num % 10;
-            if(obj.row_num > 10 && obj.row_num < 14){
-                document.getElementById("winperrank").innerHTML = obj.row_num+'th';
-            } else if (rem == 1){
-                document.getElementById("winperrank").innerHTML = obj.row_num+'st';
-            } else if (rem == 2){
-                document.getElementById("winperrank").innerHTML = obj.row_num+'nd';
-            } else if (rem == 3){
-                document.getElementById("winperrank").innerHTML = obj.row_num+'rd';
-            } else {
-                document.getElementById("winperrank").innerHTML = obj.row_num+'th';
-            }
-    });
-
     document.getElementById("statdisplay").style.display = "inline-flex";
     document.getElementById("stattable").style.display = "";
 }
