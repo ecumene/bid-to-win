@@ -74,13 +74,19 @@ function statRanks(){
     for (i = 0; i < 3; i++){
         if (i == 0){
             statrank = "gprank";
+            rankFetch();
         } else if (i == 1){
             statrank = "winsrank";
+            rankFetch();
         } else {
             statrank = "winperrank";
+            rankFetch();
         }
-        
-        baseURL2 = `https://bid-to-win.herokuapp.com/user_stats/1.0.0/`+statrank+`/:Username?Username=${user}`
+    }
+}
+
+function rankFetch(){
+    baseURL2 = `https://bid-to-win.herokuapp.com/user_stats/1.0.0/`+statrank+`/:Username?Username=${user}`
         fetch(baseURL2)
             .then(response => response.json())
             .then(result => {
@@ -104,7 +110,6 @@ function statRanks(){
                     console.log(statrank);
                 };                        
         });
-    }
 }
 
 function winsRank(){
