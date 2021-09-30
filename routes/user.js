@@ -21,6 +21,7 @@ router.get('1.0.0/:Username/:Password',
             if (!errors.isEmpty()){
                 req.flash('error', errors); //this is where the flash redirect has to go
                 console.log(errors);
+                console.log('got here');
                 return res.status(400).json({errors: errors.array()});
             } else {
                 next();
