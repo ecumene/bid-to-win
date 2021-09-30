@@ -18,10 +18,10 @@ router.get('1.0.0/:Username/:Password',
         check('Password').isLength({min: 4, max: 14}).withMessage('Password must be between 4 and 14 characters'),
         (req, res, next) => {
             const errors = req.validationErrors();
-            if (!errors.isEmpty()){
-                req.flash('error', errors); //this is where the flash redirect has to go
-                console.log(errors);
+            if (errors){
                 console.log('got here');
+                req.flash('error', errors); //this is where the flash redirect has to go
+                console.log(errors);                
                 return res.status(400).json({errors: errors.array()});
             } else {
                 next();
