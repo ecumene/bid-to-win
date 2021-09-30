@@ -361,6 +361,7 @@ function userStats(){
 }
 
 function leaderboard(){
+    displayNone('stattable', 'statdisplay');
     blankInnerHTML('rulespar');
     document.getElementById("rulespar").style.backgroundColor = "transparent";
     document.getElementById("rulebtn").style.backgroundColor = "white";
@@ -381,7 +382,7 @@ function leaderboard(){
                 document.getElementById("ties"+j).innerHTML = obj.Ties;
                 document.getElementById("winper"+j).innerHTML = obj.WinPerc;
                 document.getElementById("abs"+j).innerHTML = obj.Abandons;
-                console.log(j);
+                console.log(obj.Username);
             }
 
             document.getElementById("leaderdiv").style.display = "inline-flex";
