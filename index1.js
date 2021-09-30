@@ -55,7 +55,7 @@ function displayNone(){
 function blankInnerHTML(){
     for (let i = 0; i < arguments.length; i++){
         document.getElementById(arguments[i]).innerHTML = '';
-    }
+        }
 }
 
 function greeting(){
@@ -382,11 +382,10 @@ function leaderboard(){
                 document.getElementById("ties"+j).innerHTML = obj.Ties;
                 document.getElementById("winper"+j).innerHTML = obj.WinPerc;
                 document.getElementById("abs"+j).innerHTML = obj.Abandons;
-                console.log(result.data.length);
             }
 
             document.getElementById("leaderdiv").style.display = "inline-flex";
-            blankInnerHTML('leaderboard');
+            document.getElementById('leaderboard').style.display = '';
             document.getElementById("leaderkey").style.display = "inline-flex";
         });
 }
