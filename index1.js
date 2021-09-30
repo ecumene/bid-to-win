@@ -79,8 +79,7 @@ function statRanks(){
         } else {
             statrank = "winperrank";
         }
-        console.log(i);
-        console.log(statrank);
+        
         baseURL2 = `https://bid-to-win.herokuapp.com/user_stats/1.0.0/`+statrank+`/:Username?Username=${user}`
         fetch(baseURL2)
             .then(response => response.json())
@@ -101,6 +100,8 @@ function statRanks(){
                     } else {
                         document.getElementById(statrank).innerHTML = obj.row_num+'th';
                     }
+                    console.log(i);
+                    console.log(statrank);
                 };                        
         });
     }
