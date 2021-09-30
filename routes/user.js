@@ -19,7 +19,7 @@ router.get('1.0.0/:Username/:Password',
         (req, res, next) => {
             const errors = validationResult(req);
             if (!errors.isEmpty()){
-                //req.flash('message', errors); //this is where the flash redirect has to go
+                req.flash('error_msg', errors); //this is where the flash redirect has to go
                 return res.status(400).json({errors: errors.array()});
             } else {
                 next();
