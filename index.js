@@ -7,7 +7,7 @@ const morgan = require('morgan');
 const path = require('path');
 app.use(express.json());
 app.use(cors());
-// const passport = require('passport');
+const passport = require('passport');
 // const cookieParser = require('cookie-parser');
 // const bodyParser = require('body-parser');
 // const flash = require('connect-flash');
@@ -27,8 +27,8 @@ app.use(morgan('dev'));
 //     resave: true
 // }));
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // app.use(flash());
 

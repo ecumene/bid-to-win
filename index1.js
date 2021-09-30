@@ -27,6 +27,7 @@ let ysum = 0;
 
 // variables specific to retrieving/displaying user data //
 let data =[];
+let statrank;
 let obj, user, key;
 let gp, wins, losses, ties, abs, winper;
 
@@ -69,28 +70,38 @@ function greeting(){
     document.getElementById("rulebtn").style.color = "white";
 }
 
-function gpRank(){
-    baseURL2 = `https://bid-to-win.herokuapp.com/user_stats/1.0.0/gprank/:Username?Username=${user}`
-    fetch(baseURL2)
-        .then(response => response.json())
-        .then(result => {
-            if(result.data.length == 0){
-                alert("Unable to retrieve stats for current user.")
-            } else {};            
-            obj = result.data[0];
-            let rem = obj.row_num % 10;
-            if(obj.row_num > 10 && obj.row_num < 14){// this doesn't currently deal the teens in the hundreds correctly//
-                document.getElementById("gprank").innerHTML = obj.row_num+'th';
-            } else if (rem == 1){
-                document.getElementById("gprank").innerHTML = obj.row_num+'st';
-            } else if (rem == 2){
-                document.getElementById("gprank").innerHTML = obj.row_num+'nd';
-            } else if (rem == 3){
-                document.getElementById("gprank").innerHTML = obj.row_num+'rd';
-            } else {
-                document.getElementById("gprank").innerHTML = obj.row_num+'th';
-            }            
-    });
+function statRanks(){
+    for (i = 0; i < 3; i++){
+        if (i == 0){
+            statrank = "gprank";
+        } else if (i == 1){
+            statrank = "winsrank";
+        } else {
+            statrank = "winperrank";
+        }
+
+        baseURL2 = `https://bid-to-win.herokuapp.com/user_stats/1.0.0/`+statrank+`/:Username?Username=${user}`
+        fetch(baseURL2)
+            .then(response => response.json())
+            .then(result => {
+                if(result.data.length == 0){
+                    alert("Unable to retrieve stats for current user.")
+                } else {};            
+                obj = result.data[0];
+                let rem = obj.row_num % 10;
+                if(obj.row_num > 10 && obj.row_num < 14){// this doesn't currently deal the teens in the hundreds correctly//
+                    document.getElementById(statrank).innerHTML = obj.row_num+'th';
+                } else if (rem == 1){
+                    document.getElementById(statrank).innerHTML = obj.row_num+'st';
+                } else if (rem == 2){
+                    document.getElementById(statrank).innerHTML = obj.row_num+'nd';
+                } else if (rem == 3){
+                    document.getElementById(statrank).innerHTML = obj.row_num+'rd';
+                } else {
+                    document.getElementById(statrank).innerHTML = obj.row_num+'th';
+                }            
+        });
+    }
 }
 
 function winsRank(){
@@ -344,9 +355,7 @@ function signOut(){
 //end of login/create user functions//
 function userStats(){
     displayNone('leaderdiv', 'leaderboard', 'leaderkey');
-    gpRank();
-    winsRank();
-    winPercRank();
+    statRanks();
     document.getElementById("userstats").innerHTML = "Refresh Stats";
     blankInnerHTML('rulespar');
     document.getElementById("userhead").innerHTML = user;
