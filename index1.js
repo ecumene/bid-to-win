@@ -361,7 +361,6 @@ function userStats(){
 }
 
 function leaderboard(){
-    displayNone('stattable', 'statdisplay');
     blankInnerHTML('rulespar');
     document.getElementById("rulespar").style.backgroundColor = "transparent";
     document.getElementById("rulebtn").style.backgroundColor = "white";
