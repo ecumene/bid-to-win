@@ -87,20 +87,21 @@ function statRanks(){
             .then(result => {
                 if(result.data.length == 0){
                     alert("Unable to retrieve stats for current user.")
-                } else {};            
-                obj = result.data[0];
-                let rem = obj.row_num % 10;
-                if(obj.row_num > 10 && obj.row_num < 14){// this doesn't currently deal the teens in the hundreds correctly//
-                    document.getElementById(statrank).innerHTML = obj.row_num+'th';
-                } else if (rem == 1){
-                    document.getElementById(statrank).innerHTML = obj.row_num+'st';
-                } else if (rem == 2){
-                    document.getElementById(statrank).innerHTML = obj.row_num+'nd';
-                } else if (rem == 3){
-                    document.getElementById(statrank).innerHTML = obj.row_num+'rd';
                 } else {
-                    document.getElementById(statrank).innerHTML = obj.row_num+'th';
-                }            
+                    obj = result.data[0];
+                    let rem = obj.row_num % 10;
+                    if(obj.row_num > 10 && obj.row_num < 14){// this doesn't currently deal the teens in the hundreds correctly//
+                        document.getElementById(statrank).innerHTML = obj.row_num+'th';
+                    } else if (rem == 1){
+                        document.getElementById(statrank).innerHTML = obj.row_num+'st';
+                    } else if (rem == 2){
+                        document.getElementById(statrank).innerHTML = obj.row_num+'nd';
+                    } else if (rem == 3){
+                        document.getElementById(statrank).innerHTML = obj.row_num+'rd';
+                    } else {
+                        document.getElementById(statrank).innerHTML = obj.row_num+'th';
+                    }
+                };                        
         });
     }
 }
