@@ -382,6 +382,7 @@ function leaderboard(){
                 document.getElementById("ties"+j).innerHTML = obj.Ties;
                 document.getElementById("winper"+j).innerHTML = obj.WinPerc;
                 document.getElementById("abs"+j).innerHTML = obj.Abandons;
+                console.log(j);
             }
 
             document.getElementById("leaderdiv").style.display = "inline-flex";
