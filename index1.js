@@ -357,7 +357,7 @@ function userStats(){
     document.getElementById("abandonsdisp").innerHTML = abs;
     document.getElementById("winperdisp").innerHTML = winper+'%';
     document.getElementById("statdisplay").style.display = "inline-flex";
-    displayNone('stattable');
+    document.getElementById('stattable').style.display = '';
 }
 
 function leaderboard(){
