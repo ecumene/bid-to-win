@@ -17,7 +17,7 @@ router.get('1.0.0/:Username/:Password',
         check('Username').isLength({min: 4, max: 14}).withMessage('Username must be between 4 and 14 characters'),
         check('Password').isLength({min: 4, max: 14}).withMessage('Password must be between 4 and 14 characters'),
         (req, res, next) => {
-            const errors = validationResult(req);
+            const errors = req.validationErrors();
             if (!errors.isEmpty()){
                 req.flash('error', errors); //this is where the flash redirect has to go
                 console.log(errors);
