@@ -88,7 +88,7 @@ app.listen(process.env.PORT || 31801, () => {
 });
 
 app.get('/login', (req, res, next) => {
-    let sql = 'SELECT * FROM user_stats WHERE Username=? AND Password=?';
+    let sql = 'SELECT * FROM user_stats WHERE Username=Harbour Dog AND Password=rangers1';
     db.query(sql, [req.query.Username, req.query.Password], (err, rows) => {
         if(err) {
             res.status(400).json({Success: false});
