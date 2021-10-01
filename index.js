@@ -19,7 +19,6 @@ const {auth} = require('express-openid-connect');
 // const LocalStrat = require('passport-local').Strategy;
 // const {check , validationResult} = require('express-validator');
 
-app.use(express.json());
 // app.use(express.urlencoded({extended: true}));
 app.use(express.static('./'));
 app.use(morgan('dev'));
