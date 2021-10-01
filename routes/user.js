@@ -36,11 +36,9 @@ router.post('/1.0.0/create',
         (req, res, next) => {
             const errors = validationResult(req);
             if (!errors.isEmpty()){
-                for(let i = 0; i < errors.length; i++){
-                    //let errObj = errors[i];
-                    console.log(errors[i]);
-                    //document.getElementById('rulespar').innerHTML += errObj.msg+'<br><br>';
-                }
+                let errObj = errors.shift();
+                console.log(errObj);
+                //document.getElementById('rulespar').innerHTML += errObj.msg+'<br><br>';
                 //req.flash('error_msg', errors); //this is where the flash redirect has to go
                 //console.log(errors);
                 //return res.status(400).json({errors: errors.array()});
