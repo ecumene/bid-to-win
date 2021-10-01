@@ -39,10 +39,10 @@ router.post('/1.0.0/create',
                 for(i = 0; i < errors.length; i++){
                     let errObj = errors[i];
                     console.log(errObj);
-                    document.getElementById('rulespar').innerHTML += errObj.msg+'<br><br>';
+                    //document.getElementById('rulespar').innerHTML += errObj.msg+'<br><br>';
                 }
                 //req.flash('error_msg', errors); //this is where the flash redirect has to go
-                console.log(errors);
+                //console.log(errors);
                 return res.status(400).json({errors: errors.array()});
             } else {
                 return next();
