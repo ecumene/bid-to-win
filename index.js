@@ -20,7 +20,7 @@ const {auth} = require('express-openid-connect');
 const config = {
     authRequired: false,
     auth0Logout: true,
-    secret: process.env.SECRET,//is this correct?
+    secret: 'random env string',//'secret is required'
     baseURL: 'https://bid-to-win.herokuapp.com',
     clientID: 'ZefBJkQ2tfiYvfVXxIF5PqM60yEU5pFa',
     issuerBaseURL: 'https://dev-me72yarl.us.auth0.com'
@@ -78,7 +78,7 @@ const db = mysql.createPool({
 //routes handlers
 const userstats = require('./routes/userstats.js');
 const user = require('./routes/user.js');
-const { urlencoded } = require('body-parser');
+// const { urlencoded } = require('body-parser');
 app.use('/user_stats', userstats); //deals with fetching user and leaderboard stats for display
 app.use('/user', user); //deals with logging in and updating user stats during games
 console.log('in '+app.settings.env+' mode');
