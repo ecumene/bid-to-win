@@ -13,7 +13,6 @@ const {auth} = require('express-openid-connect');
 // const bodyParser = require('body-parser');
 // const flash = require('connect-flash');
 // const session = require('express-session');
-// const MYSQLStore = require('express-mysql-session')(session);
 // const LocalStrat = require('passport-local').Strategy;
 // const {check , validationResult} = require('express-validator');
 
