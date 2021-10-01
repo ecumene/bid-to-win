@@ -7,7 +7,7 @@ const morgan = require('morgan');
 const path = require('path');
 app.use(express.json());
 app.use(cors());
-//const {auth} = require('express-openid-connect');
+const {auth} = require('express-openid-connect');
 // const passport = require('passport');
 // const cookieParser = require('cookie-parser');
 // const bodyParser = require('body-parser');
@@ -17,16 +17,13 @@ app.use(cors());
 // const LocalStrat = require('passport-local').Strategy;
 // const {check , validationResult} = require('express-validator');
 
-const { auth } = require('express-openid-connect');
-
-const config = {
-  authRequired: false,
-  auth0Logout: true,
+app.use(
+    auth({
   baseURL: process.env.BASE_URL,
   clientID: process.env.CLIENT_ID,
   issuerBaseURL: process.env.ISSUER_BASE_URL,
   secret: process.env.SECRET
-};
+}));
 
 app.use(express.json());
 // app.use(express.urlencoded({extended: true}));
