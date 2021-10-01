@@ -30,6 +30,10 @@ app.use(
   secret: 'B2MtIf5eLXci_wviqjkc4dh6xF_CHt0HNv5_91WWYboGUUb85Oy-uTARyXh_JuJP'
 }));
 
+app.get('/', (req, res) => {
+    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out')
+  });
+
 const db = mysql.createPool({
     host: process.env.HOST,
     user: process.env.USER,
