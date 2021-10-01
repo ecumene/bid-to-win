@@ -7,7 +7,7 @@ const morgan = require('morgan');
 const path = require('path');
 app.use(express.json());
 app.use(cors({
-    origin: ['https://dev-me72yarl.us.auth0', 'https://bid-to-win.herokuapp.com']
+    origin: '*'
 }
 ));
 const {auth} = require('express-openid-connect');
