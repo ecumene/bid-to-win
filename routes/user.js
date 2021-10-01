@@ -39,7 +39,7 @@ router.post('/1.0.0/create',
                 //req.flash('error_message', errors); //this is where the flash redirect has to go
                 return res.status(400).json({errors: errors.array()});
             } else {
-                next();
+                return next();
             }
         });
 

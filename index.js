@@ -9,17 +9,18 @@ app.use(express.json());
 app.use(cors());
 // const {auth} = require('express-openid-connect');
 const passport = require('passport');
-// const cookieParser = require('cookie-parser');
-// const bodyParser = require('body-parser');
-// const flash = require('connect-flash');
-// const session = require('express-session');
+const cookieParser = require('cookie-parser');
+//const bodyParser = require('body-parser');
+const flash = require('connect-flash');
+const session = require('express-session');
+const mysqlStore = require('express-mysql-session');
 const LocalStrat = require('passport-local').Strategy;
-// const {check , validationResult} = require('express-validator');
+const {check , validationResult} = require('express-validator');
 
-// app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({extended: true}));
 app.use(express.static('./'));
 app.use(morgan('dev'));
-// app.use(cookieParser());
+app.use(cookieParser());
 
 // app.use(
 //     auth({
@@ -31,9 +32,9 @@ app.use(morgan('dev'));
 //   secret: 'B2MtIf5eLXci_wviqjkc4dh6xF_CHt0HNv5_91WWYboGUUb85Oy-uTARyXh_JuJP'
 // }));
 
-app.get('/', (req, res) => {
-    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out')
-  });
+// app.get('/', (req, res) => {
+//     res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out')
+//   });
 
 const db = mysql.createPool({
     host: process.env.HOST,
@@ -42,40 +43,39 @@ const db = mysql.createPool({
     database: process.env.DATABASE
 });
 
-passport.use(new LocalStrat(
-    function(username, password, done) {
-      User.findOne({ Username: username }, function (err, user) {
-        if (err) { return done(err); }
-        if (!user) {
-          return done(null, false, { message: 'Incorrect username.' });
-        }
-        if (!user.validPassword(password)) {
-          return done(null, false, { message: 'Incorrect password.' });
-        }
-        return done(null, user);
-      });
-    }
-  ));
+// passport.use(new LocalStrat(
+//     function(username, password, done) {
+//       User.findOne({ Username: username }, function (err, user) {
+//         if (err) { return done(err); }
+//         if (!user) {
+//           return done(null, false, { message: 'Incorrect username.' });
+//         }
+//         if (!user.validPassword(password)) {
+//           return done(null, false, { message: 'Incorrect password.' });
+//         }
+//         return done(null, user);
+//       });
+//     }
+//   ));
 
-// app.use(session({
-//     secret: 'secret',
-//     saveUninitialized: true,
-//     resave: true,
-//     store: sessionStore
-// }));
+app.use(session({
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true,
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use(flash());
+app.use(flash());
 
 //this is to create global variables for your flash messages
-// app.use(function (req, res, next) {
-//     res.locals.success_msg = req.flash('success_msg');
-//     res.locals.error_msg = req.flash('error_msg');
-//     res.locals.error = req.flash('error');//need this extra one because passport sets it's own error messages to this
-//     next();
-// });
+app.use(function (req, res, next) {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');//need this extra one because passport sets it's own error messages to this
+    next();
+});
 
 //routes handlers
 const userstats = require('./routes/userstats.js');
