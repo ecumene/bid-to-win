@@ -7,7 +7,7 @@ const morgan = require('morgan');
 const path = require('path');
 app.use(express.json());
 app.use(cors());
-const {auth} = require('express-openid-connect');
+//const {auth} = require('express-openid-connect');
 // const passport = require('passport');
 // const cookieParser = require('cookie-parser');
 // const bodyParser = require('body-parser');
@@ -17,16 +17,17 @@ const {auth} = require('express-openid-connect');
 // const LocalStrat = require('passport-local').Strategy;
 // const {check , validationResult} = require('express-validator');
 
-const config = {
-    authRequired: false,
-    auth0Logout: true,
-    secret: 'random env string',//'secret is required'
-    baseURL: 'https://bid-to-win.herokuapp.com',
-    clientID: 'ZefBJkQ2tfiYvfVXxIF5PqM60yEU5pFa',
-    issuerBaseURL: 'https://dev-me72yarl.us.auth0.com'
-  };
+const { auth } = require('express-openid-connect');
 
-app.use(auth(config));
+const config = {
+  authRequired: false,
+  auth0Logout: true,
+  baseURL: process.env.BASE_URL,
+  clientID: process.env.CLIENT_ID,
+  issuerBaseURL: process.env.ISSUER_BASE_URL,
+  secret: process.env.SECRET
+};
+
 app.use(express.json());
 // app.use(express.urlencoded({extended: true}));
 app.use(express.static('./'));
@@ -87,16 +88,16 @@ app.listen(process.env.PORT || 31801, () => {
     console.log('Listening on Port '+ process.env.PORT);
 });
 
-app.get('/login', (req, res, next) => {
-    let sql = 'SELECT * FROM user_stats WHERE Username=Harbour Dog AND Password=rangers1';
-    db.query(sql, [req.query.Username, req.query.Password], (err, rows) => {
-        if(err) {
-            res.status(400).json({Success: false});
-        } else {    
-        res.status(200).json({Success: true, data: rows});
-        }
-    });
-});
+// app.get('/login', (req, res, next) => {
+//     let sql = 'SELECT * FROM user_stats WHERE Username=Harbour Dog AND Password=rangers1';
+//     db.query(sql, [req.query.Username, req.query.Password], (err, rows) => {
+//         if(err) {
+//             res.status(400).json({Success: false});
+//         } else {    
+//         res.status(200).json({Success: true, data: rows});
+//         }
+//     });
+// });
 
 //Removes user from database. NOT YET IMPLEMENTED//
 app.delete('/1.0.0/delete_user', (req, res) => {

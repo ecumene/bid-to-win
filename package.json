@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/Harbour-Dog/bid-to-win#readme",
   "dependencies": {
-    "auth0-js": "^9.16.4",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
