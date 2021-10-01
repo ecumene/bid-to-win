@@ -1836,9 +1836,6 @@ function stratNorm(){
     } 
 }
 
-//NOT yet implemented, improved comp strategy//
-function stratAggro(){}
-
 //beginning of not yet implemented Gauntlet mode//
 function theGauntlet(){
     gauntlet++
