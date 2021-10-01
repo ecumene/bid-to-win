@@ -16,13 +16,13 @@ const {auth} = require('express-openid-connect');
 // const LocalStrat = require('passport-local').Strategy;
 // const {check , validationResult} = require('express-validator');
 
-app.use(
-    auth({
-  baseURL: process.env.BASE_URL,
-  clientID: process.env.CLIENT_ID,
-  issuerBaseURL: process.env.ISSUER_BASE_URL,
-  secret: process.env.SECRET
-}));
+// app.use(
+//     auth({
+//   baseURL: process.env.BASE_URL,
+//   clientID: process.env.CLIENT_ID,
+//   issuerBaseURL: process.env.ISSUER_BASE_URL,
+//   secret: process.env.SECRET
+// }));
 
 app.use(express.json());
 // app.use(express.urlencoded({extended: true}));
