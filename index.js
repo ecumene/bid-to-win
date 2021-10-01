@@ -24,10 +24,10 @@ app.use(morgan('dev'));
 
 app.use(
     auth({
-  baseURL: process.env.BASE_URL,
-  clientID: process.env.CLIENT_ID,
-  issuerBaseURL: process.env.ISSUER_BASE_URL,
-  secret: process.env.SECRET || 'ajsd8f7wbejadiaud73rh3bauadyg37adf8'
+  baseURL: 'https://bid-to-win.herokuapp.com',
+  clientID: 'ZefBJkQ2tfiYvfVXxIF5PqM60yEU5pFa',
+  issuerBaseURL: 'https://dev-me72yarl.us.auth0.com',
+  secret: 'B2MtIf5eLXci_wviqjkc4dh6xF_CHt0HNv5_91WWYboGUUb85Oy-uTARyXh_JuJP'
 }));
 
 const db = mysql.createPool({
