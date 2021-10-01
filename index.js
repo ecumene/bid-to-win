@@ -6,7 +6,10 @@ const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: 'https://dev-me72yarl.us.auth0.com'
+}
+));
 const {auth} = require('express-openid-connect');
 // const passport = require('passport');
 // const cookieParser = require('cookie-parser');
