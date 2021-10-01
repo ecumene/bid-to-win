@@ -6,19 +6,14 @@ const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
 app.use(express.json());
-app.use(cors({
-    origin: '*',
-    credentials: true,
-    optionSuccessStatus: 200
-}
-));
-const {auth} = require('express-openid-connect');
-// const passport = require('passport');
+app.use(cors());
+// const {auth} = require('express-openid-connect');
+const passport = require('passport');
 // const cookieParser = require('cookie-parser');
 // const bodyParser = require('body-parser');
 // const flash = require('connect-flash');
 // const session = require('express-session');
-// const LocalStrat = require('passport-local').Strategy;
+const LocalStrat = require('passport-local').Strategy;
 // const {check , validationResult} = require('express-validator');
 
 // app.use(express.urlencoded({extended: true}));
@@ -26,15 +21,15 @@ app.use(express.static('./'));
 app.use(morgan('dev'));
 // app.use(cookieParser());
 
-app.use(
-    auth({
-  //authRequired: false,
-  //auth0Logout: true,  
-  baseURL: 'https://bid-to-win.herokuapp.com',
-  clientID: 'ZefBJkQ2tfiYvfVXxIF5PqM60yEU5pFa',
-  issuerBaseURL: 'https://dev-me72yarl.us.auth0.com',
-  secret: 'B2MtIf5eLXci_wviqjkc4dh6xF_CHt0HNv5_91WWYboGUUb85Oy-uTARyXh_JuJP'
-}));
+// app.use(
+//     auth({
+//   authRequired: false,
+//   auth0Logout: true,  
+//   baseURL: 'https://bid-to-win.herokuapp.com',
+//   clientID: 'ZefBJkQ2tfiYvfVXxIF5PqM60yEU5pFa',
+//   issuerBaseURL: 'https://dev-me72yarl.us.auth0.com',
+//   secret: 'B2MtIf5eLXci_wviqjkc4dh6xF_CHt0HNv5_91WWYboGUUb85Oy-uTARyXh_JuJP'
+// }));
 
 app.get('/', (req, res) => {
     res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out')
@@ -47,20 +42,20 @@ const db = mysql.createPool({
     database: process.env.DATABASE
 });
 
-// passport.use(new LocalStrat(
-//     function(username, password, done) {
-//       User.findOne({ username: username }, function (err, user) {
-//         if (err) { return done(err); }
-//         if (!user) {
-//           return done(null, false, { message: 'Incorrect username.' });
-//         }
-//         if (!user.validPassword(password)) {
-//           return done(null, false, { message: 'Incorrect password.' });
-//         }
-//         return done(null, user);
-//       });
-//     }
-//   ));
+passport.use(new LocalStrat(
+    function(username, password, done) {
+      User.findOne({ Username: username }, function (err, user) {
+        if (err) { return done(err); }
+        if (!user) {
+          return done(null, false, { message: 'Incorrect username.' });
+        }
+        if (!user.validPassword(password)) {
+          return done(null, false, { message: 'Incorrect password.' });
+        }
+        return done(null, user);
+      });
+    }
+  ));
 
 // app.use(session({
 //     secret: 'secret',
