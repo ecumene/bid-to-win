@@ -27,7 +27,7 @@ app.use(
   baseURL: process.env.BASE_URL,
   clientID: process.env.CLIENT_ID,
   issuerBaseURL: process.env.ISSUER_BASE_URL,
-  secret: process.env.SECRET || ajsd8f7wbejadiaud73rh3bauadyg37adf8
+  secret: process.env.SECRET || 'ajsd8f7wbejadiaud73rh3bauadyg37adf8'
 }));
 
 const db = mysql.createPool({
