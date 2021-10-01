@@ -24,6 +24,8 @@ app.use(morgan('dev'));
 
 app.use(
     auth({
+  authRequired: false,
+  auth0Logout: true,  
   baseURL: 'https://bid-to-win.herokuapp.com',
   clientID: 'ZefBJkQ2tfiYvfVXxIF5PqM60yEU5pFa',
   issuerBaseURL: 'https://dev-me72yarl.us.auth0.com',
