@@ -84,17 +84,6 @@ app.listen(process.env.PORT || 31801, () => {
     console.log('Listening on Port '+ process.env.PORT);
 });
 
-// app.get('/login', (req, res, next) => {
-//     let sql = 'SELECT * FROM user_stats WHERE Username=Harbour Dog AND Password=rangers1';
-//     db.query(sql, [req.query.Username, req.query.Password], (err, rows) => {
-//         if(err) {
-//             res.status(400).json({Success: false});
-//         } else {    
-//         res.status(200).json({Success: true, data: rows});
-//         }
-//     });
-// });
-
 //Removes user from database. NOT YET IMPLEMENTED//
 app.delete('/1.0.0/delete_user', (req, res) => {
     let sql = 'DELETE FROM user_stats WHERE ID=?'
