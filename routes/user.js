@@ -37,6 +37,7 @@ router.post('/1.0.0/create',
             const errors = validationResult(req);
             if (!errors.isEmpty()){
                 req.flash('error_msg', errors); //this is where the flash redirect has to go
+                console.log(errors);
                 return res.status(400).json({errors: errors.array()});
             } else {
                 return next();
