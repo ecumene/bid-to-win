@@ -7,7 +7,9 @@ const morgan = require('morgan');
 const path = require('path');
 app.use(express.json());
 app.use(cors({
-    origin: '*'
+    origin: '*',
+    credentials: true,
+    optionSuccessStatus: 200
 }
 ));
 const {auth} = require('express-openid-connect');
