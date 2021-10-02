@@ -318,6 +318,13 @@ function newUser(){
             Username: user,
             Password: key
         })
+        .then(response => response.json())
+        .then(result => {
+            for(i = 0; i < result.data.length; i++){
+                obj = result.data[i];
+                console.log(obj);
+            }
+        }) 
     });
     nowLogin();
 }
