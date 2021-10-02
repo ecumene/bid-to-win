@@ -1,8 +1,12 @@
 const express = require("express");
 const router = express.Router();
 router.use(express.json());
+router.use(express.urlencoded({extended: true}));
 const mysql = require('mysql');
 const {check , validationResult} = require('express-validator');
+const passport = require('passport');
+router.use(passport.initialize());
+router.use(passport.session());
 const userController = require('../controllers/user.js');
 
 const db = mysql.createPool({
@@ -39,7 +43,7 @@ router.post('/1.0.0/create',
                 //document.getElementById('rulespar').innerHTML += errObj.msg+'<br><br>';
                 //req.flash('error_msg', errors); //this is where the flash redirect has to go
                 console.log(errors);
-                return res.sendStatus(400).json({errors: errors.array()});
+                return res.status(400).json({errors: errors.array()});
             } else {
                 console.log('No errors')
                 return next();
