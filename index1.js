@@ -320,12 +320,15 @@ function newUser(){
         })})
         .then(response => response.json())
         .then(result => {
-            for(i = 0; i < result.data.length; i++){
-                obj = result.data[i];
-                document.getElementById('rulespar').innerHTML = obj.msg;
+            if (result.data.length == 0){
+                nowLogin();
+            } else {
+                for(i = 0; i < result.data.length; i++){
+                    obj = result.data[i];
+                    document.getElementById('rulespar').innerHTML = obj.msg;
+                }
             }
-        }) 
-    nowLogin();
+        })
 }
 
 function nowLogin(){
