@@ -327,6 +327,7 @@ function newUser(){
                     obj = result.data[i];
                     document.getElementById('rulespar').innerHTML = obj.msg;
                 }
+                loginFail;
             }
         })
 }
@@ -346,6 +347,12 @@ function nowLogin(){
     ties = 0;
     abs = 0;
     winper = 0;
+}
+
+function loginFail(){
+    displayNone('logindiv');
+    document.getElementById("login").style.display = "inline";
+    btnEnabler('playcomp', 'play2p', 'viewlead');
 }
 
 function signOut(){
