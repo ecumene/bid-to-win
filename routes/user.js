@@ -45,6 +45,7 @@ router.post('/1.0.0/create',
                 //req.flash('error_msg', errors); //this is where the flash redirect has to go
                 errObj = errors.array();
                 console.log(errObj[0]);
+                console.log(errObj.msg);
             } else {
                 console.log('No errors')
                 return next();
