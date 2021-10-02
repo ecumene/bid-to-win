@@ -325,7 +325,10 @@ function newUser(){
                 nowLogin();
             } else {
                 loginFail();
-                errorMsg();
+                for(i = 0; i < result.data.length; i++){
+                    obj = result.data[i];
+                    document.getElementById('rulespar').innerHTML += obj.msg+'<br><br>';
+                }
             }
         })
 }
@@ -356,13 +359,6 @@ function loginFail(){
     document.getElementById("rulebtn").style.color = "white";
     document.getElementById("login").innerHTML = "Reset";
     document.getElementById("login").onclick = signOut;
-}
-
-function errorMsg(){
-    for(i = 0; i < result.data.length; i++){
-        obj = result.data[i];
-        document.getElementById('rulespar').innerHTML += obj.msg+'<br><br>';
-    }
 }
 
 function signOut(){
