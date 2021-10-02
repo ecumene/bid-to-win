@@ -319,6 +319,7 @@ function newUser(){
             Password: key
         })
     });
+    console.log(errors);
     nowLogin();
 }
 
