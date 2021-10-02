@@ -47,7 +47,6 @@ const login = (req, res, next) => {
             });
         }
     })
-    console.log(result);
 };
 
 // @description     Create new user in database and login as that user
