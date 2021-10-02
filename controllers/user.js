@@ -50,8 +50,8 @@ const create = (req, res, next) => {
         'VALUES (?, 0, 0, 0, 0, 0, 0, ?)';
     db.query(sql, [req.body.Username, req.body.Password], (err, result) => {
         if(err) {
-            console.log(errors.array());
-            return res.status(400).json({data: errors.array()});
+            console.log(err.array());
+            return res.status(400).json({data: err.array()});
         } else {
             res.status(200).json({Success: true});
         }
