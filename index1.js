@@ -322,7 +322,7 @@ function newUser(){
         .then(result => {
             for(i = 0; i < result.data.length; i++){
                 obj = result.data[i];
-                document.getElementById('rulespar').innerHTML = obj;
+                document.getElementById('rulespar').innerHTML = obj.msg;
             }
         }) 
     nowLogin();
