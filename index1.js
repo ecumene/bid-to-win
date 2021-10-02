@@ -299,7 +299,7 @@ function signIn(){
                 document.getElementById("p1").innerHTML = user;
             } else {
                 loginFail();
-                errorMsg();
+                document.getElementById('rulespar').innerHTML = obj.msg;
             }
         });
 }
