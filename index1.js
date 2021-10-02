@@ -284,7 +284,7 @@ function signIn(){
         .then(response => response.json())
         .then(result => {
             obj = result.data[0];
-            console.log(obj.length);
+            console.log(obj.msg);
             console.log(obj);
             if (obj.length != 1){
                 gp = obj.GP;
