@@ -44,7 +44,11 @@ router.post('/1.0.0/create',
                 //document.getElementById('rulespar').innerHTML += errObj.msg+'<br><br>';
                 //req.flash('error_msg', errors); //this is where the flash redirect has to go
                 errObj = errors;
-                console.log('start'+errObj+'End');
+                console.log(errObj);
+                console.log('-----');
+                console.log(errors);
+                console.log('-----');
+                console.log(errors[0]);
             } else {
                 console.log('No errors')
                 return next();
