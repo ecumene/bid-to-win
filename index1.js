@@ -317,7 +317,7 @@ function newUser(){
         body: JSON.stringify({
             Username: user,
             Password: key
-        })
+        })})
         .then(response => response.json())
         .then(result => {
             for(i = 0; i < result.data.length; i++){
@@ -325,7 +325,6 @@ function newUser(){
                 console.log(obj);
             }
         }) 
-    });
     nowLogin();
 }
 
