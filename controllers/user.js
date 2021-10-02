@@ -37,16 +37,17 @@ const login = (req, res, next) => {
     db.query(sql2, req.query.Username, (err, result) => {
         if(err){
             return res.status(503).json({data: [{msg: "Username doesn't exist"}]});
-        } else {
+            } else {
             db.query(sql1, [req.query.Username, req.query.Password], (err, result) => {
                 if(err){
                     return res.status(503).json({data: [{msg: "Username and password do not match"}]});
-                } else{    
+                } else {    
                     return res.status(200).json({Success: true, data: result});
                 }
             });
         }
     })
+    console.log(result);
 };
 
 // @description     Create new user in database and login as that user
