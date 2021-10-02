@@ -326,7 +326,7 @@ function newUser(){
                 loginFail();
                 for(i = 0; i < result.data.length; i++){
                     obj = result.data[i];
-                    document.getElementById('rulespar').innerHTML += obj.msg;
+                    document.getElementById('rulespar').innerHTML += obj.msg+'<br><br>';
                 }
             }
         })
