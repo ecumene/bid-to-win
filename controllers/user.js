@@ -32,14 +32,21 @@ const db = mysql.createPool({
 // @route           /user/1.0.0/:Username/:Password
 // @access          Private
 const login = (req, res, next) => {
-    let sql = 'SELECT * FROM user_stats WHERE Username=? AND Password=?';
-    db.query(sql, [req.query.Username, req.query.Password], (err, rows) => {
-        if(err) {
-            res.status(503).json({data: [{msg: "Username and password do not match"}]});
-        } else {    
-            res.status(200).json({Success: true, data: rows});
+    let sql1 = 'SELECT * FROM user_stats WHERE Username=? AND Password=?';
+    let sql2 = 'SELECT * FROM user_stats WHERE Username=?';
+    db.query(sql2, req.query.Username, (err, rows) => {
+        if(err){
+            return res.status(503).json({data: [{msg: "Username does not exist"}]})
+        } else {
+            db.query(sql1, [req.query.Username, req.query.Password], (err, rows) => {
+                if(err){
+                    return res.status(503).json({data: [{msg: "Username and password do not match"}]});
+                } else{    
+                    return res.status(200).json({Success: true, data: rows});
+                }
+            });
         }
-    });
+    })
 };
 
 // @description     Create new user in database and login as that user

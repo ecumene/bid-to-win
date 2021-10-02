@@ -283,22 +283,24 @@ function signIn(){
     fetch(baseURL)
         .then(response => response.json())
         .then(result => {
-            if(result.data.length == 0){
-                user = null;
-            } else {
             obj = result.data[0];
-            gp = obj.GP;
-            wins = obj.Wins;
-            losses = obj.Losses;
-            ties = obj.Ties;
-            abs = obj.Abandons;
-            winper = obj.WinPerc;
-            document.getElementById("userstats").style.display = "inline";
-            displayNone('logindiv');
-            btnEnabler('login');
-            document.getElementById("login").innerHTML = "Sign Out";
-            document.getElementById("login").onclick = signOut;
-            document.getElementById("p1").innerHTML = user;
+            console.log(obj);
+            if (obj.msg == null){
+                gp = obj.GP;
+                wins = obj.Wins;
+                losses = obj.Losses;
+                ties = obj.Ties;
+                abs = obj.Abandons;
+                winper = obj.WinPerc;
+                document.getElementById("userstats").style.display = "inline";
+                displayNone('logindiv');
+                btnEnabler('login');
+                document.getElementById("login").innerHTML = "Sign Out";
+                document.getElementById("login").onclick = signOut;
+                document.getElementById("p1").innerHTML = user;
+            } else {
+                loginFail();
+                errorMsg();
             }
         });
 }
@@ -324,10 +326,7 @@ function newUser(){
                 nowLogin();
             } else {
                 loginFail();
-                for(i = 0; i < result.data.length; i++){
-                    obj = result.data[i];
-                    document.getElementById('rulespar').innerHTML += obj.msg+'<br><br>';
-                }
+                errorMsg();
             }
         })
 }
@@ -358,6 +357,13 @@ function loginFail(){
     document.getElementById("rulebtn").style.color = "white";
     document.getElementById("login").innerHTML = "Reset";
     document.getElementById("login").onclick = signOut;
+}
+
+function errorMsg(){
+    for(i = 0; i < result.data.length; i++){
+        obj = result.data[i];
+        document.getElementById('rulespar').innerHTML += obj.msg+'<br><br>';
+    }
 }
 
 function signOut(){
