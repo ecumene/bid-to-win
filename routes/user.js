@@ -43,7 +43,7 @@ router.post('/1.0.0/create',
             if (!errors.isEmpty()){
                 //document.getElementById('rulespar').innerHTML += errObj.msg+'<br><br>';
                 //req.flash('error_msg', errors); //this is where the flash redirect has to go
-                errObj = errors[0];
+                errObj = errors;
                 console.log(errObj);
             } else {
                 console.log('No errors')
