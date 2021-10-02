@@ -48,7 +48,7 @@ router.post('/1.0.0/create',
                 console.log('-----');
                 console.log(errors);
                 console.log('-----');
-                console.log(errors[0]);
+                console.log(errors.array());
             } else {
                 console.log('No errors')
                 return next();
