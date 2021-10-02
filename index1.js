@@ -352,6 +352,7 @@ function nowLogin(){
 
 function loginFail(){
     rule++
+    
     document.getElementById("login").style.display = "inline";
     btnEnabler('playcomp', 'play2p', 'viewlead', 'login');
     document.getElementById("rulespar").style.backgroundColor = "lightgray";

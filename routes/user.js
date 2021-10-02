@@ -54,14 +54,3 @@ router.put('/1.0.0/loss', userController.loss);
 router.put('/1.0.0/tie', userController.tie);
 
 module.exports = router;
-
-// [
-//     check('req.query.Username', 'Username must contain between 4 and 14 characters').isLength({
-//         min: 4,
-//         max: 14
-//     }),
-//     check('req.query.Password', 'Password must contain between 4 and 14 characters').isLength({
-//         min: 4,
-//         max: 14
-//     })
-// ]
