@@ -284,6 +284,7 @@ function signIn(){
         .then(response => response.json())
         .then(result => {
             obj = result.data[0];
+            console.log(result);
             console.log(result.data);
             console.log(obj);
             if (obj.length != 1){
