@@ -50,7 +50,7 @@ const create = (req, res, next) => {
         'VALUES (?, 0, 0, 0, 0, 0, 0, ?)';
     db.query(sql, [req.body.Username, req.body.Password], (err, result) => {
         if(err) {
-            return res.status(503).json({data: req.body.Username})
+            return res.status(503).json({data: [{msg: "Username already exists"}]});
         } else {
             res.status(200).json({Success: true});
         }
