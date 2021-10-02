@@ -627,7 +627,7 @@ function scoreReveal(){
     } else if (scorerev >= 4 && youradj.length == 10){
         abs--
         resultRecorder();        
-        btnEnabler('newround');
+        btnEnabler('newgame');
     } else {
         setTimeout(scoreReveal, 800);
     };
