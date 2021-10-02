@@ -297,6 +297,7 @@ function signIn(){
                 document.getElementById("login").innerHTML = "Sign Out";
                 document.getElementById("login").onclick = signOut;
                 document.getElementById("p1").innerHTML = user;
+                document.getElementById('rulebtn').innerHTML = 'The Rules';
             } else {
                 loginFail();
                 document.getElementById('rulespar').innerHTML = obj.msg;
@@ -335,6 +336,7 @@ function newUser(){
 
 function nowLogin(){
     displayNone('logindiv');
+    document.getElementById('rulebtn').innerHTML = 'The Rules';
     document.getElementById("userstats").style.display = "inline";
     document.getElementById("login").style.display = "inline";
     document.getElementById("login").innerHTML = "Sign Out";
@@ -352,7 +354,8 @@ function nowLogin(){
 
 function loginFail(){
     rule++
-    
+
+    document.getElementById('rulebtn').innerHTML = 'Clear';
     document.getElementById("login").style.display = "inline";
     btnEnabler('playcomp', 'play2p', 'viewlead', 'login');
     document.getElementById("rulespar").style.backgroundColor = "lightgray";
