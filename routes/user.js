@@ -29,9 +29,9 @@ const db = mysql.createPool({
 
 router.get('/1.0.0/:Username/:Password', userController.login);
 router.post('/1.0.0/create',
-        check('Username').not().isEmpty().withMessage('Must provide username'),
+        check('Username').notEmpty().withMessage('Must provide username'),
         check('Username').isLength({min: 4, max: 14}).withMessage('Username must be between 4 and 14 characters'),
-        check('Password').not().isEmpty().withMessage('Must provide password'),
+        check('Password').notEmpty().withMessage('Must provide password'),
         check('Password').isLength({min: 4, max: 14}).withMessage('Password must be between 4 and 14 characters'),
         (req, res, next) => {
             const errors = validationResult(req);
