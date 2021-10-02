@@ -35,9 +35,9 @@ const login = (req, res, next) => {
     let sql = 'SELECT * FROM user_stats WHERE Username=? AND Password=?';
     db.query(sql, [req.query.Username, req.query.Password], (err, rows) => {
         if(err) {
-            res.status(400).json({Success: false});
+            res.status(503).json({data: [{msg: "Username and password do not match"}]});
         } else {    
-        res.status(200).json({Success: true, data: rows});
+            res.status(200).json({Success: true, data: rows});
         }
     });
 };
