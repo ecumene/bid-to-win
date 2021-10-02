@@ -321,9 +321,9 @@ function newUser(){
         .then(response => response.json())
         .then(result => {
             if (result.data.length == 0){
-                nowLogin;
+                nowLogin();
             } else {
-                loginFail;
+                loginFail();
                 for(i = 0; i < result.data.length; i++){
                     obj = result.data[i];
                     document.getElementById('rulespar').innerHTML = obj.msg;
