@@ -49,7 +49,9 @@ const create = (req, res, next) => {
     let sql = 'INSERT INTO user_stats (Username, GP, Wins, Losses, Ties, Abandons, WinPerc, Password)' + 
         'VALUES (?, 0, 0, 0, 0, 0, 0, ?)';
     db.query(sql, [req.body.Username, req.body.Password], (err, result) => {
-        if(err) {throw err;
+        if(err) {
+            console.log(errors.array());
+            return res.status(400).json({data: errors.array()});
         } else {
             res.status(200).json({Success: true});
         }
