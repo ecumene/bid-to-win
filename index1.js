@@ -323,11 +323,11 @@ function newUser(){
             if (result.data.length == 0){
                 nowLogin;
             } else {
+                loginFail;
                 for(i = 0; i < result.data.length; i++){
                     obj = result.data[i];
                     document.getElementById('rulespar').innerHTML = obj.msg;
                 }
-                loginFail;
             }
         })
 }
@@ -350,9 +350,13 @@ function nowLogin(){
 }
 
 function loginFail(){
+    rule++
     displayNone('logindiv');
     document.getElementById("login").style.display = "inline";
     btnEnabler('playcomp', 'play2p', 'viewlead');
+    document.getElementById("rulespar").style.backgroundColor = "lightgray";
+    document.getElementById("rulebtn").style.backgroundColor = "black";
+    document.getElementById("rulebtn").style.color = "white";
 }
 
 function signOut(){
