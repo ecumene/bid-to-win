@@ -9,18 +9,18 @@ app.use(express.json());
 app.use(cors());
 // const {auth} = require('express-openid-connect');
 const passport = require('passport');
-const cookieParser = require('cookie-parser');
+//const cookieParser = require('cookie-parser');
 //const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
-const mysqlStore = require('express-mysql-session');
+//const mysqlStore = require('express-mysql-session');
 const LocalStrat = require('passport-local').Strategy;
 const {check , validationResult} = require('express-validator');
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('./'));
 app.use(morgan('dev'));
-app.use(cookieParser());
+//app.use(cookieParser());
 
 // app.use(
 //     auth({
