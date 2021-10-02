@@ -1,4 +1,4 @@
-let errObj = [];
+
 const express = require("express");
 const router = express.Router();
 router.use(express.json());
@@ -43,9 +43,10 @@ router.post('/1.0.0/create',
             if (!errors.isEmpty()){
                 //document.getElementById('rulespar').innerHTML += errObj.msg+'<br><br>';
                 //req.flash('error_msg', errors); //this is where the flash redirect has to go
-                errObj = errors.array();
-                console.log(errObj[0]);
-                console.log(errObj.msg);
+                let errObj = errors.array();
+                let errMsg = errObj.msg;
+                console.log(errObj.shift());
+                console.log(errMsg);
             } else {
                 console.log('No errors')
                 return next();
