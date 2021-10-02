@@ -351,12 +351,13 @@ function nowLogin(){
 
 function loginFail(){
     rule++
-    displayNone('logindiv');
     document.getElementById("login").style.display = "inline";
     btnEnabler('playcomp', 'play2p', 'viewlead');
     document.getElementById("rulespar").style.backgroundColor = "lightgray";
     document.getElementById("rulebtn").style.backgroundColor = "black";
     document.getElementById("rulebtn").style.color = "white";
+    document.getElementById("login").innerHTML = "Reset";
+    document.getElementById("login").onclick = signOut;
 }
 
 function signOut(){
