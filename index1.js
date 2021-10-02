@@ -321,7 +321,7 @@ function newUser(){
         .then(response => response.json())
         .then(result => {
             if (result.data.length == 0){
-                nowLogin();
+                nowLogin;
             } else {
                 for(i = 0; i < result.data.length; i++){
                     obj = result.data[i];
