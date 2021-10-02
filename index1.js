@@ -320,7 +320,7 @@ function newUser(){
         })})
         .then(response => response.json())
         .then(result => {
-            if (result.data.length == 0){
+            if (result.data.length == null){
                 nowLogin();
             } else {
                 loginFail();
