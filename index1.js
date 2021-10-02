@@ -544,8 +544,8 @@ function Commit(){
             document.getElementById("yourbid2").innerHTML = "?";
             compButtons();      
         } else {
-            line3.style.textDecoration = "line-through";
-            line4.style.textDecoration = "line-through";
+            line3.style.textDecoration = "black";
+            line4.style.textDecoration = "black";
         }
     } else {}
 
@@ -561,7 +561,7 @@ function scoreReveal(){
 
     if (cpu == 0 && scorerev == 1){
         document.getElementById("yourbid1").innerHTML = yourbid1;
-        line1.style.textDecoration = "line-through";
+        line1.style.textDecoration = "black";
     } else if (cpu == 1 && scorerev == 1){
         document.getElementById("oppbid1").innerHTML = oppbid1;
         line1.style.backgroundColor = "black";
@@ -592,7 +592,7 @@ function scoreReveal(){
         }
     } else if (cpu == 0 && scorerev == 3){
         document.getElementById("yourbid2").innerHTML = yourbid2;
-        line2.style.textDecoration = "line-through";
+        line2.style.textDecoration = "black";
     } else if (cpu == 1 && scorerev == 3){
         document.getElementById("oppbid2").innerHTML = oppbid2;
         line2.style.backgroundColor = "black";
