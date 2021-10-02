@@ -284,7 +284,7 @@ function signIn(){
         .then(response => response.json())
         .then(result => {
             obj = result.data[0];
-            console.log(obj);
+            console.log(result.data);
             if (obj.msg == null){
                 gp = obj.GP;
                 wins = obj.Wins;
