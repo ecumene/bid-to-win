@@ -36,7 +36,7 @@ const login = (req, res, next) => {
     let sql2 = 'SELECT * FROM user_stats WHERE Username=?';
     db.query(sql2, req.query.Username, (err, result) => {
         if(err){
-            return res.status(503).json({data: [{msg: "Username does not exist"}]});
+            return res.status(503).json({data: [{msg: "Username doesn't exist"}]});
         } else {
             db.query(sql1, [req.query.Username, req.query.Password], (err, result) => {
                 if(err){
