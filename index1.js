@@ -27,6 +27,7 @@ let ysum = 0;
 
 // variables specific to retrieving/displaying user data //
 let data =[];
+let ranknum = 0;
 let statrank;
 let obj, user, key;
 let gp, wins, losses, ties, abs, winper;
@@ -68,6 +69,46 @@ function greeting(){
     document.getElementById("rulespar").style.backgroundColor = "lightgray";
     document.getElementById("rulebtn").style.backgroundColor = "black";
     document.getElementById("rulebtn").style.color = "white";
+}
+
+function userRanks(){
+    ranknum++
+
+    if (ranknum == 1){
+        statrank == "gprank";
+    } else if (ranknum == 2){
+        statrank == "winsrank";
+    } else if (ranknum == 3){
+        statrank == "winperrank";
+    }
+
+    baseURL2 = `https://bid-to-win.herokuapp.com/user_stats/1.0.0/${statrank}/:Username?Username=${user}`
+    fetch(baseURL2)
+    .then(response => response.json())
+    .then(result => {
+        if(result.data.length == 0){
+            alert("Unable to retrieve stats for current user.")
+        } else {            
+            obj = result.data[0];
+            let rem = obj.row_num % 10;
+
+            if(obj.row_num > 10 && obj.row_num < 14){// this doesn't currently deal the teens in the hundreds correctly//
+                document.getElementById(statrank).innerHTML = obj.row_num+'th';
+            } else if (rem == 1){
+                document.getElementById(statrank).innerHTML = obj.row_num+'st';
+            } else if (rem == 2){
+                document.getElementById(statrank).innerHTML = obj.row_num+'nd';
+            } else if (rem == 3){
+                document.getElementById(statrank).innerHTML = obj.row_num+'rd';
+            } else {
+                document.getElementById(statrank).innerHTML = obj.row_num+'th';
+            }
+
+            if(ranknum < 3){
+                userRanks;
+            } else {};
+        };
+    });
 }
 
 function gpRank(){
@@ -373,9 +414,10 @@ function signOut(){
 //end of login/create user functions//
 function userStats(){
     displayNone('leaderdiv', 'leaderboard', 'leaderkey');
-    gpRank();
-    winsRank();
-    winPercRank();
+    userRanks();
+    // gpRank();
+    // winsRank();
+    // winPercRank();
     document.getElementById("userstats").innerHTML = "Refresh Stats";
     blankInnerHTML('rulespar');
     document.getElementById("userhead").innerHTML = user;
