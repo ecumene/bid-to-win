@@ -82,6 +82,8 @@ function userRanks(){
         statrank == "winperrank";
     }
 
+    console.log(statrank);
+
     baseURL2 = `https://bid-to-win.herokuapp.com/user_stats/1.0.0/${statrank}/:Username?Username=${user}`
     fetch(baseURL2)
     .then(response => response.json())
