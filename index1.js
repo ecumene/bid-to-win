@@ -74,9 +74,6 @@ function greeting(){
 function userRanks(){
     statrank = ranknum.shift();
 
-    console.log(statrank);
-    console.log(ranknum);
-
     baseURL2 = `https://bid-to-win.herokuapp.com/user_stats/1.0.0/${statrank}/:Username?Username=${user}`
     fetch(baseURL2)
     .then(response => response.json())
@@ -100,8 +97,7 @@ function userRanks(){
                 document.getElementById(statrank).innerHTML = obj.row_num+'th';
             }
 
-            if(ranknum < 3){
-                console.log(statrank);
+            if(ranknum.length > 0){
                 userRanks;
             } else {};
         };
