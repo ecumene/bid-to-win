@@ -30,7 +30,7 @@ const login = (req, res, next) => {
             });
         }
     })
-};
+}
 
 // @description     Create new user in database and login as that user
 // @route           /user/1.0.0/create
