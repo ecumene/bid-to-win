@@ -300,6 +300,7 @@ function signIn(){
                 document.getElementById('rulebtn').innerHTML = 'The Rules';
             } else {
                 loginFail();
+                blankInnerHTML('rulespar');
                 document.getElementById('rulespar').innerHTML = obj.msg;
             }
         });
@@ -326,6 +327,7 @@ function newUser(){
                 nowLogin();
             } else {
                 loginFail();
+                blankInnerHTML('rulespar');
                 for(i = 0; i < result.data.length; i++){
                     obj = result.data[i];
                     document.getElementById('rulespar').innerHTML += obj.msg+'<br><br>';
