@@ -17,21 +17,6 @@ const db = mysql.createPool({
     database: process.env.DATABASE
 });
 
-// router.get('1.0.0/:Username/:Password',
-//         check('Username').isLength({min: 4, max: 14}).withMessage('Username must be between 4 and 14 characters'),
-//         check('Password').isLength({min: 4, max: 14}).withMessage('Password must be between 4 and 14 characters'),
-//         (req, res, next) => {
-//             const errors = req.validationErrors();
-//             if (errors){
-//                 console.log('got here');
-//                 req.flash('error', errors); //this is where the flash redirect has to go
-//                 console.log(errors);                
-//                 return res.status(400).json({errors: errors.array()});
-//             } else {
-//                 next();
-//             }
-//         });
-
 router.get('/1.0.0/:Username/:Password', userController.login);
 router.post('/1.0.0/create',
         check('Username').notEmpty().withMessage('Must provide username'),
