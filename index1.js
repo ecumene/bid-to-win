@@ -91,6 +91,7 @@ function userRanks(){
         } else {            
             obj = result.data[0];
             let rem = obj.row_num % 10;
+            console.log(obj);
 
             if(obj.row_num > 10 && obj.row_num < 14){// this doesn't currently deal the teens in the hundreds correctly//
                 document.getElementById(statrank).innerHTML = obj.row_num+'th';
@@ -105,6 +106,7 @@ function userRanks(){
             }
 
             if(ranknum < 3){
+                console.log(statrank);
                 userRanks;
             } else {};
         };
