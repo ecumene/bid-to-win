@@ -27,7 +27,7 @@ let ysum = 0;
 
 // variables specific to retrieving/displaying user data //
 let data =[];
-let ranknum = 0;
+let ranknum = ['gprank', 'winsrank', 'winperrank'];
 let statrank;
 let obj, user, key;
 let gp, wins, losses, ties, abs, winper;
@@ -72,15 +72,7 @@ function greeting(){
 }
 
 function userRanks(){
-    ranknum++
-
-    if (ranknum == 1){
-        statrank == "gprank";
-    } else if (ranknum == 2){
-        statrank == "winsrank";
-    } else if (ranknum == 3){
-        statrank == "winperrank";
-    }
+    statrank = ranknum.shift();
 
     console.log(statrank);
     console.log(ranknum);
