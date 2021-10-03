@@ -98,7 +98,7 @@ function userRanks(){
             }
 
             if(ranknum.length > 0){
-                userRanks;
+                userRanks();
             } else {};
         };
     });
