@@ -1857,3 +1857,13 @@ function gauntlet5Adj(){
         }
     }
 }
+
+let testVar;
+
+function Test(){
+    for(i = 0; i < arguments.length; i ++){
+        testVar += argument[i];
+    }
+}
+
+module.exports = {Test};

@@ -43,5 +43,7 @@
   "engines": {
     "node": "16.x"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "supertest": "^6.1.6"
+  }
 }
