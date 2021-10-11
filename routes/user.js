@@ -9,7 +9,7 @@ module.exports = function userRoute(database){
     const passport = require('passport');
     router.use(passport.initialize());
     router.use(passport.session());
-    const userController = require('../controllers/user.js');
+    //const userController = require('../controllers/user.js');
 
     const db = mysql.createPool({
         host: process.env.HOST,
@@ -38,6 +38,9 @@ module.exports = function userRoute(database){
     router.put('/1.0.0/win', userController.win);
     router.put('/1.0.0/loss', userController.loss);
     router.put('/1.0.0/tie', userController.tie);
+    console.log(userController.create);
+    console.log(queryResult);
+    console.log(userController);
     return queryResult;
 }
 
