@@ -39,7 +39,7 @@ const user = require('./routes/user.js');
 // const userController = require('../controllers/user.js');
 // const userstatsController = require('../controllers/userstats.js');
 app.use('/user_stats', userstats); //deals with fetching user and leaderboard stats for display
-app.use('/user', user); //deals with logging in and updating user stats during games
+//app.use('/user', user); //deals with logging in and updating user stats during games
 console.log('in '+app.settings.env+' mode');
 
 // app.get('/test', async (req, res) => {//async before (req, res) is required?
