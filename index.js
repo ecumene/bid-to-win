@@ -35,15 +35,15 @@ app.use(passport.session());
 //routes handlers
 const userstats = require('./routes/userstats.js');
 const user = require('./routes/user.js');
+// const userController = require('../controllers/user.js');
+// const userstatsController = require('../controllers/userstats.js');
 app.use('/user_stats', userstats); //deals with fetching user and leaderboard stats for display
 app.use('/user', user); //deals with logging in and updating user stats during games
 console.log('in '+app.settings.env+' mode');
 
-app.get('/test', async (req, res) => {//async before (req, res) is required?
-    res.json({message: 'Pass!'});
-});
-
-module.exports = app;
+// app.get('/test', async (req, res) => {//async before (req, res) is required?
+//     return res.sendStatus(200).json({message: 'Pass!'});
+// });
 
 //for supertest to work, this has to be moved and replaced with module.exports = app?
 app.listen(process.env.PORT || 31801, () => {
