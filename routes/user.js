@@ -1,6 +1,6 @@
 const express = require("express");
 
-module.exports = function userRoute(database){
+module.exports = function userRoute(userController){
     const router = express.Router();
     router.use(express.json());
     router.use(express.urlencoded({extended: true}));
@@ -9,7 +9,7 @@ module.exports = function userRoute(database){
     const passport = require('passport');
     router.use(passport.initialize());
     router.use(passport.session());
-    const userController = require('../controllers/user.js');
+    //const userController = require('../controllers/user.js');
 
     const db = mysql.createPool({
         host: process.env.HOST,
