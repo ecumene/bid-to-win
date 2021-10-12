@@ -33,7 +33,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //routes handlers
-const userController = require('./controllers/user.js');
+//const userController = require('./controllers/user.js');
 const userstats = require('./routes/userstats.js');
 const user = require('./routes/user.js');
 // const userstatsController = require('./controllers/userstats.js');
