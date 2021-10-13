@@ -2,19 +2,19 @@ const express = require("express");
 const router = express.Router();
 router.use(express.json());
 router.use(express.urlencoded({extended: true}));
-const mysql = require('mysql');
+// const mysql = require('mysql');
 const {check , validationResult} = require('express-validator');
 const passport = require('passport');
 router.use(passport.initialize());
 router.use(passport.session());
 const userController = require('../controllers/user.js');
 
-const db = mysql.createPool({
-    host: process.env.HOST,
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE
-});
+// const db = mysql.createPool({
+//     host: process.env.HOST,
+//     user: process.env.USER,
+//     password: process.env.PASSWORD,
+//     database: process.env.DATABASE
+// });
 
 router.get('/1.0.0/:Username/:Password', userController.login);
 router.post('/1.0.0/create',

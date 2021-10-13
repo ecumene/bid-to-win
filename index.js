@@ -1,5 +1,15 @@
 const express = require('express');
-const app = require('./apptest.js');
+const appFunction = require('./apptest.js');
+
+const db = mysql.createPool({
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE
+});
+
+const app = appFunction(db);
+
 const mysql = require('mysql');
 require('dotenv').config();
 const cors = require('cors');
@@ -15,13 +25,6 @@ const {check , validationResult} = require('express-validator');
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('./'));
 app.use(morgan('dev'));
-
-const db = mysql.createPool({
-    host: process.env.HOST,
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE
-});
 
 app.use(session({
     secret: 'secret',
