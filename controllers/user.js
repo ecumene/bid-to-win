@@ -19,11 +19,11 @@ const login = (req, res, next) => {
     let sql2 = 'SELECT * FROM user_stats WHERE Username=?';
     db.query(sql2, req.query.Username, (err, result) => {
         if(result.length == 0){
-            return res.status(503).json({data: [{msg: "Username doesn't exist"}]});
+            return res.status(400).json({data: [{msg: "Username doesn't exist"}]});
             } else {
             db.query(sql1, [req.query.Username, req.query.Password], (err, result) => {
                 if(result.length == 0){
-                    return res.status(503).json({data: [{msg: "Username and password do not match"}]});
+                    return res.status(400).json({data: [{msg: "Username and password do not match"}]});
                 } else {    
                     return res.status(200).json({Success: true, data: result});
                 }
@@ -40,7 +40,7 @@ const create = (req, res, next) => {
         'VALUES (?, 0, 0, 0, 0, 0, 0, ?)';
     db.query(sql, [req.body.Username, req.body.Password], (err, result) => {
         if(err) {
-            return res.status(503).json({data: [{msg: "Username already exists"}]});
+            return res.status(400).json({data: [{msg: "Username already exists"}]});
         } else {
             res.status(200).json({Success: true});
         }

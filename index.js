@@ -41,10 +41,6 @@ app.use('/user_stats', userstats); //deals with fetching user and leaderboard st
 app.use('/user', user); //deals with logging in and updating user stats during games
 console.log('in '+app.settings.env+' mode');
 
-// app.get('/test', async (req, res) => {//async before (req, res) is required?
-//     return res.sendStatus(200).json({message: 'Pass!'});
-// });
-
 //for supertest to work, this has to be moved and replaced with module.exports = app?
 app.listen(process.env.PORT || 31801, () => {
     console.log('Listening on Port '+ process.env.PORT);
