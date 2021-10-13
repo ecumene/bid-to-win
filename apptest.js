@@ -1,24 +1,43 @@
 const express = require('express');
 
-const app = express();
-const router = express.Router();
-router.use(express.json());
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-const mysql = require('mysql');
-require('dotenv').config();
+function mainApp(db){
+    const app = express();
 
-const db = mysql.createPool({
-    host: process.env.HOST,
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE
-});
+    const mysql = require('mysql');
+    require('dotenv').config();
+    const cors = require('cors');
+    const morgan = require('morgan');
+    const path = require('path');
+    app.use(express.json());
+    app.use(cors());
+    const passport = require('passport');
+    const session = require('express-session');
+    const LocalStrat = require('passport-local').Strategy;
+    const {check , validationResult} = require('express-validator');
 
-const user = require('./routes/user.js');
-app.use('/user', user);
+    app.use(express.urlencoded({extended: true}));
+    app.use(express.static('./'));
+    app.use(morgan('dev'));
 
-module.exports = app;
+    app.use(session({
+        secret: 'secret',
+        saveUninitialized: true,
+        resave: true,
+    }));
+    
+    app.use(passport.initialize());
+    app.use(passport.session());
+
+        //routes handlers
+    //const userController = require('./controllers/user.js');
+    const userstats = require('./routes/userstats.js');
+    const user = require('./routes/user.js');
+    // const userstatsController = require('./controllers/userstats.js');
+    app.use('/user_stats', userstats); //deals with fetching user and leaderboard stats for display
+    app.use('/user', user); //deals with logging in and updating user stats during games
+
+    module.exports = app;
+}
 
 
 // function createTestDB(){

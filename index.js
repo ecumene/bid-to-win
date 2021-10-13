@@ -1,20 +1,6 @@
 const express = require('express');
-const app = require('./apptest.js');
+const mainApp = require('./apptest.js');
 const mysql = require('mysql');
-require('dotenv').config();
-const cors = require('cors');
-const morgan = require('morgan');
-const path = require('path');
-app.use(express.json());
-app.use(cors());
-const passport = require('passport');
-const session = require('express-session');
-const LocalStrat = require('passport-local').Strategy;
-const {check , validationResult} = require('express-validator');
-
-app.use(express.urlencoded({extended: true}));
-app.use(express.static('./'));
-app.use(morgan('dev'));
 
 const db = mysql.createPool({
     host: process.env.HOST,
@@ -23,23 +9,41 @@ const db = mysql.createPool({
     database: process.env.DATABASE
 });
 
-app.use(session({
-    secret: 'secret',
-    saveUninitialized: true,
-    resave: true,
-}));
+const app = mainApp(db);
 
-app.use(passport.initialize());
-app.use(passport.session());
+
+// require('dotenv').config();
+// const cors = require('cors');
+// const morgan = require('morgan');
+// const path = require('path');
+// app.use(express.json());
+// app.use(cors());
+// const passport = require('passport');
+// const session = require('express-session');
+// const LocalStrat = require('passport-local').Strategy;
+// const {check , validationResult} = require('express-validator');
+
+// app.use(express.urlencoded({extended: true}));
+// app.use(express.static('./'));
+// app.use(morgan('dev'));
+
+// app.use(session({
+//     secret: 'secret',
+//     saveUninitialized: true,
+//     resave: true,
+// }));
+
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 //routes handlers
 //const userController = require('./controllers/user.js');
-const userstats = require('./routes/userstats.js');
-const user = require('./routes/user.js');
+// const userstats = require('./routes/userstats.js');
+// const user = require('./routes/user.js');
 // const userstatsController = require('./controllers/userstats.js');
-app.use('/user_stats', userstats); //deals with fetching user and leaderboard stats for display
-app.use('/user', user); //deals with logging in and updating user stats during games
-console.log('in '+app.settings.env+' mode');
+// app.use('/user_stats', userstats); //deals with fetching user and leaderboard stats for display
+// app.use('/user', user); //deals with logging in and updating user stats during games
+// console.log('in '+app.settings.env+' mode');
 
 //for supertest to work, this has to be moved and replaced with module.exports = app?
 app.listen(process.env.PORT || 31801, () => {

@@ -1,15 +1,17 @@
 const express = require("express");
 const router = express.Router();
 router.use(express.json());
-const mysql = require('mysql');
+//const mysql = require('mysql');
 require('dotenv').config();
+const dbValue = require('../apptest.js');
+const db = dbValue
 
-const db = mysql.createPool({
-    host: process.env.HOST,
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE
-});
+// const db = mysql.createPool({
+//     host: process.env.HOST,
+//     user: process.env.USER,
+//     password: process.env.PASSWORD,
+//     database: process.env.DATABASE
+// });
 
 // @description     User login and retrieve stats from database
 // @route           /user/1.0.0/:Username/:Password
