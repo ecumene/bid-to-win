@@ -3,16 +3,8 @@ const express = require('express');
 const app = require('../apptest.js');
 const supertest = require('supertest');
 const request = supertest(app);
-// const mysql = require('mysql');
 require('dotenv').config();
 app.use(express.json());
-
-// const db = mysql.createPool({
-//     host: process.env.HOST,
-//     user: process.env.USER,
-//     password: process.env.PASSWORD,
-//     database: process.env.DATABASE
-// });
 
 // beforeAll((req, res) => {
 //     let sql = 'CREATE TABLE test_stats AS SELECT * FROM user_stats;' +
