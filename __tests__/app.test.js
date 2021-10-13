@@ -14,31 +14,31 @@ app.use(express.json());
 //     database: process.env.DATABASE
 // });
 
-beforeAll((req, res) => {
-    let sql = 'CREATE TABLE test_stats AS SELECT * FROM user_stats;' +
-                'RENAME TABLE user_stats TO user_stats_original;' +
-                'RENAME TABLE test_stats TO user_stats;';
-    db.query(sql, (err, result) => {
-        if(err){
-            return res.status(400).json({data: [{msg: "Unable to prepare test database."}]});
-        } else {
-            return res.status(200).json({data: [{msg: "Test database prepared."}]});
-        }
+// beforeAll((req, res) => {
+//     let sql = 'CREATE TABLE test_stats AS SELECT * FROM user_stats;' +
+//                 'RENAME TABLE user_stats TO user_stats_original;' +
+//                 'RENAME TABLE test_stats TO user_stats;';
+//     db.query(sql, (err, result) => {
+//         if(err){
+//             return res.status(400).json({data: [{msg: "Unable to prepare test database."}]});
+//         } else {
+//             return res.status(200).json({data: [{msg: "Test database prepared."}]});
+//         }
         
-    });
-});
+//     });
+// });
 
-afterAll((req, res) => {
-    let sql = 'DROP TABLE user_stats;' +
-                'RENAME TABLE user_stats_original TO user_stats;';
-    db.query(sql, (err, result) => {
-        if(err){
-            return res.status(400).json({data: [{msg: 'unable to reset database.'}]})
-        } else {
-            return res.status(200).json({data:[{msg: 'database reset to existing condition.'}]})
-        }
-    });
-});
+// afterAll((req, res) => {
+//     let sql = 'DROP TABLE user_stats;' +
+//                 'RENAME TABLE user_stats_original TO user_stats;';
+//     db.query(sql, (err, result) => {
+//         if(err){
+//             return res.status(400).json({data: [{msg: 'unable to reset database.'}]})
+//         } else {
+//             return res.status(200).json({data:[{msg: 'database reset to existing condition.'}]})
+//         }
+//     });
+// });
 
 describe('Create User /user/1.0.0/create', () => {
 
