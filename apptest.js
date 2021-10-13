@@ -36,7 +36,7 @@ function mainApp(db){
     app.use('/user_stats', userstats); //deals with fetching user and leaderboard stats for display
     app.use('/user', user); //deals with logging in and updating user stats during games
 
-    module.exports = app;
+    return app;
 }
 
 
