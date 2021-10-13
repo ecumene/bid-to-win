@@ -1,5 +1,7 @@
 const express = require('express');
 const app = require('./apptest.js');
+const mysql = require('mysql');
+require('dotenv').config();
 
 const db = mysql.createPool({
     host: process.env.HOST,
@@ -10,8 +12,6 @@ const db = mysql.createPool({
 
 //const app = appFunction(db);
 
-const mysql = require('mysql');
-require('dotenv').config();
 const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
