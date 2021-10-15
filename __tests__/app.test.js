@@ -126,20 +126,62 @@ describe('LOGIN USER TESTS /user/1.0.0/:Username/:Password', () => {
         })
     })
 });
-describe('', () => {
-    test('200 Status when making game_start stat alteration', async () => {
-        const response = await request.put('/user/1.0.0/game_started').send({
-            Username: 'username'
+
+describe('GAME STARTED TESTS /user/1.0.0/game_started', () => {
+    describe('At the start of a game', () => {
+        test('a 200 status is returned during stat modification.', async () => {
+            const response = await request.put('/user/1.0.0/game_started').send({
+                Username: 'username'
+            })
+            expect(response.statusCode).toBe(200);
         })
-        expect(response.statusCode).toBe(200);
+        test('1 GP and 1 Abandon get added to the database for the user.', async () => {
+            const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: 'username', Password: 'password'}).send();
+            expect(response.text).toMatch(/"Username":"username","GP":1,"Wins":0,"Losses":0,"Ties":0,"Abandons":1,"WinPerc":0,"Password":"password"/);
+        })
     })
-    test('+1GP and +1Abanadon added to database', async () => {
-        const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: 'username', Password: 'password'}).send();
-        expect(response.type).toEqual('application/json');
-        expect(response.text).toMatch(/"Username":"username","GP":1,"Wins":0,"Losses":0,"Ties":0,"Abandons":1,"WinPerc":0,"Password":"password"/);
-    })
-    //test('')
 })
+
+describe('GAME ENDED TESTS /user/1.0.0/"win||loss||tie"', () => {
+    describe('After the user wins a game', () => {
+        test('a 200 status is returned during stat modification.', async () => {
+            const response = await request.put('/user/1.0.0/win').send({
+                Username: 'username'
+            })
+            expect(response.statusCode).toBe(200);
+        })
+        test('1 Win is added to and 1 Abandon subtracted from the database.', async () => {
+            const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: 'username', Password: 'password'}).send();
+            expect(response.text).toMatch(/"Username":"username","GP":1,"Wins":1,"Losses":0,"Ties":0,"Abandons":0,"WinPerc":0,"Password":"password"/);
+        })
+    })
+    describe('After the user loses a game', () => {
+        test('a 200 status is returned during stat modification.', async () => {
+            const response = await request.put('/user/1.0.0/loss').send({
+                Username: 'username'
+            })
+            expect(response.statusCode).toBe(200);
+        })
+        test('1 Loss is added to and 1 Abandon subtracted from the database.', async () => {
+            const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: 'username', Password: 'password'}).send();
+            expect(response.text).toMatch(/"Username":"username","GP":1,"Wins":1,"Losses":1,"Ties":0,"Abandons":-1,"WinPerc":0,"Password":"password"/);
+        })
+    })
+    describe('After the user ties a game', () => {
+        test('a 200 status is returned during stat modification.', async () => {
+            const response = await request.put('/user/1.0.0/tie').send({
+                Username: 'username'
+            })
+            expect(response.statusCode).toBe(200);
+        })
+        test('1 Tie is added to and 1 Abandon subtracted from the database.', async () => {
+            const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: 'username', Password: 'password'}).send();
+            expect(response.text).toMatch(/"Username":"username","GP":1,"Wins":1,"Losses":1,"Ties":1,"Abandons":-2,"WinPerc":0,"Password":"password"/);
+        })
+    })
+})
+
+
 
 
 // test ("simple addition", () => {

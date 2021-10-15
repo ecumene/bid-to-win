@@ -16,6 +16,8 @@ const db = mysql.createPool({
 });
 
 const user = require('./routes/user.js');
+const userstats = require('./routes/userstats.js');
 app.use('/user', user);
+app.use('/userstats', userstats);
 
 module.exports = app;
