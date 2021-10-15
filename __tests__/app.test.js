@@ -181,8 +181,86 @@ describe('GAME ENDED TESTS /user/1.0.0/"win||loss||tie"', () => {
     })
 })
 
+describe('STAT RANK TESTS /userstats/1.0.0/"gprank|winsrank|winperrank"/:Username', () => {
+    describe('Requesting the GP rank of the user', () => {
+        test('returns a 400 status when not logged in, and does not return an object of user ranks.', async () => {
+            const response = await request.get('/userstats/1.0.0/gprank/:Username').query({Username: ''}).send();
+            expect(response.statusCode).toBe(400);
+            expect(response.text).not.toMatch(/"Username":/)
+        })
+        test('returns a 400 status when username is not in the database, and does not return an object of user ranks.', async () => {
+            const response = await request.get('/userstats/1.0.0/gprank/:Username').query({Username: 'JimBob'}).send();
+            expect(response.statusCode).toBe(400);
+            expect(response.text).not.toMatch(/"Username":/)
+        })
+        test('returns a 200 status when valid user is logged in.', async () => {
+            const response = await request.get('/userstats/1.0.0/gprank/:Username').query({Username: 'username'}).send();
+            expect(response.statusCode).toBe(200);
+        })
+        test('returns a json object with correct GP rank, when valid user is logged in.', async () => {
+            const response = await request.get('/userstats/1.0.0/gprank/:Username').query({Username: 'username'}).send();
+            expect(response.type).toEqual('application/json');
+            expect(response.text).toMatch(/"Username":"username","GP":1,"row_num":4/);
+        })
+    })
+    describe('Requesting the Wins rank of the user', () => {
+        test('returns a 400 status when not logged in, and does not return an object of user ranks.', async () => {
+            const response = await request.get('/userstats/1.0.0/winsrank/:Username').query({Username: ''}).send();
+            expect(response.statusCode).toBe(400);
+            expect(response.text).not.toMatch(/"Username":/)
+        })
+        test('returns a 400 status when username is not in the database, and does not return an object of user ranks.', async () => {
+            const response = await request.get('/userstats/1.0.0/winsrank/:Username').query({Username: 'JimBob'}).send();
+            expect(response.statusCode).toBe(400);
+            expect(response.text).not.toMatch(/"Username":/)
+        })
+        test('returns a 200 status when valid user is logged in.', async () => {
+            const response = await request.get('/userstats/1.0.0/winsrank/:Username').query({Username: 'username'}).send();
+            expect(response.statusCode).toBe(200);
+        })
+        test('returns a json object with correct Wins rank, when valid user is logged in.', async () => {
+            const response = await request.get('/userstats/1.0.0/winsrank/:Username').query({Username: 'username'}).send();
+            expect(response.type).toEqual('application/json');
+            expect(response.text).toMatch(/"Username":"username","Wins":1,"row_num":3/);
+        })
+    })
+    describe('Requesting the Win Percentage rank of the user', () => {
+        test('returns a 400 status when not logged in, and does not return an object of user ranks.', async () => {
+            const response = await request.get('/userstats/1.0.0/winperrank/:Username').query({Username: ''}).send();
+            expect(response.statusCode).toBe(400);
+            expect(response.text).not.toMatch(/"Username":/)
+        })
+        test('returns a 400 status when username is not in the database, and does not return an object of user ranks.', async () => {
+            const response = await request.get('/userstats/1.0.0/winperrank/:Username').query({Username: 'JimBob'}).send();
+            expect(response.statusCode).toBe(400);
+            expect(response.text).not.toMatch(/"Username":/)
+        })
+        test('returns a 200 status when valid user is logged in.', async () => {
+            const response = await request.get('/userstats/1.0.0/winperrank/:Username').query({Username: 'username'}).send();
+            expect(response.statusCode).toBe(200);
+        })
+        test('returns a json object with correct Win Percentage rank, when valid user is logged in.', async () => {
+            const response = await request.get('/userstats/1.0.0/winperrank/:Username').query({Username: 'username'}).send();
+            expect(response.type).toEqual('application/json');
+            expect(response.text).toMatch(/"Username":"username","WinPerc":0,"row_num":10/);
+        })
+    })
+})
 
-
+describe('LEADERBOARD TESTS /userstats/1.0.0/leaderboard', () => {
+    describe('Requesting leaderboard retrieval', () => {
+        // test('returns 400 status when not connected to database', async () => {
+        //     const response = await request.get('/userstats/1.0.0/leaderboard').send();
+        //     expect(response.statusCode).toBe(400);
+        // })
+        test('Returns 200 status, and json object with correctly ordered leaderboard', async () => {
+            const response = await request.get('/userstats/1.0.0/leaderboard').send();
+            expect(response.statusCode).toBe(200);
+            expect(response.type).toEqual('application/json');
+            //expect(response.text).toMatch(//need to parse here
+        })
+    })
+})
 
 // test ("simple addition", () => {
 //     expect(2 + 2).toBe(4);
