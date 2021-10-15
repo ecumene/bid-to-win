@@ -3,8 +3,6 @@ const router = express.Router();
 router.use(express.json());
 const mysql = require('mysql');
 require('dotenv').config();
-const dbValue = require('../apptest.js');
-const db = dbValue
 
 const db = mysql.createPool({
     host: process.env.HOST,
