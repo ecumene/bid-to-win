@@ -59,7 +59,7 @@ const winPercRank = (req, res, next) => {
 const leaderboard = (req, res, next) => {
     let sql = 'SELECT * FROM user_stats ORDER BY WinPerc DESC, GP DESC'
     db.query(sql, (err, rows) => {
-        if(rows.length == 0) {
+        if(rows.length == undefined) {
             res.status(400).json({data: [{msg: 'Not connected to database.'}]})
         } else {
             res.status(200).json({Success: true, data: rows});
