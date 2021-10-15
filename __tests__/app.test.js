@@ -40,122 +40,144 @@ const db = mysql.createPool({
 //     });
 // });
 
-describe('CREATE USER TESTS /user/1.0.0/create', () => {
-    describe('Correct submission of unique username and password', () => {
-        test('returns a 200 status with a json content-type.', async () => {
-            const response = await request.post('/user/1.0.0/create').send({
-                Username: 'username',
-                Password: 'password'
-            })
-            expect(response.type).toEqual('application/json');
-            expect(response.statusCode).toBe(200);
+describe('user/1.0.0/create  -  Attempting to create a user', () => {
+    test('correctly, returns a 200 status with a json content-type.', async () => {
+        const response = await request.post('/user/1.0.0/create').send({
+            Username: 'username',
+            Password: 'password'
         })
-        test('fails if the user already exists in the database.', async () => {
-            const response = await request.post('/user/1.0.0/create').send({
-                Username: 'username',
-                Password: 'password'
-            })
-            expect(response.statusCode).toBe(400);
-        })
+        expect(response.type).toEqual('application/json');
+        expect(response.statusCode).toBe(200);
     })
-
-    describe('Attempting to create a user', () => {
-        test('With a username of insufficient length, returns a 400 status', async () => {
-            const response = await request.post('/user/1.0.0/create').send({
-                Username: 'use',
-                Password: 'password'
-            })
-            expect(response.statusCode).toBe(400);
+    test('when the username already exists, returns a 400 status, and corresponding message.', async () => {
+        const response = await request.post('/user/1.0.0/create').send({
+            Username: 'username',
+            Password: 'password'
         })
-        test('with a password of insufficient length, returns a 400 status', async () => {
-            const response = await request.post('/user/1.0.0/create').send({
-                Username: 'username',
-                Password: 'pas'
-            })
-            expect(response.statusCode).toBe(400);
-        })
-        test('with a blank username field, returns a 400 status', async () => {
-            const response = await request.post('/user/1.0.0/create').send({
-                Username: '',
-                Password: 'password'
-            })
-            expect(response.statusCode).toBe(400);
-        })
-        test('with a blank password field, returns a 400 status', async () => {
-            const response = await request.post('/user/1.0.0/create').send({
-                Username: 'username',
-                Password: ''
-            })
-            expect(response.statusCode).toBe(400);
-        })
+        expect(response.statusCode).toBe(400);
+        expect(response.type).toEqual('application/json');
+        let r = JSON.parse(response.text);
+        let obj = r.data[0];
+        expect(obj.msg).toEqual("Username already exists");
     })
-});
-
-describe('LOGIN USER TESTS /user/1.0.0/:Username/:Password', () => {
-
-    describe('Correct submission of username and password combination', () => {
-        test('returns a 200 status.', async () => {
-            const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: 'username', Password: 'password'}).send();
-            expect(response.statusCode).toBe(200);
+    test('with a username of insufficient length, returns a 400 status and a corresponding message', async () => {
+        const response = await request.post('/user/1.0.0/create').send({
+            Username: 'use',
+            Password: 'password'
         })
-        test('returns object with user stats as a json object.', async () => {//not currently parsing object properly!!
-            const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: 'username', Password: 'password'}).send();
-            expect(response.type).toEqual('application/json');
-            expect(response.text).toMatch(/"Username":"username","GP":0,"Wins":0,"Losses":0,"Ties":0,"Abandons":0,"WinPerc":0,"Password":"password"/);
-        })
+        expect(response.statusCode).toBe(400);
+        expect(response.type).toEqual('application/json');
+        let r = JSON.parse(response.text);
+        let obj = r.data[0];
+        expect(obj.msg).toEqual('Username must be between 4 and 14 characters');
     })
-
-    describe('Submission of username, with incorrect password', () => {
-        test('returns a 400 status.', async () => {
-            const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: 'username', Password: '12345'}).send();
-            expect(response.statusCode).toBe(400);
+    test('with a password of insufficient length, returns a 400 status and a corresponding message', async () => {
+        const response = await request.post('/user/1.0.0/create').send({
+            Username: 'username',
+            Password: 'pas'
         })
-        test('does not return an object with user stats.', async () => {
-            const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: 'username', Password: '12345'}).send();
-            expect(response.text).not.toMatch(/"Username":"username"/);
-        })
+        expect(response.statusCode).toBe(400);
+        expect(response.type).toEqual('application/json');
+        let r = JSON.parse(response.text);
+        let obj = r.data[0];
+        expect(obj.msg).toEqual('Password must be between 4 and 14 characters');
     })
-    describe('Submission of username that is not in the database', () => {
-        test('returns a 400 status.', async () => {
-            const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: '11111111111111', Password: '12345'}).send();
-            expect(response.statusCode).toBe(400);
+    test('with a blank username field, returns a 400 status and a corresponding message.', async () => {
+        const response = await request.post('/user/1.0.0/create').send({
+            Username: '',
+            Password: 'password'
         })
-        test('does not return an object with user stats.', async () => {
-            const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: '11111111111111', Password: '12345'}).send();
-            expect(response.text).not.toMatch(/"Username":"username"/);
-        })
+        expect(response.statusCode).toBe(400);
+        expect(response.type).toEqual('application/json');
+        let r = JSON.parse(response.text);
+        let obj = r.data[0];
+        expect(obj.msg).toEqual('Must provide username');
     })
-});
-
-describe('GAME STARTED TESTS /user/1.0.0/game_started', () => {
-    describe('At the start of a game', () => {
-        test('a 200 status is returned during stat modification.', async () => {
-            const response = await request.put('/user/1.0.0/game_started').send({
-                Username: 'username'
-            })
-            expect(response.statusCode).toBe(200);
+    test('with a blank password field, returns a 400 status and a corresponding message.', async () => {
+        const response = await request.post('/user/1.0.0/create').send({
+            Username: 'username',
+            Password: ''
         })
-        test('1 GP and 1 Abandon get added to the database for the user.', async () => {
-            const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: 'username', Password: 'password'}).send();
-            expect(response.text).toMatch(/"Username":"username","GP":1,"Wins":0,"Losses":0,"Ties":0,"Abandons":1,"WinPerc":0,"Password":"password"/);
-        })
+        expect(response.statusCode).toBe(400);
+        expect(response.type).toEqual('application/json');
+        let r = JSON.parse(response.text);
+        let obj = r.data[0];
+        expect(obj.msg).toEqual('Must provide password');
     })
 })
 
-describe('GAME ENDED TESTS /user/1.0.0/"win||loss||tie"', () => {
-    describe('After the user wins a game', () => {
-        test('a 200 status is returned during stat modification.', async () => {
-            const response = await request.put('/user/1.0.0/win').send({
-                Username: 'username'
-            })
-            expect(response.statusCode).toBe(200);
-        })
-        test('1 Win is added to and 1 Abandon subtracted from the database.', async () => {
-            const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: 'username', Password: 'password'}).send();
-            expect(response.text).toMatch(/"Username":"username","GP":1,"Wins":1,"Losses":0,"Ties":0,"Abandons":0,"WinPerc":0,"Password":"password"/);
-        })
+describe('user/1.0.0/:Username/:Password  -  Attempting to login as a user', () => {
+    test('correctly, returns a 200 status and a json object with user stats.', async () => {
+        const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: 'username', Password: 'password'}).send();
+        expect(response.statusCode).toBe(200);
+        expect(response.type).toEqual('application/json');
+        let r = JSON.parse(response.text);
+        let obj = r.data[0];
+        expect(obj.Username).toEqual('username');
+        expect(obj.GP && obj.Wins && obj.Losses && obj.Ties && obj.WinPerc && obj.Abandons).toEqual(0);
     })
-    describe('After the user loses a game', () => {
+    test('with an incorrect password, returns a 400 status and corresponding message, with no user stats.', async () => {
+        const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: 'username', Password: '12345'}).send();
+        expect(response.statusCode).toBe(400);
+        expect(response.type).toEqual('application/json');
+        let r = JSON.parse(response.text);
+        let obj = r.data[0];
+        expect(obj.msg).toEqual("Username and password do not match");
+        expect(r.data.length).toEqual(1);
+    })
+
+    test('with non-recorded username, returns a 400 status and corresponding message, with no user stats.', async () => {
+        const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: '11111111111111', Password: '12345'}).send();
+        expect(response.statusCode).toBe(400);
+        expect(response.type).toEqual('application/json');
+        let r = JSON.parse(response.text);
+        let obj = r.data[0];
+        expect(obj.msg).toEqual("Username doesn't exist");
+        expect(r.data.length).toEqual(1);
+
+    })
+})
+
+describe('/user/1.0.0/game_started  -  Starting a new game', () => {    
+    test('when logged in as registered user, returns a 200 status.', async () => {
+        const response = await request.put('/user/1.0.0/game_started').send({
+            Username: 'username'
+        })
+        expect(response.statusCode).toBe(200);
+    })
+    test('when username is not registered in database, returns a 400 status and corresponding message', async () => {
+        const response = await request.put('/user/1.0.0/game_started').send()
+        expect(response.statusCode).toBe(400);
+        expect(response.type).toEqual('application/json');
+        let r = JSON.parse(response.text);
+        let obj = r.data[0];
+        expect(obj.msg).toEqual("No log in detected.");
+    })
+    test('1 GP and 1 Abandon get added to the database for the user.', async () => {
+        const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: 'username', Password: 'password'}).send();
+        let r = JSON.parse(response.text);
+        let obj = r.data[0];
+        expect(obj.GP && obj.Abandons).toEqual(1);
+    })    
+})
+
+describe('user/1.0.0/win  -  After the user wins a game', () => {
+    test('a 200 status is returned during stat modification.', async () => {
+        const response = await request.put('/user/1.0.0/win').send({
+            Username: 'username'
+        })
+        expect(response.statusCode).toBe(200);
+    })
+    test('1 Win is added to and 1 Abandon subtracted from the database.', async () => {
+        const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: 'username', Password: 'password'}).send();
+        let r = JSON.parse(response.text);
+        let obj = r.data[0];
+        expect(obj.Wins).toEqual(1);
+        expect(obj.Abandons).toEqual(0);
+    })
+})
+    
+describe('user/1.0.0/loss  -  After the user loses a game', () => {
         test('a 200 status is returned during stat modification.', async () => {
             const response = await request.put('/user/1.0.0/loss').send({
                 Username: 'username'
@@ -164,20 +186,26 @@ describe('GAME ENDED TESTS /user/1.0.0/"win||loss||tie"', () => {
         })
         test('1 Loss is added to and 1 Abandon subtracted from the database.', async () => {
             const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: 'username', Password: 'password'}).send();
-            expect(response.text).toMatch(/"Username":"username","GP":1,"Wins":1,"Losses":1,"Ties":0,"Abandons":-1,"WinPerc":0,"Password":"password"/);
+            let r = JSON.parse(response.text);
+            let obj = r.data[0];
+            expect(obj.Losses).toEqual(1);
+            expect(obj.Abandons).toEqual(-1);  
+        })      
+})
+    
+describe('After the user ties a game', () => {
+    test('a 200 status is returned during stat modification.', async () => {
+        const response = await request.put('/user/1.0.0/tie').send({
+            Username: 'username'
         })
+        expect(response.statusCode).toBe(200);
     })
-    describe('After the user ties a game', () => {
-        test('a 200 status is returned during stat modification.', async () => {
-            const response = await request.put('/user/1.0.0/tie').send({
-                Username: 'username'
-            })
-            expect(response.statusCode).toBe(200);
-        })
-        test('1 Tie is added to and 1 Abandon subtracted from the database.', async () => {
-            const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: 'username', Password: 'password'}).send();
-            expect(response.text).toMatch(/"Username":"username","GP":1,"Wins":1,"Losses":1,"Ties":1,"Abandons":-2,"WinPerc":0,"Password":"password"/);
-        })
+    test('1 Tie is added to and 1 Abandon subtracted from the database.', async () => {
+        const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: 'username', Password: 'password'}).send();
+        let r = JSON.parse(response.text);
+        let obj = r.data[0];
+        expect(obj.Ties).toEqual(1);
+        expect(obj.Abandons).toEqual(-2);            
     })
 })
 

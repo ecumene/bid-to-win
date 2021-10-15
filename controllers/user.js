@@ -53,9 +53,10 @@ const create = (req, res, next) => {
 const gameStart = (req, res, next) => {
     let sql = 'UPDATE user_stats SET GP=GP+1, Abandons=Abandons+1 WHERE Username=?';
     db.query(sql, req.body.Username, (err, result) => {
-        if(err) {throw err;
+        if(result == undefined) {
+            return res.status(400).json({data: [{msg: "No log in detected."}]});
         } else {
-        res.status(200).json({Success: true});
+            res.status(200).json({Success: true});
         }
     });
 }
@@ -66,9 +67,10 @@ const gameStart = (req, res, next) => {
 const win = (req, res, next) => {
     let sql = 'UPDATE user_stats SET Wins=Wins+1, Abandons=Abandons-1, WinPerc=? WHERE Username=?';
     db.query(sql, [req.body.WinPerc, req.body.Username], (err, result) => {
-        if(err) {throw err;
+        if(result == undefined) {
+            return res.status(400).json({data: [{msg: "No log in detected."}]});
         } else {
-        res.status(200).json({Success: true});
+            res.status(200).json({Success: true});
         }
     });   
 }
@@ -79,7 +81,8 @@ const win = (req, res, next) => {
 const loss = (req, res, next) => {
     let sql = 'UPDATE user_stats SET Losses=Losses+1, Abandons=Abandons-1, WinPerc=? WHERE Username=?';
     db.query(sql, [req.body.WinPerc, req.body.Username], (err, result) => {
-        if(err) {throw err;
+        if(result == undefined) {
+            return res.status(400).json({data: [{msg: "No log in detected."}]});
         } else {
             res.status(200).json({Success: true});
         }
@@ -92,7 +95,8 @@ const loss = (req, res, next) => {
 const tie = (req, res, next) => {
     let sql = 'UPDATE user_stats SET Ties=Ties+1, Abandons=Abandons-1, WinPerc=? WHERE Username=?';
     db.query(sql, [req.body.WinPerc, req.body.Username], (err, result) => {
-        if(err) {throw err;
+        if(result == undefined) {
+            return res.status(400).json({data: [{msg: "No log in detected."}]});
         } else {
             res.status(200).json({Success: true});
         }

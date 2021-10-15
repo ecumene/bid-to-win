@@ -22,7 +22,6 @@ router.post('/1.0.0/create',
                 return next();
             }
         });
-
 router.post('/1.0.0/create', userController.create);
 router.put('/1.0.0/game_started', userController.gameStart);
 router.put('/1.0.0/win', userController.win);
