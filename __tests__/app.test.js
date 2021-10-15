@@ -3,8 +3,16 @@ const express = require('express');
 const app = require('../apptest.js');
 const supertest = require('supertest');
 const request = supertest(app);
+const mysql = require('mysql');
 require('dotenv').config();
 app.use(express.json());
+
+const db = mysql.createPool({
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE
+});
 
 // beforeAll((req, res) => {
 //     let sql = 'CREATE TABLE test_stats AS SELECT * FROM user_stats;' +
@@ -34,7 +42,7 @@ app.use(express.json());
 
 describe('Create User /user/1.0.0/create', () => {
 
-    describe('Correct unique username and password', () => {
+    describe('Correct submission of unique username and password', () => {
         test('200 status when sufficient username and password', async () => {
             const response = await request.post('/user/1.0.0/create').send({
                 Username: 'username',
