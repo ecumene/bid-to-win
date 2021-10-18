@@ -18,7 +18,7 @@ const gpRank = (req, res, next) => {
     let sql = 'SELECT * FROM (SELECT Username, GP, @gprank := @gprank + 1 AS row_num FROM user_stats p, (SELECT @gprank := 0) r ORDER BY GP DESC) AS tempgp WHERE Username=?';
     db.query(sql, req.query.Username, (err, rows) => {
         if(rows.length == 0) {
-            return res.status(400).json({data: [{msg: "No log in detected."}]});
+            return res.status(400).json({data: [{msg: "No login detected."}]});
         } else {
             return res.status(200).json({Success: true, data: rows});
         }        
@@ -32,7 +32,7 @@ const winsRank = (req, res, next) => {
     let sql = 'SELECT * FROM (SELECT Username, Wins, @winsrank := @winsrank + 1 AS row_num FROM user_stats p, (SELECT @winsrank := 0) r ORDER BY Wins DESC) AS tempwins WHERE Username=?';
     db.query(sql, req.query.Username, (err, rows) => {
         if(rows.length == 0) {
-            return res.status(400).json({data: [{msg: "No log in detected."}]});
+            return res.status(400).json({data: [{msg: "No login detected."}]});
         } else {
             return res.status(200).json({Success: true, data: rows});
         }
@@ -46,7 +46,7 @@ const winPercRank = (req, res, next) => {
     let sql = 'SELECT * FROM (SELECT Username, WinPerc, @winperrank := @winperrank + 1 AS row_num FROM user_stats p, (SELECT @winperrank := 0) r ORDER BY WinPerc DESC) AS tempwinper WHERE Username=?';
     db.query(sql, req.query.Username, (err, rows) => {
         if(rows.length == 0) {
-            return res.status(400).json({data: [{msg: "No log in detected."}]});
+            return res.status(400).json({data: [{msg: "No login detected."}]});
         } else {
             return res.status(200).json({Success: true, data: rows});
         }
