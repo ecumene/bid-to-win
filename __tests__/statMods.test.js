@@ -8,6 +8,9 @@ require('dotenv').config();
 app.use(express.json());
 let create = 0;
 
+// const db = app.db;
+// console.log(db);
+
 const db = mysql.createPool({
     host: process.env.HOST,
     user: process.env.USER,

@@ -8,6 +8,8 @@ require('dotenv').config();
 app.use(express.json());
 let create = 0;
 
+// const db = app.db;
+
 const db = mysql.createPool({
     host: process.env.HOST,
     user: process.env.USER,
@@ -16,7 +18,7 @@ const db = mysql.createPool({
 });
 
 describe('user/1.0.0/:Username/:Password  -  Attempting to login as a user', () => {
-    beforeAll(() => {
+    beforeAll(async () => {
         let sql1 = "CREATE TABLE test_stats (" +
                         "`ID` int(11) NOT NULL AUTO_INCREMENT," +
                         "`Username` varchar(45) NOT NULL," +
