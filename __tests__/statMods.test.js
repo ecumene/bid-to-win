@@ -4,6 +4,7 @@ const app = require('../apptest.js');
 const supertest = require('supertest');
 const request = supertest(app);
 const mysql = require('mysql');
+const dbFunction = require('./test_functions.js');
 require('dotenv').config();
 app.use(express.json());
 
@@ -11,7 +12,7 @@ let sql2 = "INSERT INTO test_stats (Username, GP, Wins, Losses, Ties, Abandons, 
                 "VALUES ('userGame_Start', 0, 0, 0, 0, 0, 0, 'passGame_Start')," +
                 "('userGame_Win', 10, 1, 0, 0, 9, 10, 'passGame_Win')," +
                 "('userGame_Loss', 30, 1, 0, 0, 29, 3, 'passGame_Loss')," +
-                "('userGame_Tie', 100, 49, 0, 0, 51, 50, 'passGame_Tie'),";
+                "('userGame_Tie', 100, 49, 0, 0, 51, 50, 'passGame_Tie');";
 
 describe('/user/1.0.0  -  During gameplay,', () => {
     beforeAll(async () => {

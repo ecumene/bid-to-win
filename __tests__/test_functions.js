@@ -32,25 +32,9 @@ function setup(sql2){
     let promises = [];   
      
     Promise.all(promises)
-    .then (db.query(sql1, (err) => {
-        if(err){
-            throw err
-        } else {
-            db.query(sql2, (err) => {
-                if(err){
-                    throw err
-                } else {
-                    db.query(sql3, (err) => {
-                        if (err){
-                            throw err
-                        } else {
-                            return;
-                        }                        
-                    })
-                }
-            })
-        }
-    }));
+    .then (db.query(sql1))
+    .then (db.query(sql2))
+    .then (db.query(sql3))
 }
 
 function breakdown(){

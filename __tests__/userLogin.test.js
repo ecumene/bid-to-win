@@ -4,8 +4,12 @@ const app = require('../apptest.js');
 const supertest = require('supertest');
 const request = supertest(app);
 const mysql = require('mysql');
+const dbFunction = require('./test_functions.js');
 require('dotenv').config();
 app.use(express.json());
+
+let sql2 = "INSERT INTO test_stats (Username, GP, Wins, Losses, Ties, Abandons, WinPerc, Password)" + 
+                        "VALUES ('userLogin', 20, 5, 5, 5, 5, 33, 'passLogin');"
 
 describe('user/1.0.0/:Username/:Password  -  Attempting to login as a user', () => {
     beforeAll(async () => {

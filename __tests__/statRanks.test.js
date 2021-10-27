@@ -4,6 +4,7 @@ const app = require('../apptest.js');
 const supertest = require('supertest');
 const request = supertest(app);
 const mysql = require('mysql');
+const dbFunction = require('./test_functions.js');
 require('dotenv').config();
 app.use(express.json());
 
