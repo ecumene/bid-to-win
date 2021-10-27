@@ -7,18 +7,13 @@ const mysql = require('mysql');
 const dbFunction = require('./test_functions.js');
 require('dotenv').config();
 app.use(express.json());
-let create = 0;
-let db = mysql.createPool({
-    host: process.env.HOST,
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE
-});
+
+let sql2 = "INSERT INTO test_stats (Username, GP, Wins, Losses, Ties, Abandons, WinPerc, Password)" + 
+                "VALUES ('createBlock', 0, 0, 0, 0, 0, 0, 'password');"; 
 
 describe('user/1.0.0/create  -  Attempting to create a user', () => {
     beforeAll(async () => {
-        await dbFunction.createBefore();
-
+        await dbFunction.setup(sql2);
     });
     
     test('correctly, returns a 200 status with a json content-type.', async () => {

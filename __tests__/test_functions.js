@@ -24,16 +24,15 @@ const sql1 = "CREATE TABLE test_stats (" +
                         "UNIQUE KEY `ID_UNIQUE` (`ID`)," +
                         "UNIQUE KEY `Username_UNIQUE` (`Username`)" +
                         ") ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;";
-const sql3 = "RENAME TABLE user_stats TO user_stats_original;";
-const sql4 = "RENAME TABLE test_stats TO user_stats;";
+const sql3 = "RENAME TABLE user_stats TO user_stats_original, test_stats TO user_stats;";
 const sql5 = 'DROP TABLE user_stats;';
 const sql6 = 'RENAME TABLE user_stats_original TO user_stats;';
 
-function createBefore(){
-    let sql2 = "INSERT INTO test_stats (Username, GP, Wins, Losses, Ties, Abandons, WinPerc, Password)" + 
-                "VALUES ('createBlock', 0, 0, 0, 0, 0, 0, 'password');" 
+function setup(sql2){
+    let promises = [];   
      
-    db.query(sql1, (err) => {
+    Promise.all(promises)
+    .then (db.query(sql1, (err) => {
         if(err){
             throw err
         } else {
@@ -45,25 +44,20 @@ function createBefore(){
                         if (err){
                             throw err
                         } else {
-                            db.query(sql4, (err, end) => {
-                                if (err){
-                                    throw err
-                                } else {
-                                    db.end();
-                                    return;
-                                }
-                            })
-                            
-                        }
+                            return;
+                        }                        
                     })
                 }
             })
         }
-    });
+    }));
 }
 
 function breakdown(){
-    db.query(sql5, (err) => {
+    let promises = [];
+
+    Promise.all(promises)
+    .then (db.query(sql5, (err) => {
         if (err){
             throw err
         } else {
@@ -72,10 +66,11 @@ function breakdown(){
                     throw err
                 } else {
                     db.end();
+                    return;
                 }
             })
         }
-    })
+    }));
 }
 
-module.exports = {createBefore, breakdown};
+module.exports = {setup, breakdown};

@@ -6,88 +6,16 @@ const request = supertest(app);
 const mysql = require('mysql');
 require('dotenv').config();
 app.use(express.json());
-let create = 0;
 
-// const db = app.db;
-// console.log(db);
-
-const db = mysql.createPool({
-    host: process.env.HOST,
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE
-});
+let sql2 = "INSERT INTO test_stats (Username, GP, Wins, Losses, Ties, Abandons, WinPerc, Password)" + 
+                "VALUES ('userGame_Start', 0, 0, 0, 0, 0, 0, 'passGame_Start')," +
+                "('userGame_Win', 10, 1, 0, 0, 9, 10, 'passGame_Win')," +
+                "('userGame_Loss', 30, 1, 0, 0, 29, 3, 'passGame_Loss')," +
+                "('userGame_Tie', 100, 49, 0, 0, 51, 50, 'passGame_Tie'),";
 
 describe('/user/1.0.0  -  During gameplay,', () => {
-    beforeAll(() => {
-        let sql1 = "CREATE TABLE test_stats (" +
-                        "`ID` int(11) NOT NULL AUTO_INCREMENT," +
-                        "`Username` varchar(45) NOT NULL," +
-                        "`GP` int(11) NOT NULL," +
-                        "`Wins` int(11) NOT NULL," +
-                        "`Losses` int(11) NOT NULL," +
-                        "`Ties` int(11) NOT NULL," +
-                        "`Abandons` int(11) NOT NULL," +
-                        "`WinPerc` int(11) NOT NULL," +
-                        "`Password` varchar(45) NOT NULL," +
-                        "PRIMARY KEY (`ID`)," +
-                        "UNIQUE KEY `ID_UNIQUE` (`ID`)," +
-                        "UNIQUE KEY `Username_UNIQUE` (`Username`)" +
-                    ") ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;";
-        let sql2 = "INSERT INTO test_stats (Username, GP, Wins, Losses, Ties, Abandons, WinPerc, Password)" + 
-                        "VALUES ('userGame_Start', 0, 0, 0, 0, 0, 0, 'passGame_Start')," +
-                        "('userGame_Win', 10, 1, 0, 0, 9, 10, 'passGame_Win')," +
-                        "('userGame_Loss', 30, 1, 0, 0, 29, 3, 'passGame_Loss')," +
-                        "('userGame_Tie', 100, 49, 0, 0, 51, 50, 'passGame_Tie'),"
-        let sql3 = 'RENAME TABLE user_stats TO user_stats_original;';
-        let sql4 = 'RENAME TABLE test_stats TO user_stats;';
-                        
-    
-        const dbCreation = db.query(sql1, (err, res) => {
-            if(err){
-                console.log('Unable to prepare test database');
-            } else {
-                db.query(sql2, (err, res) => {
-                    if (err){
-                        console.log('Unable to insert test users.');
-                    } else {
-                        db.query(sql3, (err, res) => {
-                            if (err){
-                                console.log('Unable to alter existing database name.');
-                            } else {
-                                db.query(sql4, (err, res) => {
-                                    if (err){
-                                        console.log('Unable to alter test database name.');
-                                    } else {
-                                        console.log('test database successfully prepared');
-                                    }
-                                })
-                            }
-                        })
-                    }
-                })
-            }
-            
-        });
-    
-    });
-    
-    afterAll(() => {
-        let sql1 = 'DROP TABLE user_stats;';
-        let sql2 = 'RENAME TABLE user_stats_original TO user_stats;';
-    
-        db.query(sql1, (err, res) => {
-            if(err){
-                console.log('unable to drop test database.');
-            } else {
-                db.query(sql2, (err, res) => {
-                    if(err){
-                        console.log('unable to reset name of existing database.');
-                    } else {}
-                })
-                
-            }
-        });
+    beforeAll(async () => {
+        await dbFunction.setup(sql2);    
     });
 
     test('starting a new game should return a 200 status.', async () => {
@@ -183,5 +111,9 @@ describe('/user/1.0.0  -  During gameplay,', () => {
         let obj = r.data[0];
         expect(obj.Ties).toEqual(1);
         expect(obj.Abandons).toEqual(50);            
+    })
+
+    afterAll(async () => {
+        await dbFunction.breakdown();
     })
 })
