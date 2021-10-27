@@ -1,7 +1,9 @@
+const express = require('express');
 const mysql = require('mysql');
-let dbStep = 0;
+const app = require('../apptest.js');
+require('dotenv').config();
 
-const db = mysql.createPool({
+const db = mysql.createConnection({
     host: process.env.HOST,
     user: process.env.USER,
     password: process.env.PASSWORD,
@@ -21,32 +23,59 @@ const sql1 = "CREATE TABLE test_stats (" +
                         "PRIMARY KEY (`ID`)," +
                         "UNIQUE KEY `ID_UNIQUE` (`ID`)," +
                         "UNIQUE KEY `Username_UNIQUE` (`Username`)" +
-                    ") ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;";
-
-const sql3 = 'RENAME TABLE user_stats TO user_stats_original;';
-const sql4 = 'RENAME TABLE test_stats TO user_stats;';
+                        ") ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;";
+const sql3 = "RENAME TABLE user_stats TO user_stats_original;";
+const sql4 = "RENAME TABLE test_stats TO user_stats;";
 const sql5 = 'DROP TABLE user_stats;';
 const sql6 = 'RENAME TABLE user_stats_original TO user_stats;';
 
 function createBefore(){
-    dbStep++   
     let sql2 = "INSERT INTO test_stats (Username, GP, Wins, Losses, Ties, Abandons, WinPerc, Password)" + 
-                        "VALUES ('createBlock', 20, 5, 5, 5, 5, 33, 'password');";
-
-    if (dbStep < 5){
-        db.query(`sql${dbStep}`);
-        console.log(`attempt ${dbStep}`)
-        createBefore();
-    } else {
-        return
-    }
+                "VALUES ('createBlock', 0, 0, 0, 0, 0, 0, 'password');" 
+     
+    db.query(sql1, (err) => {
+        if(err){
+            throw err
+        } else {
+            db.query(sql2, (err) => {
+                if(err){
+                    throw err
+                } else {
+                    db.query(sql3, (err) => {
+                        if (err){
+                            throw err
+                        } else {
+                            db.query(sql4, (err, end) => {
+                                if (err){
+                                    throw err
+                                } else {
+                                    db.end();
+                                    return;
+                                }
+                            })
+                            
+                        }
+                    })
+                }
+            })
+        }
+    });
 }
 
 function breakdown(){
-    db.query(sql5);
-    db.query(sql6);
-
-    console.log('breakdown');
+    db.query(sql5, (err) => {
+        if (err){
+            throw err
+        } else {
+            db.query(sql6, (err, end) => {
+                if (err){
+                    throw err
+                } else {
+                    db.end();
+                }
+            })
+        }
+    })
 }
 
 module.exports = {createBefore, breakdown};

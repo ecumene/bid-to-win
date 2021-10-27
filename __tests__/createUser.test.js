@@ -8,8 +8,7 @@ const dbFunction = require('./test_functions.js');
 require('dotenv').config();
 app.use(express.json());
 let create = 0;
-
-const db = mysql.createPool({
+let db = mysql.createPool({
     host: process.env.HOST,
     user: process.env.USER,
     password: process.env.PASSWORD,
@@ -17,8 +16,9 @@ const db = mysql.createPool({
 });
 
 describe('user/1.0.0/create  -  Attempting to create a user', () => {
-    beforeAll(async () => {        
-        await dbFunction.createBefore();    
+    beforeAll(async () => {
+        await dbFunction.createBefore();
+
     });
     
     test('correctly, returns a 200 status with a json content-type.', async () => {
@@ -85,9 +85,9 @@ describe('user/1.0.0/create  -  Attempting to create a user', () => {
         expect(obj.msg).toEqual('Must provide password');
     })
 
-    // afterAll(async () => {
-    //     await dbFunction.breakdown();
-    // });
+    afterAll(async () => {
+        await dbFunction.breakdown();
+    });
 })
 
 

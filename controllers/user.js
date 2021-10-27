@@ -52,7 +52,7 @@ const create = (req, res, next) => {
 // @access          Public
 const gameStart = (req, res, next) => {
     let sql1 = 'SELECT * FROM user_stats WHERE Username=?';
-    let sql2 = 'UPDATE user_stats SET GP=GP+1, Abandons=Abandons-1 WHERE Username=?';
+    let sql2 = 'UPDATE user_stats SET GP=GP+1, Abandons=Abandons+1 WHERE Username=?';
     db.query(sql1, req.body.Username, (err, result) => {
         if(result == undefined){
             return res.status(400).json({data: [{msg: "No login detected."}]});
