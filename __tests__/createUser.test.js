@@ -15,6 +15,10 @@ describe('user/1.0.0/create  -  Attempting to create a user', () => {
     beforeAll(async () => {
         await dbFunction.setup(sql2);
     });
+
+    afterAll(async () => {
+        await dbFunction.breakdown();
+    });
     
     test('correctly, returns a 200 status with a json content-type.', async () => {
         const response = await request.post('/user/1.0.0/create').send({
@@ -79,10 +83,6 @@ describe('user/1.0.0/create  -  Attempting to create a user', () => {
         let obj = r.data[0];
         expect(obj.msg).toEqual('Must provide password');
     })
-
-    afterAll(async () => {
-        await dbFunction.breakdown();
-    });
 })
 
 

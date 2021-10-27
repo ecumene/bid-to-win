@@ -28,33 +28,23 @@ const sql3 = "RENAME TABLE user_stats TO user_stats_original, test_stats TO user
 const sql5 = 'DROP TABLE user_stats;';
 const sql6 = 'RENAME TABLE user_stats_original TO user_stats;';
 
-function setup(sql2){
-    let promises = [];   
-     
-    Promise.all(promises)
-    .then (db.query(sql1))
-    .then (db.query(sql2))
-    .then (db.query(sql3))
+const queryDatabase = (query) => new Promise ((resolve, reject) => {
+    db.query(query, (err, res) => {
+        if (err){
+            reject(err)
+        } else {
+            resolve(res);
+        }
+    })
+})
+
+async function setup(sql2){ 
+    await Promise.all([sql1, sql2, sql3].map(queryDatabase));
 }
 
-function breakdown(){
-    let promises = [];
-
-    Promise.all(promises)
-    .then (db.query(sql5, (err) => {
-        if (err){
-            throw err
-        } else {
-            db.query(sql6, (err, end) => {
-                if (err){
-                    throw err
-                } else {
-                    db.end();
-                    return;
-                }
-            })
-        }
-    }));
+async function breakdown(){
+    await Promise.all([sql5, sql6].map(queryDatabase));
+    db.end();
 }
 
 module.exports = {setup, breakdown};
