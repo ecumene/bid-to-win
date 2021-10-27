@@ -53,7 +53,7 @@ const create = (req, res, next) => {
 const gameStart = (req, res, next) => {
     let sql1 = 'SELECT * FROM user_stats WHERE Username=?';
     let sql2 = 'UPDATE user_stats SET GP=GP+1, Abandons=Abandons-1 WHERE Username=?';
-    db.query(sql1, req.query.Username, (err, result) => {
+    db.query(sql1, req.body.Username, (err, result) => {
         if(result == undefined){
             return res.status(400).json({data: [{msg: "No login detected."}]});
         } else {
@@ -74,7 +74,7 @@ const gameStart = (req, res, next) => {
 const win = (req, res, next) => {
     let sql1 = 'SELECT * FROM user_stats WHERE Username=?';
     let sql2 = 'UPDATE user_stats SET Wins=Wins+1, Abandons=Abandons-1, WinPerc=? WHERE Username=?';
-    db.query(sql1, req.query.Username, (err, result) => {
+    db.query(sql1, req.body.Username, (err, result) => {
         if(result == undefined){
             return res.status(400).json({data: [{msg: "No login detected."}]});
         } else {
@@ -95,7 +95,7 @@ const win = (req, res, next) => {
 const loss = (req, res, next) => {
     let sql1 = 'SELECT * FROM user_stats WHERE Username=?';
     let sql2 = 'UPDATE user_stats SET Lossess=Lossess+1, Abandons=Abandons-1, WinPerc=? WHERE Username=?';
-    db.query(sql1, req.query.Username, (err, result) => {
+    db.query(sql1, req.body.Username, (err, result) => {
         if(result == undefined){
             return res.status(400).json({data: [{msg: "No login detected."}]});
         } else {
@@ -116,7 +116,7 @@ const loss = (req, res, next) => {
 const tie = (req, res, next) => {
     let sql1 = 'SELECT * FROM user_stats WHERE Username=?';
     let sql2 = 'UPDATE user_stats SET Ties=Ties+1, Abandons=Abandons-1, WinPerc=? WHERE Username=?';
-    db.query(sql1, req.query.Username, (err, result) => {
+    db.query(sql1, req.body.Username, (err, result) => {
         if(result == undefined){
             return res.status(400).json({data: [{msg: "No login detected."}]});
         } else {

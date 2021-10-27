@@ -85,9 +85,9 @@ describe('user/1.0.0/create  -  Attempting to create a user', () => {
         expect(obj.msg).toEqual('Must provide password');
     })
 
-    afterAll(async () => {
-        await dbFunction.breakdown();
-    });
+    // afterAll(async () => {
+    //     await dbFunction.breakdown();
+    // });
 })
 
 

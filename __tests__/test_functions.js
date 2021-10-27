@@ -1,4 +1,5 @@
 const mysql = require('mysql');
+let dbStep = 0;
 
 const db = mysql.createPool({
     host: process.env.HOST,
@@ -24,17 +25,21 @@ const sql1 = "CREATE TABLE test_stats (" +
 
 const sql3 = 'RENAME TABLE user_stats TO user_stats_original;';
 const sql4 = 'RENAME TABLE test_stats TO user_stats;';
-let sql5 = 'DROP TABLE user_stats;';
-let sql6 = 'RENAME TABLE user_stats_original TO user_stats;';
+const sql5 = 'DROP TABLE user_stats;';
+const sql6 = 'RENAME TABLE user_stats_original TO user_stats;';
 
 function createBefore(){
-        let sql2 = "INSERT INTO test_stats (Username, GP, Wins, Losses, Ties, Abandons, WinPerc, Password)" + 
+    dbStep++   
+    let sql2 = "INSERT INTO test_stats (Username, GP, Wins, Losses, Ties, Abandons, WinPerc, Password)" + 
                         "VALUES ('createBlock', 20, 5, 5, 5, 5, 33, 'password');";
 
-        db.query(sql1);
-        db.query(sql2);
-        db.query(sql3);
-        db.query(sql4);
+    if (dbStep < 5){
+        db.query(`sql${dbStep}`);
+        console.log(`attempt ${dbStep}`)
+        createBefore();
+    } else {
+        return
+    }
 }
 
 function breakdown(){
