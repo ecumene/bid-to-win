@@ -1,23 +1,28 @@
 process.env.NODE_ENV = "test";
-const express = require('express');
-const app = require('../apptest.js');
+const app = require('../../apptest.js');
 const supertest = require('supertest');
 const request = supertest(app);
-const mysql = require('mysql');
-const dbFunction = require('./test_functions.js');
+const dbFunction = require('../../testFunctions.js');
 require('dotenv').config();
-app.use(express.json());
 
-let sql2 = "INSERT INTO test_stats (Username, GP, Wins, Losses, Ties, Abandons, WinPerc, Password)" + 
+let startArray = [];
+let winArray = [];
+let lossArray = [];
+let tieArray = [];
+let addUsers = "INSERT INTO test_stats (Username, GP, Wins, Losses, Ties, Abandons, WinPerc, Password)" + 
                 "VALUES ('userGame_Start', 0, 0, 0, 0, 0, 0, 'passGame_Start')," +
                 "('userGame_Win', 10, 1, 0, 0, 9, 10, 'passGame_Win')," +
-                "('userGame_Loss', 30, 1, 0, 0, 29, 3, 'passGame_Loss')," +
-                "('userGame_Tie', 100, 49, 0, 0, 51, 50, 'passGame_Tie');";
+                "('userGame_Loss', 4, 1, 2, 0, 1, 33, 'passGame_Loss')," +
+                "('userGame_Tie', 100, 49, 50, 0, 1, 50, 'passGame_Tie');";
 
 describe('/user/1.0.0  -  During gameplay,', () => {
     beforeAll(async () => {
-        await dbFunction.setup(sql2);    
+        await dbFunction.setup(addUsers);    
     });
+
+    afterAll(async () => {
+        await dbFunction.breakdown();
+    })
 
     test('starting a new game should return a 200 status.', async () => {
         const response = await request.put('/user/1.0.0/game_started').send({
@@ -31,15 +36,12 @@ describe('/user/1.0.0  -  During gameplay,', () => {
         })
         expect(response.statusCode).toBe(400);
         expect(response.type).toEqual('application/json');
-        let r = JSON.parse(response.text);
-        let obj = r.data[0];
-        expect(obj.msg).toEqual("No login detected.");
+        expect(JSON.parse(response.text).data[0].msg).toEqual("No login detected.");
     })
-    test('starting a new game adds 1 GP and 1 Abandon to the database for the user.', async () => {
+    test('starting a new game adds exactly 1 GP and 1 Abandon to the database for the user.', async () => {
         const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: 'userGame_Start', Password: 'passGame_Start'}).send();
-        let r = JSON.parse(response.text);
-        let obj = r.data[0];
-        expect(obj.GP && obj.Abandons).toEqual(1);
+        let r = JSON.parse(response.text).data[0];
+        expect([r.GP, r.Wins, r.Losses, r.Ties, r.Abandons, r.WinPerc]).toEqual([1, 0, 0, 0, 1, 0]);
     })
     test('winning a game returns a 200 status.', async () => {
         const response = await request.put('/user/1.0.0/win').send({
@@ -54,21 +56,17 @@ describe('/user/1.0.0  -  During gameplay,', () => {
         })
         expect(response.statusCode).toBe(400);
         expect(response.type).toEqual('application/json');
-        let r = JSON.parse(response.text);
-        let obj = r.data[0];
-        expect(obj.msg).toEqual("No login detected.");
+        expect(JSON.parse(response.text).data[0].msg).toEqual("No login detected.");
     })
-    test('1 Win is added to and 1 Abandon subtracted from the database when the user wins.', async () => {
+    test('Exactly 1 Win is added to, 1 Abandon subtracted from, and an update to the WinPerc made, when the user wins.', async () => {
         const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: 'userGame_Win', Password: 'passGame_Win'}).send();
-        let r = JSON.parse(response.text);
-        let obj = r.data[0];
-        expect(obj.Wins).toEqual(2);
-        expect(obj.Abandons).toEqual(8);
+        let r = JSON.parse(response.text).data[0];
+        expect([r.GP, r.Wins, r.Losses, r.Ties, r.Abandons, r.WinPerc]).toEqual([10, 2, 0, 0, 8, 20]);
     })
     test('losing a game returns a 200 status', async () => {
         const response = await request.put('/user/1.0.0/loss').send({
             Username: 'userGame_Loss',
-            WinPerc: 3
+            WinPerc: 25
         })
         expect(response.statusCode).toBe(200);
     })
@@ -78,16 +76,12 @@ describe('/user/1.0.0  -  During gameplay,', () => {
         })
         expect(response.statusCode).toBe(400);
         expect(response.type).toEqual('application/json');
-        let r = JSON.parse(response.text);
-        let obj = r.data[0];
-        expect(obj.msg).toEqual("No login detected.");
+        expect(JSON.parse(response.text).data[0].msg).toEqual("No login detected.");
     })
-    test('1 Loss is added to and 1 Abandon subtracted from the database when user loses.', async () => {
+    test('Exactly 1 Loss is added to, 1 Abandon subtracted from, and an update to the WinPerc made, when user loses.', async () => {
         const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: 'userGame_Loss', Password: 'passGame_Loss'}).send();
-        let r = JSON.parse(response.text);
-        let obj = r.data[0];
-        expect(obj.Losses).toEqual(1);
-        expect(obj.Abandons).toEqual(28);  
+        let r = JSON.parse(response.text).data[0];
+        expect([r.GP, r.Wins, r.Losses, r.Ties, r.Abandons, r.WinPerc]).toEqual([4, 1, 3, 0, 0, 25]);  
     })      
     test('tieing a game returns a 200 status.', async () => {
         const response = await request.put('/user/1.0.0/tie').send({
@@ -102,19 +96,11 @@ describe('/user/1.0.0  -  During gameplay,', () => {
         })
         expect(response.statusCode).toBe(400);
         expect(response.type).toEqual('application/json');
-        let r = JSON.parse(response.text);
-        let obj = r.data[0];
-        expect(obj.msg).toEqual("No login detected.");
+        expect(JSON.parse(response.text).data[0].msg).toEqual("No login detected.");
     })
-    test('1 Tie is added to and 1 Abandon subtracted from the database when user ties.', async () => {
+    test('Exactly 1 Tie is added to, 1 Abandon subtracted from, and an update to the WinPerc made when user ties.', async () => {
         const response = await request.get('/user/1.0.0/:Username/:Password').query({Username: 'userGame_Tie', Password: 'passGame_Tie'}).send();
-        let r = JSON.parse(response.text);
-        let obj = r.data[0];
-        expect(obj.Ties).toEqual(1);
-        expect(obj.Abandons).toEqual(50);            
-    })
-
-    afterAll(async () => {
-        await dbFunction.breakdown();
+        let r = JSON.parse(response.text).data[0];
+        expect([r.GP, r.Wins, r.Losses, r.Ties, r.Abandons, r.WinPerc]).toEqual([100, 49, 50, 1, 0, 50]);            
     })
 })

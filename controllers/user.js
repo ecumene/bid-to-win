@@ -18,11 +18,11 @@ const login = (req, res, next) => {
     let sql1 = 'SELECT * FROM user_stats WHERE Username=? AND Password=?';
     let sql2 = 'SELECT * FROM user_stats WHERE Username=?';
     db.query(sql2, req.query.Username, (err, result) => {
-        if(result == undefined){
+        if(result.length == 0){
             return res.status(400).json({data: [{msg: "Username doesn't exist"}]});
         } else {
             db.query(sql1, [req.query.Username, req.query.Password], (err, result) => {
-                if(result == undefined){
+                if(result.length == 0){
                     return res.status(400).json({data: [{msg: "Username and password do not match"}]});
                 } else {    
                     return res.status(200).json({Success: true, data: result});
@@ -54,7 +54,7 @@ const gameStart = (req, res, next) => {
     let sql1 = 'SELECT * FROM user_stats WHERE Username=?';
     let sql2 = 'UPDATE user_stats SET GP=GP+1, Abandons=Abandons+1 WHERE Username=?';
     db.query(sql1, req.body.Username, (err, result) => {
-        if(result == undefined){
+        if(result.length == 0){
             return res.status(400).json({data: [{msg: "No login detected."}]});
         } else {
             db.query(sql2, req.body.Username, (err, result) => {
@@ -75,7 +75,7 @@ const win = (req, res, next) => {
     let sql1 = 'SELECT * FROM user_stats WHERE Username=?';
     let sql2 = 'UPDATE user_stats SET Wins=Wins+1, Abandons=Abandons-1, WinPerc=? WHERE Username=?';
     db.query(sql1, req.body.Username, (err, result) => {
-        if(result == undefined){
+        if(result.length == 0){
             return res.status(400).json({data: [{msg: "No login detected."}]});
         } else {
             db.query(sql2, [req.body.WinPerc, req.body.Username], (err, result) => {
@@ -94,9 +94,9 @@ const win = (req, res, next) => {
 // @access          Public
 const loss = (req, res, next) => {
     let sql1 = 'SELECT * FROM user_stats WHERE Username=?';
-    let sql2 = 'UPDATE user_stats SET Lossess=Lossess+1, Abandons=Abandons-1, WinPerc=? WHERE Username=?';
+    let sql2 = 'UPDATE user_stats SET Losses=Losses+1, Abandons=Abandons-1, WinPerc=? WHERE Username=?';
     db.query(sql1, req.body.Username, (err, result) => {
-        if(result == undefined){
+        if(result.length == 0){
             return res.status(400).json({data: [{msg: "No login detected."}]});
         } else {
             db.query(sql2, [req.body.WinPerc, req.body.Username], (err, result) => {
@@ -117,7 +117,7 @@ const tie = (req, res, next) => {
     let sql1 = 'SELECT * FROM user_stats WHERE Username=?';
     let sql2 = 'UPDATE user_stats SET Ties=Ties+1, Abandons=Abandons-1, WinPerc=? WHERE Username=?';
     db.query(sql1, req.body.Username, (err, result) => {
-        if(result == undefined){
+        if(result.length == 0){
             return res.status(400).json({data: [{msg: "No login detected."}]});
         } else {
             db.query(sql2, [req.body.WinPerc, req.body.Username], (err, result) => {
