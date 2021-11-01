@@ -2969,7 +2969,6 @@ function stratRoundFive(){
 
 //this is the function that will set the rng parameters for stratInProgress//
 function gameState(){
-    let 
 }
 
 function gameStateRouter(){
