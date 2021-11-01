@@ -32,10 +32,13 @@ let statrank;
 let obj, user, key;
 let gp, wins, losses, ties, abs, winper;
 
-//variable specific to not yet implemented Gauntlet Mode//
+// variable specific to not yet implemented new comp strategy //
+let lowspread = 0;
+
+// variable specific to not yet implemented Gauntlet Mode //
 let mod, adj;
 
-//general functions that get called by a variety of others
+// general functions that get called by a variety of others //
 function btnDisabler(){
     for (let i = 0; i < arguments.length; i++){
         document.getElementById(arguments[i]).disabled = true;
@@ -1995,6 +1998,11 @@ function stratRoundOne(){
             oppbid2 = 10;
             compcards.splice(9, 1);
             compcards.splice(0, 1);
+        } else if (trick2 == 10 && trickdiff > 6 && c == 1){
+            oppbid2 = 1;
+            oppbid1 = trick1 + 1;
+            compcards.splice(trick1, 1);
+            compcards.shift();
         } else if (trick2 == 10 && trickdiff > 6){
             oppbid1 = trick1;
             oppbid2 = 10;
@@ -2018,10 +2026,10 @@ function stratRoundOne(){
             compcards.splice(9, 1);
             compcards.splice(0, 1);
         } else if (trick2 == 10 && trickdiff > 6){
-            oppbid1 = b + 1;
+            oppbid1 = trick1 + 1;
             oppbid2 = 10;
             compcards.splice(9, 1);
-            compcards.splice(b, 1);
+            compcards.splice(trick1, 1);
         } else if (trick2 == 10){
             oppbid1 = trick1 + b;
             oppbid2 = 10;
@@ -2969,7 +2977,20 @@ function stratRoundFive(){
 
 //this is the function that will set the rng parameters for stratInProgress//
 function gameState(){
-    let filler = 5;
+    cardSpreadBottom();
+}
+
+//this function compares the bottom three cards for each pair and returns an indicator variable to use//
+function cardSpreadBottom(){
+    for (i = 0; i < 3; i++){// the idea here is to alter lowspread is such a way that it is unique based on the combo of lower cards //
+        if (compcards[i] == yourcards[i]){
+            return;
+        } else if (compcards[i] > yourcards[i]){
+            return;
+        } else {
+            return;
+        }
+    }
 }
 
 function gameStateRouter(){
