@@ -2974,15 +2974,15 @@ function gameState(){
 
 function gameStateRouter(){
     if (roundmod == 5){
-        function stratRoundOne();
+        function stratRoundOne()
     } else if (roundmod == 4){
-        function stratRoundTwo();
+        function stratRoundTwo()
     } else if (roundmod == 3){
-        function stratRoundThree();
+        function stratRoundThree()
     } else if (roundmod == 2){
-        function stratRoundFour();
+        function stratRoundFour()
     } else {
-        function stratRoundFive();
+        function stratRoundFive()
     }
 }
 
