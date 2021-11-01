@@ -2972,19 +2972,19 @@ function gameState(){
     let filler = 5;
 }
 
-// function gameStateRouter(){
-//     if (roundmod == 5){
-//         function stratRoundOne()
-//     } else if (roundmod == 4){
-//         function stratRoundTwo()
-//     } else if (roundmod == 3){
-//         function stratRoundThree()
-//     } else if (roundmod == 2){
-//         function stratRoundFour()
-//     } else {
-//         function stratRoundFive()
-//     }
-// }
+function gameStateRouter(){
+    if (roundmod == 5){
+        stratRoundOne();
+    } else if (roundmod == 4){
+        stratRoundTwo();
+    } else if (roundmod == 3){
+        stratRoundThree();
+    } else if (roundmod == 2){
+        stratRoundFour();
+    } else {
+        stratRoundFive();
+    }
+}
 
 //beginning of not yet implemented Gauntlet mode//
 function theGauntlet(){
